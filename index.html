@@ -152,11 +152,28 @@
       
         <h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><p>超文本标记语言，是一种用于创建网页的标准标记语言，里面嵌入了文本、图像等数据。<br>那么首先要学会爬取HTML，再去解析数据。</p>
 <h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><ul>
-<li>发送GET请求，获取HTML，由requests库中的get函数完成</li>
-<li>解析HTML，获取数据，由BeautifulSoup库完成</li>
+<li>发送GET请求，获取HTML</li>
+<li>解析HTML，获取数据</li>
 </ul>
 <h3 id="爬取搜狗的HTML数据"><a href="#爬取搜狗的HTML数据" class="headerlink" title="爬取搜狗的HTML数据"></a>爬取搜狗的HTML数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    url = &quot;https://sogou.com&quot;</span><br><span class="line">    response = requests.get(url = url)</span><br><span class="line">    page_text = response.text</span><br><span class="line">    print(page_text)</span><br><span class="line">    with open(&quot;sogou.html&quot;,&quot;w&quot;,encoding=&quot;utf-8&quot;) as f:</span><br><span class="line">        f.write(page_text)</span><br></pre></td></tr></table></figure>
 
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>正则表达式是一种用于匹配和操作文本的强大工具，它是由一系列字符和特殊字符组成的模式，用于描述要匹配的文本模式。<br>语法太多了，看下面的教程吧：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-syntax.html">https://www.runoob.com/regexp/regexp-syntax.html</a></p>
+<h3 id="爬取微博热搜"><a href="#爬取微博热搜" class="headerlink" title="爬取微博热搜"></a>爬取微博热搜</h3><h5 id="XPath语法"><a href="#XPath语法" class="headerlink" title="XPath语法"></a>XPath语法</h5><img src="D:\blog\public\img\xpath.png">
+
+
+<p>先导入必要的库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from lxml import etree</span><br></pre></td></tr></table></figure>
+<img src="D:\blog\public\img\pythonWebScraper1.png">
+然后用get函数获取HTML数据，伪造请求头以及cookie
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url = &quot;https://s.weibo.com/top/summary?cate=realtimehot&quot;</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;user-agent&quot;: </span><br><span class="line">    &quot;cookie&quot;: </span><br><span class="line">&#125;</span><br><span class="line">response = requests.get(url=url, headers=headers)</span><br><span class="line">page_text = response.text</span><br></pre></td></tr></table></figure>
+
+<p>接着在爬取的HTML数据中提取需要的数据</p>
+<img src="D:\blog\public\img\pythonWebScraper2.png">
+观察到热搜在td标签中，class="td-02"，标题在其下的a标签中，热度在sapn标签中
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tree = etree.HTML(page_text)</span><br><span class="line"># 返回的是一个Element对象，代表整个HTML文档的树形结构,之后就可以用XPath在这个树上查找元素</span><br><span class="line">nodes = tree.xpath(&#x27;//td[@class=&quot;td-02&quot;]&#x27;)</span><br><span class="line">num = 1</span><br><span class="line">for node in nodes:</span><br><span class="line">    titles = node.xpath(&#x27;./a/text()&#x27;)</span><br><span class="line">    heats = node.xpath(&#x27;./span/text()&#x27;)</span><br><span class="line">    if titles:</span><br><span class="line">        title = titles[0].strip()</span><br><span class="line">        heat = heats[0].strip() if heats else &quot;置顶&quot;</span><br><span class="line">    print(num ,f&quot;标题： &#123;title&#125; , 热度： &#123;heat&#125;&quot;)</span><br><span class="line">    num += 1</span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="D:\blog\public\img\pythonWebScraper3.png"></p>
 
       
 
@@ -529,19 +546,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">阅读</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>
