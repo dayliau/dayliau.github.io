@@ -6,24 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>python爬虫 | Hexo</title>
+  <title>python爬取中国人口数据 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HTML超文本标记语言，是一种用于创建网页的标准标记语言，里面嵌入了文本、图像等数据。那么首先要学会爬取HTML，再去解析数据。 基本原理 发送GET请求，获取HTML 解析HTML，获取数据">
+  <meta name="description" content="在国家统计局网站爬取相关数据https:&#x2F;&#x2F;data.stats.gov.cn&#x2F;以人口为例：https:&#x2F;&#x2F;data.stats.gov.cn&#x2F;easyquery.htm?m&#x3D;QueryData&amp;dbcode&#x3D;hgnd&amp;rowcode&#x3D;zb&amp;colcode&#x3D;sj&amp;wds&#x3D;%5B%5D&amp;dfwds&#x3D;%5B%7B%22wdcode%22%3A%22zb%22%2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python爬虫">
-<meta property="og:url" content="http://example.com/2026/02/23/python%E7%88%AC%E8%99%AB/index.html">
+<meta property="og:title" content="python爬取中国人口数据">
+<meta property="og:url" content="http://example.com/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="HTML超文本标记语言，是一种用于创建网页的标准标记语言，里面嵌入了文本、图像等数据。那么首先要学会爬取HTML，再去解析数据。 基本原理 发送GET请求，获取HTML 解析HTML，获取数据">
+<meta property="og:description" content="在国家统计局网站爬取相关数据https:&#x2F;&#x2F;data.stats.gov.cn&#x2F;以人口为例：https:&#x2F;&#x2F;data.stats.gov.cn&#x2F;easyquery.htm?m&#x3D;QueryData&amp;dbcode&#x3D;hgnd&amp;rowcode&#x3D;zb&amp;colcode&#x3D;sj&amp;wds&#x3D;%5B%5D&amp;dfwds&#x3D;%5B%7B%22wdcode%22%3A%22zb%22%2">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2026/02/23/python%E7%88%AC%E8%99%AB/xpath.png">
-<meta property="og:image" content="http://example.com/2026/02/23/python%E7%88%AC%E8%99%AB/pythonSpider.png">
-<meta property="og:image" content="http://example.com/pythonSpider1.png">
-<meta property="article:published_time" content="2026-02-23T13:55:33.000Z">
-<meta property="article:modified_time" content="2026-02-23T14:44:35.459Z">
+<meta property="og:image" content="http://example.com/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/1.png">
+<meta property="og:image" content="http://example.com/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/2.png">
+<meta property="og:image" content="http://example.com/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/3.png">
+<meta property="og:image" content="http://example.com/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/4.png">
+<meta property="article:published_time" content="2026-02-24T05:22:18.000Z">
+<meta property="article:modified_time" content="2026-02-24T09:56:53.814Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2026/02/23/python%E7%88%AC%E8%99%AB/xpath.png">
+<meta name="twitter:image" content="http://example.com/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -137,50 +138,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-python爬虫" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-python爬取中国人口数据" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      python爬虫
+      python爬取中国人口数据
     </h1>
   
 
         
-        <a href="/2026/02/23/python%E7%88%AC%E8%99%AB/" class="archive-article-date">
-  	<time datetime="2026-02-23T13:55:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-02-23</time>
+        <a href="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/" class="archive-article-date">
+  	<time datetime="2026-02-24T05:22:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-02-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><p>超文本标记语言，是一种用于创建网页的标准标记语言，里面嵌入了文本、图像等数据。<br>那么首先要学会爬取HTML，再去解析数据。</p>
-<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><ul>
-<li>发送GET请求，获取HTML</li>
-<li>解析HTML，获取数据</li>
-</ul>
-<span id="more"></span>
+        <h3 id="在国家统计局网站爬取相关数据"><a href="#在国家统计局网站爬取相关数据" class="headerlink" title="在国家统计局网站爬取相关数据"></a>在国家统计局网站爬取相关数据</h3><p><a target="_blank" rel="noopener" href="https://data.stats.gov.cn/">https://data.stats.gov.cn/</a><br>以人口为例：<br><a target="_blank" rel="noopener" href="https://data.stats.gov.cn/easyquery.htm?m=QueryData&dbcode=hgnd&rowcode=zb&colcode=sj&wds=%5B%5D&dfwds=%5B%7B%22wdcode%22:%22zb%22,%22valuecode%22:%22A0302%22%7D%5D&k1=1771912091158&h=1">https://data.stats.gov.cn/easyquery.htm?m=QueryData&amp;dbcode=hgnd&amp;rowcode=zb&amp;colcode=sj&amp;wds=%5B%5D&amp;dfwds=%5B%7B%22wdcode%22%3A%22zb%22%2C%22valuecode%22%3A%22A0302%22%7D%5D&amp;k1=1771912091158&amp;h=1</a></p>
+<p>百分号编码（维基百科）：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81">https://zh.wikipedia.org/wiki/%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81</a></p>
+<p>在线解码工具：<a target="_blank" rel="noopener" href="https://meyerweb.com/eric/tools/dencoder/">https://meyerweb.com/eric/tools/dencoder/</a></p>
+<p>结果发现不论什么数据基本都是同一个接口：<a target="_blank" rel="noopener" href="https://data.stats.gov.cn/easyquery.htm">https://data.stats.gov.cn/easyquery.htm</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paramters = &#123; &quot;m&quot;:&quot;QueryData&quot;,&quot;dbcode&quot;:&quot;hgnd&quot;,&quot;rowcode&quot;:&quot;zb&quot;,&quot;colcode&quot;:&quot;sj&quot;,&quot;wds&quot;:[],&quot;dfwd&quot;:[&#123;&quot;wdcode&quot;:&quot;zb&quot;,&quot;valuecode&quot;:&quot;A0301&quot;&#125;],&quot;kl&quot;:1771912091158,&quot;h&quot;:1&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="爬取搜狗的HTML数据"><a href="#爬取搜狗的HTML数据" class="headerlink" title="爬取搜狗的HTML数据"></a>爬取搜狗的HTML数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    url = &quot;https://sogou.com&quot;</span><br><span class="line">    response = requests.get(url = url)</span><br><span class="line">    page_text = response.text</span><br><span class="line">    print(page_text)</span><br><span class="line">    with open(&quot;sogou.html&quot;,&quot;w&quot;,encoding=&quot;utf-8&quot;) as f:</span><br><span class="line">        f.write(page_text)</span><br></pre></td></tr></table></figure>
+<p>这个代码在收集国家相关数据时很好用：<br><a target="_blank" rel="noopener" href="https://github.com/cccatbug/Mush-Spider/blob/main/nationStats/nationStatisticdata.py">https://github.com/cccatbug/Mush-Spider/blob/main/nationStats/nationStatisticdata.py</a></p>
+<h5 id="在这里，我还是针对一个具体的案例：人口出生率数据的爬取"><a href="#在这里，我还是针对一个具体的案例：人口出生率数据的爬取" class="headerlink" title="在这里，我还是针对一个具体的案例：人口出生率数据的爬取"></a>在这里，我还是针对一个具体的案例：人口出生率数据的爬取</h5><p><img src="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/1.png"></p>
+<p>zb（指标）&#x3D; A0301，A0301就是三个指标中的第一个指标</p>
+<p><img src="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/2.png"></p>
+<p>sj（时间）&#x3D; LAST20，表示获取过去20年的数据</p>
+<p><img src="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/3.png"></p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line">import json</span><br><span class="line">import csv</span><br><span class="line"></span><br><span class="line">url = &quot;https://data.stats.gov.cn/easyquery.htm&quot;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;,</span><br><span class="line">    &quot;Referer&quot;: &quot;https://data.stats.gov.cn/easyquery.htm&quot;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">params1 = &#123;</span><br><span class="line">    &quot;m&quot;: &quot;QueryData&quot;,</span><br><span class="line">    &quot;dbcode&quot;: &quot;hgnd&quot;,</span><br><span class="line">    &quot;rowcode&quot;: &quot;zb&quot;,</span><br><span class="line">    &quot;colcode&quot;: &quot;sj&quot;,</span><br><span class="line">    &quot;wds&quot;: &quot;[]&quot;,</span><br><span class="line">    &quot;dfwds&quot;: json.dumps([&#123;&quot;wdcode&quot;: &quot;zb&quot;, &quot;valuecode&quot;: &quot;A0301&quot;&#125;,&#123;&quot;wdcode&quot;: &quot;sj&quot;, &quot;valuecode&quot;: &quot;LAST77&quot;&#125;]),</span><br><span class="line">    &quot;k1&quot;: int(time.time() * 1000),</span><br><span class="line">    &quot;h&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">params2 = &#123;</span><br><span class="line">    &quot;m&quot;: &quot;QueryData&quot;,</span><br><span class="line">    &quot;dbcode&quot;: &quot;hgnd&quot;,</span><br><span class="line">    &quot;rowcode&quot;: &quot;zb&quot;,</span><br><span class="line">    &quot;colcode&quot;: &quot;sj&quot;,</span><br><span class="line">    &quot;wds&quot;: &quot;[]&quot;,</span><br><span class="line">    &quot;dfwds&quot;: json.dumps([&#123;&quot;wdcode&quot;: &quot;zb&quot;, &quot;valuecode&quot;: &quot;A0302&quot;&#125;,&#123;&quot;wdcode&quot;: &quot;sj&quot;, &quot;valuecode&quot;: &quot;LAST77&quot;&#125;]),</span><br><span class="line">    &quot;k1&quot;: int(time.time() * 1000),</span><br><span class="line">    &quot;h&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">params3 = &#123;</span><br><span class="line">    &quot;m&quot;: &quot;QueryData&quot;,</span><br><span class="line">    &quot;dbcode&quot;: &quot;hgnd&quot;,</span><br><span class="line">    &quot;rowcode&quot;: &quot;zb&quot;,</span><br><span class="line">    &quot;colcode&quot;: &quot;sj&quot;,</span><br><span class="line">    &quot;wds&quot;: &quot;[]&quot;,</span><br><span class="line">    &quot;dfwds&quot;: json.dumps([&#123;&quot;wdcode&quot;: &quot;zb&quot;, &quot;valuecode&quot;: &quot;A0303&quot;&#125;,&#123;&quot;wdcode&quot;: &quot;sj&quot;, &quot;valuecode&quot;: &quot;LAST77&quot;&#125;]),</span><br><span class="line">    &quot;k1&quot;: int(time.time() * 1000),</span><br><span class="line">    &quot;h&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">response1 = requests.get(url, headers=headers, params=params1, timeout=10)</span><br><span class="line">response2 = requests.get(url, headers=headers, params=params2, timeout=10)</span><br><span class="line">response3 = requests.get(url, headers=headers, params=params3, timeout=10)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    data1 = response1.json()</span><br><span class="line">    data2 = response2.json()</span><br><span class="line">    data3 = response3.json()</span><br><span class="line">    </span><br><span class="line">    def get_population_data(population_dict, json_obj):</span><br><span class="line">        if &#x27;returndata&#x27; in json_obj and &#x27;datanodes&#x27; in json_obj[&#x27;returndata&#x27;]:</span><br><span class="line">            datanodes = json_obj[&#x27;returndata&#x27;][&#x27;datanodes&#x27;]</span><br><span class="line">            for node in datanodes:</span><br><span class="line">                year = node[&#x27;code&#x27;][-4:]</span><br><span class="line">                data = node[&#x27;data&#x27;][&#x27;data&#x27;]</span><br><span class="line">                if year in population_dict.keys():</span><br><span class="line">                    population_dict[year].append(data)</span><br><span class="line">                else:</span><br><span class="line">                    population_dict[year] = [int(year), data]</span><br><span class="line">        return population_dict</span><br><span class="line"></span><br><span class="line">    def save_csv(population_dict):</span><br><span class="line">        csv_path = &quot;人口数据.csv&quot;</span><br><span class="line">        with open(csv_path, &#x27;w&#x27;, newline=&#x27;&#x27;, encoding=&#x27;utf-8-sig&#x27;) as f:</span><br><span class="line">            writer = csv.writer(f)</span><br><span class="line">            # 写入表头</span><br><span class="line">            writer.writerow([&#x27;年份&#x27;, &#x27;年末总人口(万人)&#x27;, &#x27;男性人口(万人)&#x27;, &#x27;女性人口(万人)&#x27;, &#x27;城镇人口(万人)&#x27;, &#x27;乡村人口(万人)&#x27;, &#x27;人口出生率(‰)&#x27;, &#x27;人口死亡率(‰)&#x27;, &#x27;人口自然增长率(‰)&#x27;,&#x27;年末总人口(万人)&#x27;,&#x27;0-14岁人口(万人)&#x27;, &#x27;15-64岁人口(万人)&#x27;, &#x27;65岁及以上人口(万人)&#x27;,&#x27;总抚养比(%)&#x27;,&#x27;少儿抚养比(%)&#x27;,&#x27;老年抚养比(%)&#x27;])</span><br><span class="line">            # 写入数据</span><br><span class="line">            for year in sorted(population_dict.keys()):</span><br><span class="line">                writer.writerow(population_dict[year])</span><br><span class="line">        return csv_path</span><br><span class="line"></span><br><span class="line">    # 处理数据</span><br><span class="line">    population_dict = &#123;&#125;</span><br><span class="line">    population_dict = get_population_data(population_dict, data1)</span><br><span class="line">    population_dict = get_population_data(population_dict, data2)</span><br><span class="line">    population_dict = get_population_data(population_dict, data3)</span><br><span class="line">    </span><br><span class="line">    # 保存CSV文件</span><br><span class="line">    csv_path = save_csv(population_dict)</span><br><span class="line">    </span><br><span class="line">except json.JSONDecodeError as e:</span><br><span class="line">    print(f&quot;JSON解析失败: &#123;e&#125;&quot;)</span><br><span class="line">except Exception as e:</span><br><span class="line">    print(f&quot;发生错误: &#123;e&#125;&quot;)</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
 
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>正则表达式是一种用于匹配和操作文本的强大工具，它是由一系列字符和特殊字符组成的模式，用于描述要匹配的文本模式。<br>语法太多了，看下面的教程吧：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-syntax.html">https://www.runoob.com/regexp/regexp-syntax.html</a></p>
-<h3 id="爬取微博热搜"><a href="#爬取微博热搜" class="headerlink" title="爬取微博热搜"></a>爬取微博热搜</h3><h5 id="XPath语法"><a href="#XPath语法" class="headerlink" title="XPath语法"></a>XPath语法</h5><p><img src="/2026/02/23/python%E7%88%AC%E8%99%AB/xpath.png"></p>
-<p>先导入必要的库</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from lxml import etree</span><br></pre></td></tr></table></figure>
-
-<p>然后用get函数获取HTML数据，伪造请求头以及cookie</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url = &quot;https://s.weibo.com/top/summary?cate=realtimehot&quot;</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;user-agent&quot;: </span><br><span class="line">    &quot;cookie&quot;: </span><br><span class="line">&#125;</span><br><span class="line">response = requests.get(url=url, headers=headers)</span><br><span class="line">page_text = response.text</span><br></pre></td></tr></table></figure>
-
-<p>接着在爬取的HTML数据中提取需要的数据</p>
-<p>观察到热搜在td标签中，class&#x3D;”td-02”，标题在其下的a标签中，热度在sapn标签中</p>
-<p><img src="/2026/02/23/python%E7%88%AC%E8%99%AB/pythonSpider.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tree = etree.HTML(page_text)</span><br><span class="line"># 返回的是一个Element对象，代表整个HTML文档的树形结构,之后就可以用XPath在这个树上查找元素</span><br><span class="line">nodes = tree.xpath(&#x27;//td[@class=&quot;td-02&quot;]&#x27;)</span><br><span class="line">num = 1</span><br><span class="line">for node in nodes:</span><br><span class="line">    titles = node.xpath(&#x27;./a/text()&#x27;)</span><br><span class="line">    heats = node.xpath(&#x27;./span/text()&#x27;)</span><br><span class="line">    if titles:</span><br><span class="line">        title = titles[0].strip()</span><br><span class="line">        heat = heats[0].strip() if heats else &quot;置顶&quot;</span><br><span class="line">    print(num ,f&quot;标题： &#123;title&#125; , 热度： &#123;heat&#125;&quot;)</span><br><span class="line">    num += 1</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/pythonSpider1.png"></p>
+<p>最后得到的表格如下：</p>
+<p><img src="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/4.png"></p>
 
       
 
@@ -240,8 +234,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2026/02/22/live2D/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hexo博客live2D人物实现</div>
+    <a href="/2026/02/23/python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python爬虫入门</div>
       <i class="icon-circle-right"></i>
     </a>
   
