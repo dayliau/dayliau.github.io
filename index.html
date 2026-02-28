@@ -137,7 +137,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2026/02/26/Java%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">Java程序基础</a>
+      <a class="article-title" href="/2026/02/26/Java%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">Java程序基础练习</a>
     </h1>
   
 
@@ -150,41 +150,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Java基础语法"><a href="#Java基础语法" class="headerlink" title="Java基础语法"></a>Java基础语法</h3><ul>
-<li>对象：对象是类的一个实例，有状态和行为。例如一个人是一个对象，她的状态有：名字、年龄、籍贯；行为有吃饭、睡觉、开车等等。</li>
-<li>类：类是一个模版，描述一类对象的行为和状态。</li>
-<li>方法：就是行为</li>
-<li>实例变量：每个对象都有独特的实例变量，对象的状态由这些实例变量的值决定。</li>
-</ul>
-<h5 id="应注意的点："><a href="#应注意的点：" class="headerlink" title="应注意的点："></a>应注意的点：</h5><ul>
-<li>Java大小写敏感</li>
-<li>对于所有的类来说，类名的首字母应该大写。如果类名由若干单词组成，那么每个单词的首字母应该大写，例如 MyFirstJavaClass</li>
-<li>所有的方法名都应该以小写字母开头。如果方法名含有若干单词，则后面的每个单词首字母大写</li>
-<li>源文件名必须和类名相同</li>
-<li>所有的 Java 程序由 public static void main(String[] args) 方法开始执行</li>
-</ul>
-<h3 id="Java标识符"><a href="#Java标识符" class="headerlink" title="Java标识符"></a>Java标识符</h3><p> Java 所有的组成部分都需要名字。类名、变量名以及方法名都被称为标识符</p>
-<ul>
-<li>所有的标识符都应该以字母（A-Z 或者 a-z）,美元符（$）、或者下划线（_）开始</li>
-<li>首字符之后可以是字母（A-Z 或者 a-z）,美元符（$）、下划线（_）或数字的任何字符组合</li>
-</ul>
-<h3 id="Java修饰符"><a href="#Java修饰符" class="headerlink" title="Java修饰符"></a>Java修饰符</h3><p>像其他语言一样，Java可以使用修饰符来修饰类中方法和属性。主要有两类修饰符：</p>
-<ul>
-<li>访问控制修饰符 : default, public , protected, private</li>
-<li>非访问控制修饰符 : final, abstract, static, synchronized</li>
-</ul>
-<h3 id="Java关键字"><a href="#Java关键字" class="headerlink" title="Java关键字"></a>Java关键字</h3><p>abstract、assert、boolean、break、byte、case、catch、char、class、continue、default、do、double、else、enum、extends、final、finally、float、for、if、implements、import、int、interface、instanceof、long、native、new、package、private、protected、public、return、short、static、strictfp、super、switch、synchronized、this、throw、throws、transient、try、void、volatile、while。</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量必须先定义后使用，可以重新赋值</p>
-<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ul>
-<li>整数类型：byte，short，int，long</li>
-<li>浮点数类型：float，double</li>
-<li>字符类型：char</li>
-<li>布尔类型：boolean</li>
-</ul>
-<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>最常用的就是String字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;hello&quot;;</span><br></pre></td></tr></table></figure>
-<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>定义变量的时候，如果加上final修饰符，这个变量就变成了常量,常量在定义时进行初始化后就不可再次赋值，再次赋值会导致编译错误。</p>
-
+        <h4 id="计算前N个自然数的和："><a href="#计算前N个自然数的和：" class="headerlink" title="计算前N个自然数的和："></a>计算前N个自然数的和：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int N = 4;</span><br><span class="line">        int sum = (N*(N+1))/2;</span><br><span class="line">        System.out.println(&quot;The sum of the first &quot; + N + &quot; natural numbers is: &quot; + sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2026/02/26/Java%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/#more">more >></a>
+        
       
 
       
