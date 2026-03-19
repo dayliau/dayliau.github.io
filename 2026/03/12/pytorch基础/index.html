@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/1.png">
 <meta property="og:image" content="http://example.com/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/2.png">
 <meta property="article:published_time" content="2026-03-12T10:43:50.000Z">
-<meta property="article:modified_time" content="2026-03-18T14:31:48.814Z">
+<meta property="article:modified_time" content="2026-03-19T06:39:55.009Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
@@ -163,6 +163,20 @@
 <span id="more"></span>
 <h3 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h3><p><a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86.ipynb</a></p>
 <h3 id="神经网络-nn-Module"><a href="#神经网络-nn-Module" class="headerlink" title="神经网络(nn.Module)"></a>神经网络(nn.Module)</h3><p>官方文档：<br><a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/nn.html">https://docs.pytorch.org/docs/stable/nn.html</a></p>
+<h3 id="线性层（全连接层）Linear-Layer"><a href="#线性层（全连接层）Linear-Layer" class="headerlink" title="线性层（全连接层）Linear Layer"></a>线性层（全连接层）Linear Layer</h3><p>进行数据空间的线性映射与特征加权组合。它将前层提取到的局部特征“展平”并融合，确保全局信息能影响最终输出，常在神经网络末端用于分类（输出类概率）或回归任务。 </p>
+<p>具体工作与作用包括：</p>
+<ul>
+<li>全连接映射：上一层（如卷积层&#x2F;池化层）的每一个节点都与当前层的所有节点相连，实现信息的充分整合。</li>
+<li>线性变换与特征组合：通过线性变换的公式计算，对前层产生的局部、空间特征进行综合，形成更高级别的抽象特征。</li>
+<li>作为分类器：在CNN末端，将学到的“分布式特征表示”映射到样本的类别标记空间，是实现最终预测的关键层。<br>高参数量与非线性转换：由于连接稠密，全连接层参数量庞大，通常配合ReLU等激活函数，增加网络的拟合能力。</li>
+</ul>
+<h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><h4 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h4><h4 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h4><p>引入非线性特性、决定神经元是否激活以及将信号映射到特定范围，它使得深层网络能够逼近任何复杂的非线性函数，从而解决如图像识别、语音处理等无法用简单线性模型处理的实际问题，是神经网络具备学习能力的根基。 </p>
+<ul>
+<li>引入非线性映射（最核心作用）： 现实世界的数据大都是非线性的，如果没有激活函数，无论神经网络有多少层，其本质仍然是线性组合，表达能力极其有限。</li>
+<li>模拟神经元激发： 类似于人类大脑，激活函数决定了神经元接收到的信息是否重要并被传递到下一层。</li>
+<li>防止数据幅度过大： 将神经元的输出限制在一定范围内（如Sigmoid将输出映射到 (0,1)），防止随着网络加深数据数值过大导致的梯度消失或溢出问题。</li>
+<li>优化网络训练： 现代激活函数（如ReLU）不仅计算简单，还能显著加快训练速度并缓解深层网络中的梯度消失问题。<br>几种常见的激活函数介绍：<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1155542">https://developer.aliyun.com/article/1155542</a></li>
+</ul>
 <h4 id="卷积层-Convolution-Layer"><a href="#卷积层-Convolution-Layer" class="headerlink" title="卷积层 Convolution Layer"></a>卷积层 Convolution Layer</h4><p>自动且高效地提取输入数据（如图像）的局部特征</p>
 <ul>
 <li>提取局部特征： 卷积核作为特征探测器，专注于输入数据局部邻域的信息，对特征的位置不敏感，这赋予了CNN空间不变性。</li>
@@ -186,7 +200,15 @@
 <li>最大池化（Max Pooling）：选取窗口内最大值，能更好的保留纹理和显著特征。</li>
 <li>平均池化（Average Pooling）：选取窗口内平均值，能更好地保留背景信息</li>
 </ul>
-<h3 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h3><h4 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h4><h4 id="构建模型"><a href="#构建模型" class="headerlink" title="构建模型"></a>构建模型</h4><h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><h4 id="选择优化器"><a href="#选择优化器" class="headerlink" title="选择优化器"></a>选择优化器</h4><h4 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h4><h4 id="损失计算"><a href="#损失计算" class="headerlink" title="损失计算"></a>损失计算</h4><h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><h4 id="更新参数"><a href="#更新参数" class="headerlink" title="更新参数"></a>更新参数</h4><h4 id="迭代优化"><a href="#迭代优化" class="headerlink" title="迭代优化"></a>迭代优化</h4>
+<h3 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h3><h4 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h4><h5 id="Datasets-DataLoaders"><a href="#Datasets-DataLoaders" class="headerlink" title="Datasets &amp; DataLoaders"></a>Datasets &amp; DataLoaders</h5><p><a target="_blank" rel="noopener" href="https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html">https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html</a><br>一般流程：<br>1.创建一个 Dataset 对象，实现__getitem__()和__len__()这两个方法</p>
+<p>2.创建一个 DataLoader 对象，该对象可以对上述Dataset对象进行迭代</p>
+<p>3.遍历DataLoader对象，将样本和标签加载到模型中进行训练</p>
+<h4 id="构建模型"><a href="#构建模型" class="headerlink" title="构建模型"></a>构建模型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyNet(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(MyNet,self).__init__()</span><br><span class="line">        self.model1 = Sequential(</span><br><span class="line">            Conv2d(in_channels=3, out_channels=32, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Conv2d(in_channels=32, out_channels=32, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Conv2d(in_channels=32, out_channels=64, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(in_features=1024, out_features=64),</span><br><span class="line">            Linear(in_features=64, out_features=10),</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure>
+<h4 id="选择优化器"><a href="#选择优化器" class="headerlink" title="选择优化器"></a>选择优化器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer = torch.optim.SGD(mynet.parameters(),lr=learning_rate)</span><br></pre></td></tr></table></figure>
+<h4 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def forward(self, x):</span><br><span class="line">       x = self.model(x)</span><br><span class="line">       return x</span><br></pre></td></tr></table></figure>
+<h4 id="损失计算"><a href="#损失计算" class="headerlink" title="损失计算"></a>损失计算</h4><h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><h4 id="更新参数"><a href="#更新参数" class="headerlink" title="更新参数"></a>更新参数</h4><p>下面是一个简单的模型训练流程：</p>
+
       
 
       
