@@ -6,24 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>一维/二维前缀和 | Hexo</title>
+  <title>Tag: 大模型 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="做这道题的时候由于我写的时间复杂度太高，然后让AI优化程序，就学到了这个二维前缀和算法https:&#x2F;&#x2F;www.smqyoj.com&#x2F;p&#x2F;CSP202104B">
-<meta property="og:type" content="article">
-<meta property="og:title" content="一维&#x2F;二维前缀和">
-<meta property="og:url" content="http://example.com/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="做这道题的时候由于我写的时间复杂度太高，然后让AI优化程序，就学到了这个二维前缀和算法https:&#x2F;&#x2F;www.smqyoj.com&#x2F;p&#x2F;CSP202104B">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/1.png">
-<meta property="og:image" content="http://example.com/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/2.png">
-<meta property="og:image" content="http://example.com/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/3.jpg">
-<meta property="article:published_time" content="2026-03-22T14:29:24.000Z">
-<meta property="article:modified_time" content="2026-03-23T08:12:01.778Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -137,138 +128,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-一维-二维前缀和" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      一维/二维前缀和
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2026" class="archive-year">2026</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2026/03/26/Transformer/" class="archive-article-date">
+  	<time datetime="2026-03-26T05:59:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-26</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2026/03/26/Transformer/">Transformer</a>
     </h1>
   
 
-        
-        <a href="/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/" class="archive-article-date">
-  	<time datetime="2026-03-22T14:29:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>做这道题的时候由于我写的时间复杂度太高，然后让AI优化程序，就学到了这个二维前缀和算法<br><a target="_blank" rel="noopener" href="https://www.smqyoj.com/p/CSP202104B">https://www.smqyoj.com/p/CSP202104B</a></p>
-<span id="more"></span>
-<h3 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a>一维前缀和</h3><p>对于数组 A，定义前缀和数组 S，其中 S[i] 表示前 i 个元素的和：<br>递推公式：S[i] &#x3D; S[i-1] + A[i]<br>区间求和：计算 [L, R] 的和，只需 S[R] - S[L-1]<br>优势：将 O(N) 的区间查询降到了 O(1)</p>
-<h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><p>定义 S[i][j] 为从左上角 (0,0) 到右下角 (i,j) 矩形内所有元素的总和。A. 构建前缀和矩阵（状态转移）利用已知子问题的结果，我们可以快速算出当前格子的前缀和：<br><img src="/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/1.png"><br>直观理解：当前格子的值 + 上方矩形和 + 左方矩形和 - 重复计算的左上方角。</p>
-<h4 id="计算任意子矩形和"><a href="#计算任意子矩形和" class="headerlink" title="计算任意子矩形和"></a>计算任意子矩形和</h4><p>假设我们要计算左上角为 (x1, y1)，右下角为 (x2, y2) 的区域和：<br><img src="/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/2.png"></p>
-<p>这道题优化后：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    </span><br><span class="line">    line1 = sys.stdin.readline().split()</span><br><span class="line">    if not line1: return</span><br><span class="line">    n, L, r, t = map(int, line1)</span><br><span class="line">    </span><br><span class="line">    # 构建矩阵并直接计算二维前缀和</span><br><span class="line">    # 为了方便计算，前缀和矩阵多加一行一列（填充0）</span><br><span class="line">    S = [[0] * (n + 1) for _ in range(n + 1)]</span><br><span class="line">    </span><br><span class="line">    for i in range(1, n + 1):</span><br><span class="line">        row_data = list(map(int, sys.stdin.readline().split()))</span><br><span class="line">        for j in range(1, n + 1):</span><br><span class="line">            # 二维前缀和公式：当前值 + 上方和 + 左方和 - 左上方重复加的和</span><br><span class="line">            S[i][j] = row_data[j-1] + S[i-1][j] + S[i][j-1] - S[i-1][j-1]</span><br><span class="line"></span><br><span class="line">    count = 0</span><br><span class="line">    for i in range(1, n + 1):</span><br><span class="line">        for j in range(1, n + 1):</span><br><span class="line">            # 确定矩形区域的边界</span><br><span class="line">            x1, y1 = max(1, i - r), max(1, j - r)</span><br><span class="line">            x2, y2 = min(n, i + r), min(n, j + r)</span><br><span class="line">            </span><br><span class="line">            # 利用前缀和 $O(1)$ 获取区域总和</span><br><span class="line">            region_sum = S[x2][y2] - S[x1-1][y2] - S[x2][y1-1] + S[x1-1][y1-1]</span><br><span class="line">            </span><br><span class="line">            # 区域内的像素个数</span><br><span class="line">            num_elements = (x2 - x1 + 1) * (y2 - y1 + 1)</span><br><span class="line">            </span><br><span class="line">            # 判断平均值（使用乘法避免浮点数误差：sum / num &lt;= t  =&gt; sum &lt;= t * num）</span><br><span class="line">            if region_sum &lt;= t * num_elements:</span><br><span class="line">                count += 1</span><br><span class="line">    </span><br><span class="line">    print(count)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2026/03/22/%E4%B8%80%E7%BB%B4-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/3.jpg"></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>喜欢就赞赏一下吧！<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/weixin.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大模型</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2026/03/25/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          卷积神经网络与循环神经网络
-        
-      </div>
-    </a>
   
   
-    <a href="/2026/03/19/AutoDL%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AutoDL使用</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -291,9 +204,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
