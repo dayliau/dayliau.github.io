@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://dayliau.github.io/images/yolov82.png">
 <meta property="og:image" content="https://dayliau.github.io/images/yolov11.png">
 <meta property="article:published_time" content="2025-09-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T10:02:30.968Z">
+<meta property="article:modified_time" content="2026-07-14T10:43:13.100Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="YOLO">
 <meta property="article:tag" content="YOLOv8">
@@ -168,7 +168,8 @@
 <li>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/80170182">https://blog.csdn.net/v_JULY_v/article/details/80170182</a><h4 id="1-传统的目标检测算法"><a href="#1-传统的目标检测算法" class="headerlink" title="1.传统的目标检测算法"></a>1.传统的目标检测算法</h4><h5 id="核心流程："><a href="#核心流程：" class="headerlink" title="核心流程："></a>核心流程：</h5>1.区域选择（穷举策略，使用不同大小的滑动窗口对图像进行遍历，时间复杂度很高）<br>2.特征提取<br>常用的包括：</li>
 <li>HOG 方向梯度直方图 计算图像局部区域中梯度方向的分布统计直方图，并将其组合成一个长的特征向量</li>
 <li>Haar-like特征  通过计算图像中相邻矩形区域的像素和之差来表示特征</li>
-<li>SIFT/SURF<br>3.分类器分类<br>常用的包括：</li>
+<li>SIFT/SURF<span id="more"></span>
+3.分类器分类<br>常用的包括：</li>
 <li>SVM 支持向量机：寻找一个最优的超平面，能够最大化不同类别特征向量直接的间隔</li>
 <li>AdaBoost 自适应增强 将多个弱分类器组合成一个强分类器<h4 id="2-候选区域-深度学习分类-Two-Stage"><a href="#2-候选区域-深度学习分类-Two-Stage" class="headerlink" title="2.候选区域 + 深度学习分类 Two-Stage"></a>2.候选区域 + 深度学习分类 Two-Stage</h4>首先找出图像中可能包含物体的候选区域（Region Proposal），然后利用深度卷积神经网络（CNN）对这些候选区域进行精细的分类和位置微调。<h5 id="R-CNN系列-核心流程"><a href="#R-CNN系列-核心流程" class="headerlink" title="R-CNN系列 核心流程"></a>R-CNN系列 核心流程</h5>1.生成候选区域<br>目标：替代传统的滑动窗口，用更高效、更准确的方式生成可能包含物体的区域。这些区域的数量通常控制在1k-2k个，远少于滑动窗口，且召回率高。（召回率关注漏检问题，精确率关注误检问题，二者之间存在一种权衡）<ul>
 <li>早期方法（如R-CNN, SPPnet）：使用选择性搜索（Selective Search） 等传统算法。原理：基于图像的颜色、纹理、大小和形状等特征，将相似的相邻区域逐步合并，生成各种尺度的候选区域。</li>

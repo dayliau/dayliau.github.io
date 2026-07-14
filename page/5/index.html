@@ -133,203 +133,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-线性回归" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/06/19/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">线性回归</a>
-    </h1>
-  
-
-        
-        <a href="/2025/06/19/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="archive-article-date">
-  	<time datetime="2025-06-18T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h4><ul>
-<li>给定n维输入<script type="math/tex; mode=display">\mathbf{x} = [x_1, x_2, \ldots, x_n]^T</script></li>
-<li>线性模型有一个n维权重和一个标量偏差<script type="math/tex; mode=display">\mathbf{w} = [w_1, w_2, \ldots, w_n]^T, \quad b</script></li>
-<li>输出是输入的加权和<script type="math/tex; mode=display">y = w_1 x_1 + w_2 x_2 + \ldots + w_n x_n + b</script>向量版本：<script type="math/tex; mode=display">y = \langle \mathbf{w}, \mathbf{x} \rangle + b</script><h4 id="线性模型可以看做是单层神经网络"><a href="#线性模型可以看做是单层神经网络" class="headerlink" title="线性模型可以看做是单层神经网络"></a>线性模型可以看做是单层神经网络</h4></li>
-</ul>
-<h4 id="衡量预估质量"><a href="#衡量预估质量" class="headerlink" title="衡量预估质量"></a>衡量预估质量</h4><ul>
-<li>比较真实值和预估值，比如房屋售价和估价</li>
-<li>假设$y$是真实值，$\hat{y}$是估计值，我们可以比较<script type="math/tex; mode=display">\mathcal{l}(y,\hat{y})=\frac{1}{2}(y-\hat{y})^2</script>这个叫做平方损失</li>
-</ul>
-<h4 id="训练数据"><a href="#训练数据" class="headerlink" title="训练数据"></a>训练数据</h4><ul>
-<li>收集一些数据点来决定参数值（权重和偏差），例如过去六个月卖的房子</li>
-<li>这被称之为训练数据，通常越多越好</li>
-<li>假设我们有n个样本，记为<script type="math/tex; mode=display">
-\mathbf{X} = \left[ \mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_n \right]^T</script></li>
-</ul>
-<script type="math/tex; mode=display">
-\mathbf{y} = \left[ y_1, y_2, \ldots, y_n \right]^T</script><h4 id="参数学习"><a href="#参数学习" class="headerlink" title="参数学习"></a>参数学习</h4><ul>
-<li>训练损失<script type="math/tex; mode=display">
-\ell(\mathbf{X}, \mathbf{y}, \mathbf{w}, b) = \frac{1}{2n} \sum_{i=1}^{n} \left( y_i - \langle \mathbf{x}_i, \mathbf{w} \rangle - b \right)^2 = \frac{1}{2n} \left\| \mathbf{y} - \mathbf{X}\mathbf{w} - b \right\|^2</script></li>
-<li>最小化损失来学习参数<script type="math/tex; mode=display">
-\mathbf{w}^*, b^* = \arg\min_{\mathbf{w}, b} \ell(\mathbf{X}, \mathbf{y}, \mathbf{w}, b)</script><h4 id="显示解"><a href="#显示解" class="headerlink" title="显示解"></a>显示解</h4></li>
-<li>将偏差加入权重<script type="math/tex; mode=display">
-\mathbf{X} \leftarrow [\mathbf{X},\mathbf{1}], \quad \mathbf{w} \leftarrow \begin{bmatrix} \mathbf{w} \\ b \end{bmatrix}</script></li>
-</ul>
-<script type="math/tex; mode=display">
-\ell(\mathbf{X}, \mathbf{y}, \mathbf{w}) = \frac{1}{2n} \left\| \mathbf{y} - \mathbf{X}\mathbf{w} \right\|^2, \quad \frac{\partial}{\partial \mathbf{w}} \ell(\mathbf{X}, \mathbf{y}, \mathbf{w}) = \frac{1}{n} (\mathbf{y} - \mathbf{X}\mathbf{w})^T \mathbf{X}</script><ul>
-<li>损失是凸函数，所以最优解满足<script type="math/tex; mode=display">
-\frac{\partial}{\partial \mathbf{w}} \ell(\mathbf{X}, \mathbf{y}, \mathbf{w}) = 0 \\
-\Updownarrow \\\frac{1}{n} (\mathbf{y} - \mathbf{X}\mathbf{w})^T \mathbf{X} = 0 \\\Updownarrow \\\mathbf{w}^* = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}</script><h3 id="基础优化算法"><a href="#基础优化算法" class="headerlink" title="基础优化算法"></a>基础优化算法</h3><h4 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h4></li>
-<li>挑选一个初始值$\mathbf{w_0}$</li>
-<li>重复迭代参数t=1,2,3<script type="math/tex; mode=display">
-\mathbf{w}_t = \mathbf{w}_{t-1} - \eta \frac{\partial \mathcal{l}}{\partial \mathbf{w}_{t-1}}</script></li>
-<li>沿梯度方向将增加损失函数值</li>
-<li>$\eta$ 学习率：步长的超参数,人为指定的值</li>
-<li>不能选太小（计算梯度成本昂贵），也不能太大<h4 id="小批量随机梯度下降"><a href="#小批量随机梯度下降" class="headerlink" title="小批量随机梯度下降"></a>小批量随机梯度下降</h4></li>
-<li>在整个训练集上算梯度太贵</li>
-<li>一个神经网络模型可能需要数分钟至数小时</li>
-<li>我们可以随机采样b个样本$i_1,i_2,\ldots,i_b$来近似损失<script type="math/tex; mode=display">
-\frac{1}{b} \sum_{i \in I_b} \ell(\mathbf{x}_i, y_i, \mathbf{w})</script></li>
-<li>b是批量大小，另一个重要的超参数，不能太小（每次计算量太小，不适合并行来最大利用计算资源），也不能太大（内存消耗增加，浪费计算）<h3 id="线性回归从零开始实现"><a href="#线性回归从零开始实现" class="headerlink" title="线性回归从零开始实现"></a>线性回归从零开始实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-Jupyter Notebook的魔法命令，让matplotlib绘制的图直接嵌入到Notebook单元格里，方便查看可视化效果<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line"></span><br><span class="line">def synthetic_data(w, b, num_examples):</span><br><span class="line">    &quot;&quot;&quot;生成 y = Xw + b + 噪声。&quot;&quot;&quot;</span><br><span class="line">    X = torch.normal(0, 1, (num_examples, len(w)))</span><br><span class="line">    y = torch.matmul(X, w) + b</span><br><span class="line">    y += torch.normal(0, 0.01, y.shape)</span><br><span class="line">    return X, y.reshape((-1, 1))</span><br><span class="line"></span><br><span class="line">true_w = torch.tensor([2, -3.4])</span><br><span class="line">true_b = 4.2</span><br><span class="line">features, labels = synthetic_data(true_w, true_b, 1000)</span><br></pre></td></tr></table></figure>
-根据带有噪声的线性模型构造一个人工数据集。我们使用线性模型参数$\mathbf{w}=[2,-3.4]^T、b=4.2$和噪声项$\epsilon$生成数据集标签：<script type="math/tex; mode=display">
-\boldsymbol{y} = \boldsymbol{X}\boldsymbol{w} + b + \boldsymbol{\epsilon}</script></li>
-<li><code>num_examples</code>是要生成的样本数量</li>
-<li><code>torch.normal()</code>函数用于生成服从正态分布（均值为0，标准差为1）的张量，<br>生成的张量形状为<code>(num_examples,len(w))</code></li>
-<li><code>torch.matmul()</code>函数用于计算矩阵乘法</li>
-<li>再用<code>torch.normal()</code>函数生成一个与$\mathbf{y}$形状相同的张量，模拟真实数据中存在的噪声干扰</li>
-<li><p><code>reshape(-1,1)</code>,-1表示自动计算该维度的大小，这里就是把$\mathbf{y}$调整为列向量形式（每个样本对应一个标签值，竖排）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(&#x27;features:&#x27;, features[0],&#x27;\nlabel:&#x27;, labels[0])</span><br><span class="line">d2l.set_figsize()</span><br><span class="line">d2l.plt.scatter(features[:, 1].detach().numpy(),</span><br><span class="line">                labels.detach().numpy(), 1);</span><br></pre></td></tr></table></figure>
-<p><img src="/images/线性回归1.png"></p>
-</li>
-<li><p><code>features[:,1]</code>选取特征矩阵的全部行和第一列，用于作为散点图的横坐标数据</p>
-</li>
-<li><code>detach()</code>用于分理出不需要计算梯度的部分，<code>numpy()</code>用于将张量转换为numpy数组，这样<code>matplotlib</code>才能绘图处理数据</li>
-<li>最后的1表示散点的大小</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def data_iter(batch_size, features, labels):</span><br><span class="line">    num_examples = len(features)</span><br><span class="line">    indices = list(range(num_examples))</span><br><span class="line">    # 这些样本是随机读取的，没有特定的顺序</span><br><span class="line">    random.shuffle(indices)</span><br><span class="line">    for i in range(0, num_examples, batch_size):</span><br><span class="line">        batch_indices = torch.tensor(</span><br><span class="line">            indices[i:min(i + batch_size, num_examples)]</span><br><span class="line">        )</span><br><span class="line">        yield features[batch_indices], labels[batch_indices]</span><br><span class="line"></span><br><span class="line">batch_size = 10</span><br></pre></td></tr></table></figure>
-<p>定义一个<code>data_iter()</code>函数，该函数接受批量大小、特征矩阵和标签向量作为输入，生成大小为<code>batch_size</code>的小批量，用于后续学习训练时按批次喂入</p>
-<ul>
-<li><code>range(num_examples)</code>生成从0到<code>num_examples-1</code>的整数序列，<code>list</code>函数将其转换为列表<code>indices</code>，存储了所有样本的索引</li>
-<li>调用<code>random</code>库的<code>shuffle</code>函数，将<code>indices</code>列表打乱顺序</li>
-<li><code>range</code>函数的三个参数分别表示起始值、结束值和步长</li>
-<li>使用<code>yield</code>关键字，将特征矩阵<code>features</code>和标签向量<code>labels</code>按照<code>batch_indices</code>来选取对应的数据<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for X, y in data_iter(batch_size, features, labels):</span><br><span class="line">print(X, &#x27;\n&#x27;, y)</span><br><span class="line">break</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">tensor([[-1.7636,  0.8131],</span><br><span class="line">        [-1.1090, -0.1078],</span><br><span class="line">        [ 1.6120,  0.9181],</span><br><span class="line">        [-0.8033,  1.0371],</span><br><span class="line">        [ 1.8760, -1.7128],</span><br><span class="line">        [ 0.5852, -0.5707],</span><br><span class="line">        [ 1.3522, -0.5764],</span><br><span class="line">        [-0.0135,  1.7779],</span><br><span class="line">        [-0.9822,  0.2218],</span><br><span class="line">        [ 0.2937, -0.8818]])</span><br><span class="line"> tensor([[-2.0831],</span><br><span class="line">        [ 2.3468],</span><br><span class="line">        [ 4.3073],</span><br><span class="line">        [-0.9472],</span><br><span class="line">        [13.7802],</span><br><span class="line">        [ 7.2966],</span><br><span class="line">        [ 8.8604],</span><br><span class="line">        [-1.8829],</span><br><span class="line">        [ 1.4912],</span><br><span class="line">        [ 7.7952]])</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">w = torch.normal(0,0.01,size=(2,1),requires_grad=True)</span><br><span class="line">b = torch.zeros(1,requires_grad=True)</span><br><span class="line">def linreg(X,w,b):</span><br><span class="line">    return torch.matmul(X,w) + b</span><br><span class="line">def squared_loss(y_hat,y):</span><br><span class="line">    return (y_hat - y.reshape(y_hat.shape))**2/2</span><br><span class="line">def sgd(params,lr,batch_size):</span><br><span class="line">    with torch.no_grad():</span><br><span class="line">        for param in params:</span><br><span class="line">            param -= lr*param.grad / batch_size</span><br><span class="line">            param.grad.zero_()</span><br></pre></td></tr></table></figure>
-<ul>
-<li>首先初始化模型参数，然后定义线性模型，定义损失函数，定义随机梯度下降（SGD）优化逻辑</li>
-<li><code>sgd</code>函数要给定所有的参数，在这里<code>param</code>包含了<code>w</code>和<code>b</code>，然后是学习率，最后是批量大小</li>
-<li><code>with torch.no_grad():</code>更新参数时，临时关闭自动求导</li>
-<li><code>param -= lr*param.grad / batch_size</code>按公式更新参数，<code>lr</code>是学习率，<code>param.grad</code>是参数的梯度</li>
-<li><code>param.grad.zero_()</code>更新完参数后，清空梯度，否则下次反向传播会累积梯度，导致计算错误<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">lr = 0.03</span><br><span class="line">num_epochs = 3</span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br><span class="line"></span><br><span class="line">for epoch in range(num_epochs):</span><br><span class="line">    for X, y in data_iter(batch_size, features, labels):</span><br><span class="line">        l = loss(net(X, w, b), y)  # `X`和`y`的小批量损失</span><br><span class="line">        # 因为`l`形状是(`batch_size`,) ，而不是一个标量。`l`中的所有元素被加到一起以此计算关于`w`, `b`的梯度</span><br><span class="line">        l.sum().backward()</span><br><span class="line">        sgd([w, b], lr, batch_size)  # 使用参数的梯度更新参数</span><br><span class="line">    with torch.no_grad():</span><br><span class="line">        train_l = loss(net(features, w, b), labels)</span><br><span class="line">        print(f&#x27;epoch &#123;epoch + 1&#125;, loss &#123;float(train_l.mean()):f&#125;&#x27;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">epoch 1, loss 0.038667</span><br><span class="line">epoch 2, loss 0.000139</span><br><span class="line">epoch 3, loss 0.000046</span><br></pre></td></tr></table></figure></li>
-<li>学习率<code>lr</code>控制参数更新的步长，学习率是梯度下降的关键超参数，如果太大，参数更新可能会跨过最优解，模型不收敛；如果太小，训练会特别慢</li>
-<li>设置训练轮数<code>num_epochs</code>，一个Epoch意味着把所有训练数据都过一遍，更新一捆参数，这里只训练三轮，是为了演示流程</li>
-<li><code>net = linreg</code>指定了模型的前向计算函数，后续就可以用<code>net(features, w, b)</code>简洁调用线性回归的预测逻辑</li>
-<li>然后是定义损失函数</li>
-<li>外层循环是训练轮次控制，内层循环是小批量数据遍历和单次数据更新</li>
-<li><code>l = loss(net(X, w, b), y)</code>计算当前小批量的损失，先调用<code>net(X,w,b)</code>，即<code>linreg(X,w,b)</code>,用当前的w和b对小批量特征<code>X</code>做预测，得到<code>y_hat</code>（预测值）<br>接着把<code>y_hat</code>和<code>y</code>传入<code>loss</code>函数，计算出这一批数据的损失</li>
-<li><code>l.sum().backward()</code>反向传播计算梯度，为参数更新做准备，计算<code>l</code>对<code>w</code>和<code>b</code>的梯度，并把梯度值存到<code>w.grad</code>和<code>b.grad</code>中</li>
-<li><code>sgd([w, b], lr, batch_size)</code> <code>sgd</code>是之前定义的函数<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(f&#x27;w的估计误差：&#123;true_w - w.reshape(true_w.shape)&#125;&#x27;)</span><br><span class="line">print(f&#x27;b的估计误差：&#123;true_b - b&#125;&#x27;)</span><br></pre></td></tr></table></figure></li>
-<li>比较真实参数和通过训练学到的参数来评估训练结果<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w的估计误差：tensor([5.7220e-05, 3.7909e-05], grad_fn=&lt;SubBackward0&gt;)</span><br><span class="line">b的估计误差：tensor([0.0011], grad_fn=&lt;RsubBackward1&gt;)</span><br></pre></td></tr></table></figure>
-<h3 id="线性回归的简洁实现"><a href="#线性回归的简洁实现" class="headerlink" title="线性回归的简洁实现"></a>线性回归的简洁实现</h3></li>
-<li><p>通过使用深度学习框架来简洁地实现线性回归模型 生成数据集</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import torch</span><br><span class="line">from torch.utils import data</span><br><span class="line">from d2l import torch as d2l</span><br><span class="line"></span><br><span class="line">true_w = torch.tensor([2,-3.4])</span><br><span class="line">true_b = 4.2</span><br><span class="line">features,labels = d2l.synthetic_data(true_w,true_b,1000)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>features,labels = d2l.synthetic_data(true_w,true_b,1000)</code>调用<code>d2l</code>库中<code>synthetic_data</code>函数生成模拟数据集，1000表示生成1000条数据样本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def load_array(data_arrays, batch_size, is_train=True):</span><br><span class="line">    &quot;&quot;&quot;构造一个PyTorch数据迭代器。&quot;&quot;&quot;</span><br><span class="line">    dataset = data.TensorDataset(*data_arrays)</span><br><span class="line">    return data.DataLoader(dataset, batch_size, shuffle=is_train)</span><br><span class="line"></span><br><span class="line">batch_size = 10</span><br><span class="line">data_iter = load_array((features, labels), batch_size)</span><br><span class="line">&quot;&quot;&quot;数据加载器&quot;&quot;&quot;</span><br><span class="line">next(iter(data_iter))</span><br></pre></td></tr></table></figure></li>
-<li><code>load_array</code>是一个自定义函数</li>
-<li><code>data_arrays</code>是包含<code>features</code>和<code>labels</code>的可迭代对象，通过<code>*data_arrays</code>解包的方式穿入<code>TensorDataset</code>,通常是像(feature,label)这样的形式</li>
-<li><code>is_train</code>是一个布尔值，用于决定数据是否进行打乱操作</li>
-<li><code>dataset = data.TensorDataset(*data_arrays)</code>使用<code>Pytorch</code>的<code>TensorDataset</code>类，将传入的数据封装成一个数据集对象，它会把传入的张量按样本维度进行组合，方便后续按样本索引获取数据</li>
-<li>通过<code>DataLoader</code>类，基于前面创建的<code>dataset</code>,设置每次加载的批次大小以及是否打乱</li>
-<li><code>next(iter(data_iter))</code> next函数获取这个迭代器的下一个元素，也就是下一批次的数据</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from torch import nn</span><br><span class="line">net = nn.Sequential(nn.Linear(2,1))</span><br><span class="line">net[0].weight.data.normal_(0, 0.01)</span><br><span class="line">net[0].bias.data.fill_(0)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>net = nn.Sequential(nn.Linear(2,1))</code>用于定义神经网络，<code>nn.Sequential</code>是Pytorch中按顺序堆叠神经网络的容器，<code>nn.Linear(2,1)</code>是一个线性层，<code>in_features = 2</code>输入的特征向量维度为2，<code>out_features = 1</code>输出特征的维度是1，经过这个线性层计算后会输出一个一维的结果</li>
-<li>初始化模型参数，因为这个神经网络只有一个线性层，所以<code>net[0]</code>就表示这个线性层，<code>weight.data.normal_(0, 0.01)</code>让权重参数从均值为1，标准差为0.01的正态分布中随机采样获取初始值，<code>net[0].bias.data.fill_(0)</code>线性层的偏置<code>bias</code>全部设置为0<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.MSELoss()</span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr=0.03)</span><br></pre></td></tr></table></figure></li>
-<li>定义损失函数</li>
-<li>定义<code>SGD</code>优化器,<code>torch.optim</code>是Pytorch中用于优化算法的模块，传入的参数<code>net.parameters()</code>是之前定义的神经网络<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">num_epochs = 3</span><br><span class="line">for epoch in range(num_epochs):</span><br><span class="line">    for X, y in data_iter:</span><br><span class="line">        l = loss(net(X), y)</span><br><span class="line">        trainer.zero_grad()</span><br><span class="line">        l.backward()</span><br><span class="line">        trainer.step()</span><br><span class="line">    l = loss(net(features), labels)</span><br><span class="line">    print(f&#x27;epoch &#123;epoch + 1&#125;, loss &#123;l:f&#125;&#x27;)</span><br></pre></td></tr></table></figure></li>
-<li>训练过程和之前十分类似，<code>trainer.zero_grad()</code>Pytorch中的张量会默认累积梯度，所以在每次计算并更新新的梯度之前要把之前的梯度清零，<code>trainer.step()</code>更新参数<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">epoch 1, loss 0.000221</span><br><span class="line">epoch 2, loss 0.000099</span><br><span class="line">epoch 3, loss 0.000098</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线性回归</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SGD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/经典模型//" class="article-tag-list-link color5">经典模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/06/19/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-自动求导" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -355,26 +158,10 @@ Jupyter Notebook的魔法命令，让matplotlib绘制的图直接嵌入到Notebo
 <li>扩展到向量<script type="math/tex; mode=display">\frac{\partial y}{\partial \boldsymbol{x}} = \frac{\partial y}{\partial u} \cdot \frac{\partial u}{\partial \boldsymbol{x}} \\
 \quad (1,n) \quad \ (1,) \ (1,n)</script><script type="math/tex; mode=display">\frac{\partial y}{\partial \boldsymbol{x}} = \frac{\partial y}{\partial \boldsymbol{u}} \cdot \frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}} \\
 \quad (1,n) \quad \ (1,k) \ (k,n)</script><script type="math/tex; mode=display">\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} = \frac{\partial \boldsymbol{y}}{\partial \boldsymbol{u}} \cdot \frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}} \\
-\quad (m,n) \quad \ (m,k) \ (k,n)</script><img src="/images/自动求导1.jpg"></li>
-</ul>
-<h4 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h4><ul>
-<li>自动求导就按一个函数在指定值上的导数</li>
-<li>它有别于符号求导<br>也有别与数值求导<script type="math/tex; mode=display">\frac{\partial f(x)}{\partial x} = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}</script></li>
-</ul>
-<p><img src="/images/自动求导2.jpg"><br><img src="/images/自动求导3.jpg"><br>反向：从相反方向执行，去除不需要的枝<br><img src="/images/自动求导4.jpg"></p>
-<h4 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h4><p>正向求导不存数，只存一个数，去不断更新这个数，最后得导导数，而反向累积就是把数都存起来，到时候求什么就取需要的数来用。正向可以理解为求一个复合函数的值，正向会保留所有中间结果，反向就是求偏导数和梯度，会用到正向计算的中间结果。</p>
-<p><img src="/images/自动求导5.jpg"></p>
-<script type="math/tex; mode=display">y=2\boldsymbol{x}^T\boldsymbol{x}</script><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.arange(4.0)</span><br></pre></td></tr></table></figure>
-<p>为梯度计算做准备，启用$x$的自动求导追踪<br>Pytorch中，只有设置<code>requires_grad_(True)</code>的张量，才会在计算后保存梯度信息（存储在<code>.grad</code>属性中）<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x.requires_grad_(True)</span><br><span class="line">x.grad</span><br></pre></td></tr></table></figure><br><code>torch.dot(x,x)</code>计算向量$x$自身的点积，计算结果是一个标量<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y = 2 * torch.dot(x, x)</span><br><span class="line">y</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor(28., grad_fn=&lt;MulBackward0&gt;)</span><br></pre></td></tr></table></figure>
-<p>通过调用反向传播函数自动计算<code>y</code>关于<code>x</code>每个分量的梯度，调用<code>bcakward()</code>后，梯度会存储在<code>x.grad</code>中，结果是4$\boldsymbol{x}$<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y.backward()</span><br><span class="line">x.grad</span><br><span class="line">tensor([ 0.,  4.,  8., 12.])</span><br></pre></td></tr></table></figure><br>接着计算<code>x</code>的另一个函数，在默认情况下，Pytorch会累积梯度，我们需要清除之前的值<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x.grad.zero_()</span><br><span class="line">y = x.sum()</span><br><span class="line">y.backward()</span><br><span class="line">x.grad</span><br><span class="line">tensor([1., 1., 1., 1.])</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x.grad.zero_()</span><br><span class="line">y = x * x</span><br><span class="line">y.backward(gradient=torch.ones(len(y)))</span><br><span class="line">x.grad</span><br><span class="line">tensor([0., 2., 4., 6.])</span><br></pre></td></tr></table></figure><br>对非标量求导调用<code>backward()</code>需要传入一个<code>gradient</code>参数<br><code>y.sum()</code>将其转换为一个标量<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x.grad.zero_()</span><br><span class="line">y = x * x</span><br><span class="line">y.sum().backward() #等价于y.backward(gradient=torch.ones(len(y)))</span><br><span class="line">x.grad</span><br></pre></td></tr></table></figure><br>将某些计算移动到记录的计算图之外，<code>u</code>不再是关于<code>x</code>的函数，在<code>z = u * x</code>里<code>u</code>是被当成常数来对待（切断了<code>u</code>与原计算图的关联）<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x.grad.zero_()</span><br><span class="line">y = x * x</span><br><span class="line">u = y.detach()</span><br><span class="line">z = u * x</span><br><span class="line"></span><br><span class="line">z.sum().backward()</span><br><span class="line">x.grad == u</span><br><span class="line">tensor([True, True, True, True])</span><br></pre></td></tr></table></figure><br>即使构建函数的计算图需要通过Python控制流（例如，条件、循环或者任意函数调用），我们仍然可以计算得到的变量的梯度</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def f(a):</span><br><span class="line">    b = a * 2</span><br><span class="line">    while b.norm() &lt; 1000:</span><br><span class="line">        b = b * 2</span><br><span class="line">    if b.sum() &gt; 0:</span><br><span class="line">        c = b</span><br><span class="line">    else:</span><br><span class="line">        c = 100 * b</span><br><span class="line">    return c</span><br><span class="line"></span><br><span class="line">a = torch.randn(size=(), requires_grad=True)</span><br><span class="line">d = f(a)</span><br><span class="line">d.backward()</span><br><span class="line"></span><br><span class="line">a.grad == d / a</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>b.norm()</code>是b的范数，例如<code>b = [1,2]</code>时，范数是$\sqrt{5}$</li>
-<li><code>a = torch.randn(size=(), requires_grad=True)</code>创建一个标量张量，<code>size=()</code>表示0维，即标量，并开启自动求导</li>
-<li><code>d = f(a)</code>将<code>a</code>传入函数<code>f</code></li>
-</ul>
-
+\quad (m,n) \quad \ (m,k) \ (k,n)</script>
+        
+          <a class="article-more-a" href="/2025/06/18/%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC/#more">more >></a>
+        
       
 
       
@@ -467,22 +254,10 @@ Jupyter Notebook的魔法命令，让matplotlib绘制的图直接嵌入到Notebo
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li>标量导数<br><img src="/images/矩阵计算1.jpg"></li>
-<li>亚导数<br><img src="/images/矩阵计算2.jpg"></li>
-<li>一个标量函数 $y = f(x_1,x_2,\dots,x_n)$对向量变量$x$的偏导数</li>
-<li>梯度向量（gradient）$\frac{\partial y}{\partial \boldsymbol{x}}$,这是函数$y$对每个变量$x_i$的偏导数组成的行向量，梯度指向函数值增加最快的方向<br><img src="/images/矩阵计算3.jpg"><br><img src="/images/矩阵计算4.jpg"><br><img src="/images/矩阵计算5.jpg"></li>
-<li>向量对向量求导<br><img src="/images/矩阵计算6.jpg"><br><img src="/images/矩阵计算7.jpg"></li>
-<li>标量对标量求导，结果还是标量，$\frac{dx^2}{dx} = 2x$</li>
-<li>标量对向量求导，$\frac{\partial y}{\partial \boldsymbol{x}}$结果是行向量，维度(1,n)（$y$对$\boldsymbol{x}$每个元素求偏导数，排成一行</li>
-<li>标量对矩阵求导，$\frac{\partial y}{\partial \boldsymbol{X}}$结果是矩阵，维度(k,n)（$y$对$\boldsymbol{X}$每个元素求偏导数，按原矩阵行列转置排列</li>
-<li>向量对标量求导，$\frac{\partial \boldsymbol{y}}{\partial x}$结果是列向量，维度(m,1)（$\boldsymbol{y}$每个元素对标量x求导，排成一列</li>
-<li>向量对向量求导，$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}}$结果是矩阵，维度(m,n)（$\boldsymbol{y}$每个元素对$\boldsymbol{x}$每个元素求导，形成m行n列的雅可比矩阵</li>
-<li>向量对矩阵求导，$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{X}}$结果是三维张量，维度(m,k,n)</li>
-<li>矩阵对标量求导，$\frac{d\boldsymbol{Y}}{dx}$结果是矩阵，维度(m,l)</li>
-<li>矩阵对向量求导，$\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{x}}$结果是三维张量，维度(m,l,n)（$\boldsymbol{Y}$每个元素对$\boldsymbol{x}$求偏导，原m×l矩阵拓展为每个元素对应n维）</li>
-<li>矩阵对矩阵求导，$\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}}$结果是四维张量，维度(m,l,k,n)<br><img src="/images/矩阵计算8.jpg"></li>
-</ul>
-
+<li>标量导数<br><img src="1.jpg" alt="">
+        
+          <a class="article-more-a" href="/2025/06/04/%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97/#more">more >></a>
+        
       
 
       
@@ -575,14 +350,9 @@ Jupyter Notebook的魔法命令，让matplotlib绘制的图直接嵌入到Notebo
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="标量"><a href="#标量" class="headerlink" title="标量"></a>标量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor(3.0)</span><br><span class="line">y = torch.tensor(2.0)</span><br><span class="line">x + y, x * y, x / y, x**y</span><br><span class="line"></span><br><span class="line">(tensor(5.), tensor(6.), tensor(1.5000), tensor(9.))</span><br></pre></td></tr></table></figure>
-<h4 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h4><p>你可以将向量视为标量值组成的列表，可以通过张量的索引来访问任一元素<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.arange(3)</span><br><span class="line">x</span><br><span class="line"></span><br><span class="line">tensor([0, 1, 2])</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x[2]</span><br><span class="line"></span><br><span class="line">tensor(2)</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">len(x)</span><br><span class="line"></span><br><span class="line">3</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x.shape</span><br><span class="line"></span><br><span class="line">torch.Size([3])</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A = torch.arange(6).reshape(3, 2)</span><br><span class="line">A</span><br><span class="line"></span><br><span class="line">tensor([[0, 1],</span><br><span class="line">        [2, 3],</span><br><span class="line">        [4, 5]])</span><br></pre></td></tr></table></figure><br>矩阵的转置，对称矩阵等于其转置<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A.T</span><br><span class="line"></span><br><span class="line">tensor([[0, 2, 4],</span><br><span class="line">        [1, 3, 5]])</span><br></pre></td></tr></table></figure><br>就像向量是标量的推广，矩阵是向量的推广一样，我们也可以构建具有更多轴的数据结构<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a = 2</span><br><span class="line">X = torch.arange(24).reshape(2, 3, 4)</span><br><span class="line">a + X, (a * X).shape</span><br><span class="line"></span><br><span class="line">(tensor([[[ 2,  3,  4,  5],</span><br><span class="line">          [ 6,  7,  8,  9],</span><br><span class="line">          [10, 11, 12, 13]],</span><br><span class="line"></span><br><span class="line">         [[14, 15, 16, 17],</span><br><span class="line">          [18, 19, 20, 21],</span><br><span class="line">          [22, 23, 24, 25]]]),</span><br><span class="line"> torch.Size([2, 3, 4]))</span><br></pre></td></tr></table></figure><br>给定具有相同形状的任何两个张量，任何按元素二元运算的结果都是具有相同形状的张量<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A = torch.arange(6, dtype=torch.float32).reshape(2, 3)</span><br><span class="line">B = A.clone()</span><br><span class="line">A, A + B</span><br><span class="line"></span><br><span class="line">(tensor([[0., 1., 2.],</span><br><span class="line">         [3., 4., 5.]]),</span><br><span class="line"> tensor([[ 0.,  2.,  4.],</span><br><span class="line">         [ 6.,  8., 10.]]))</span><br></pre></td></tr></table></figure><br>两个矩阵的按元素乘法称为哈达玛积(Hadamard product)<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A*B</span><br><span class="line">tensor([[ 0.,  1.,  4.],</span><br><span class="line">        [ 9., 16., 25.]])</span><br></pre></td></tr></table></figure><br>计算其元素的和<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.arange(3, dtype=torch.float32)</span><br><span class="line">x, x.sum()</span><br><span class="line"></span><br><span class="line">(tensor([0., 1., 2.]), tensor(3.))</span><br></pre></td></tr></table></figure><br>指定求和汇总张量的轴<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A.shape, A.sum(axis=0).shape,A.sum(axis=0)</span><br><span class="line"></span><br><span class="line">(torch.Size([2, 3]), torch.Size([3]), tensor([3., 5., 7.]))</span><br><span class="line">A.shape, A.sum(axis=1).shape</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.shape, A.sum(axis=1).shape,A.sum(axis=1)</span><br><span class="line"></span><br><span class="line">(torch.Size([2, 3]), torch.Size([2]), tensor([ 3., 12.]))</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.sum(axis=[0,1]),A.sum(axis=[0, 1]) == A.sum()</span><br><span class="line"></span><br><span class="line">(tensor(15.), tensor(True))</span><br></pre></td></tr></table></figure><br>一个与求和相关的量是平均值<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.mean(), A.sum() / A.numel()</span><br><span class="line"></span><br><span class="line">(tensor(2.5000), tensor(2.5000))</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.mean(axis=0), A.sum(axis=0) / A.shape[0]</span><br><span class="line"></span><br><span class="line">(tensor([1.5000, 2.5000, 3.5000]), tensor([1.5000, 2.5000, 3.5000]))</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.mean(axis=1), A.sum(axis=1) / A.shape[1]</span><br><span class="line"></span><br><span class="line">(tensor([1., 4.]), tensor([1., 4.]))</span><br></pre></td></tr></table></figure><br>计算总和或均值时保持轴数不变（一个三维的矩阵，按一个维度求和，变成一个二维的矩阵；一个二维的矩阵，按一个维度求和，变成一个一维的向量，但是我们不想丢掉这个维度）<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sum_A = A.sum(axis=1, keepdims=True)</span><br><span class="line">sum_A, sum_A.shape,A.sum(axis=1)</span><br><span class="line"></span><br><span class="line">(tensor([[ 3.],</span><br><span class="line">         [12.]]),</span><br><span class="line"> torch.Size([2, 1]),</span><br><span class="line"> tensor([ 3., 12.]))</span><br></pre></td></tr></table></figure><br>通过广播将<code>A</code>除以<code>sum_A</code>（维度必须是一样的）<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A / sum_A</span><br><span class="line"></span><br><span class="line">tensor([[0.0000, 0.3333, 0.6667],</span><br><span class="line">        [0.2500, 0.3333, 0.4167]])</span><br></pre></td></tr></table></figure><br>某个轴计算<code>A</code>元素的累积总和<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A.cumsum(axis=0),A.cumsum(axis=1)</span><br><span class="line"></span><br><span class="line">(tensor([[0., 1., 2.],</span><br><span class="line">         [3., 5., 7.]]),</span><br><span class="line"> tensor([[ 0.,  1.,  3.],</span><br><span class="line">         [ 3.,  7., 12.]]))</span><br></pre></td></tr></table></figure><br>点积是相同位置的按元素乘积的和<br><code>torch.dot</code>只能用于一维向量<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">y = torch.ones(3, dtype = torch.float32)</span><br><span class="line">x, y, torch.dot(x, y)</span><br><span class="line"></span><br><span class="line">(tensor([0., 1., 2.]), tensor([1., 1., 1.]), tensor(3.))</span><br></pre></td></tr></table></figure><br>我们可以通过执行按元素乘法，然后进行求和来表示两个向量的点积<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torch.sum(x * y)</span><br><span class="line"></span><br><span class="line">tensor(3.)</span><br></pre></td></tr></table></figure><br>矩阵向量积$\boldsymbol{A}<script type="math/tex">\boldsymbol{x}$是一个长度为$\boldsymbol{m}$的列向量，其$\boldsymbol{i}^{th}$元素是点积$\boldsymbol{a}_i\top\boldsymbol{x}$
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.shape, x.shape, torch.mv(A, x), A@x</span><br><span class="line"></span><br><span class="line">(torch.Size([2, 3]), torch.Size([3]), tensor([ 5., 14.]), tensor([ 5., 14.]))</span><br></pre></td></tr></table></figure>
-我们可以将矩阵-矩阵乘法$\boldsymbol{AB}$看作是简单地执行$\boldsymbol{m}$次矩阵向量积，并将结果拼接在一起，形成一个$\boldsymbol{n×m}$矩阵
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">B = torch.ones(3,3)</span><br><span class="line">torch.mm(A,B)</span><br><span class="line"></span><br><span class="line">tensor([[ 3.,  3.,  3.],</span><br><span class="line">        [12., 12., 12.]])</span><br></pre></td></tr></table></figure>
-$\boldsymbol{L}_2$范数是向量元素平方和的平方根：</script>|\mathbf{x}|<em>2 = \sqrt{\sum</em>{i=1}^n x<em>i^2}<script type="math/tex"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">u = torch.tensor([3.0, -4.0])</span><br><span class="line">torch.norm(u)</span><br><span class="line"></span><br><span class="line">tensor(5.)</span><br></pre></td></tr></table></figure>
-$\boldsymbol{L}_1$范数是向量元素平方和的平方根：</script>|\mathbf{x}|_1 = \sum</em>{i=1}^n |x<em>i|<script type="math/tex"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torch.abs(u).sum()</span><br><span class="line"></span><br><span class="line">tensor(7.)</span><br></pre></td></tr></table></figure>
-矩阵的弗罗贝尼乌斯范数（Frobenius norm）是矩阵元素的平方和的平方根：</script>|\mathbf{x}|_F = \sqrt{\sum</em>{i=1}^n\sum<em>{j=1}^n x</em>{ij}^2}$$<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torch.norm(torch.ones((4, 9)))</span><br><span class="line"></span><br><span class="line">tensor(6.)</span><br></pre></td></tr></table></figure><br><img src="/images/sum.jpg"></p>
-
+        
+          <a class="article-more-a" href="/2025/06/02/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/#more">more >></a>
+        
       
 
       
@@ -674,37 +444,10 @@ $\boldsymbol{L}_1$范数是向量元素平方和的平方根：</script>|\mathbf
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.首先创建一个人工数据集，并存储在csv（逗号分隔值）文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.makedirs(os.path.join(&#x27;..&#x27;, &#x27;data&#x27;), exist_ok=True)</span><br><span class="line">data_file = os.path.join(&#x27;..&#x27;, &#x27;data&#x27;, &#x27;house_tiny.csv&#x27;)</span><br><span class="line">with open(data_file, &#x27;w&#x27;) as f:</span><br><span class="line">    f.write(&#x27;&#x27;&#x27;NumRooms,RoofType,Price</span><br><span class="line">NA,NA,127500</span><br><span class="line">2,NA,106000</span><br><span class="line">4,Slate,178100</span><br><span class="line">NA,NA,140000&#x27;&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line">data = pd.read_csv(data_file)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>os.path.join(‘..’, ‘data’):构造一个路径../data(../表示上一级目录)</li>
-<li>os.makedirs(…, exist_ok=True):如果目录../data不存在就创建它，如果已经存在，不会报错</li>
-<li>data_file是最终的文件路径，等于../data/house_tiny.csv</li>
-<li>with open(data_file,’w’) as f: 以只写模式打开文件</li>
-<li>f.write(…)是写入一段CSV格式的数据内容</li>
-<li>pd.read_csv(data_file)读取刚写入的CSV文件，转换成Pandas的DataFrame结构（表格形式）</li>
-<li>Pandas会自动把’NA’识别为缺失值(NaN)</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NumRooms RoofType   Price</span><br><span class="line">0       NaN      NaN  127500</span><br><span class="line">1       2.0      NaN  106000</span><br><span class="line">2       4.0    Slate  178100</span><br><span class="line">3       NaN      NaN  140000</span><br></pre></td></tr></table></figure>
-<p>2.将输入数据中的类别特征转换为数值形式，同时也保留缺失值NaN作为一个类别<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inputs, targets = data.iloc[:, 0:2], data.iloc[:, 2]</span><br><span class="line">inputs = pd.get_dummies(inputs, dummy_na=True)</span><br><span class="line">print(inputs)</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>data.iloc[:, 0:2] 取前2列作为输入</li>
-<li>ata.iloc[:, 2] 取第三列Price作为目标(要预测的值)</li>
-<li>pd.get_dummies()是Pandas提供的一个函数，将类别特征(字符串或者有限数值等)转换成one-hot编码（独热编码），dummy_na=True表示把缺失值(NaN)也当做一个类别处理</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NumRooms  RoofType_Slate  RoofType_nan</span><br><span class="line">0       NaN           False          True</span><br><span class="line">1       2.0           False          True</span><br><span class="line">2       4.0            True         False</span><br><span class="line">3       NaN           False          True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>3.对数据进行缺失值填补(插值)<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inputs = inputs.fillna(inputs.mean())</span><br><span class="line">print(inputs)</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>inputs.mean()会计算每一列的平均值，但是只对数值型数据有效</li>
-<li>fillna(…)把缺失值用列的均值替代</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   NumRooms  RoofType_Slate  RoofType_nan</span><br><span class="line">0       3.0           False          True</span><br><span class="line">1       2.0           False          True</span><br><span class="line">2       4.0            True         False</span><br><span class="line">3       3.0           False          True</span><br></pre></td></tr></table></figure>
-<p>4.转换成PyTorch的张量，方便送入模型训练<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line"></span><br><span class="line">X = torch.tensor(inputs.to_numpy(dtype=float))</span><br><span class="line">y = torch.tensor(targets.to_numpy(dtype=float))</span><br><span class="line">X, y</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>把Pandas的DataFrame转换成Numpy数组</li>
-<li>再从Numpy转换成PyTorch张量</li>
-<li>指定数据类型为浮点型，因为神经网络通常都用浮点数来处理</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(tensor([[nan, 0., 1.],</span><br><span class="line">         [2., 0., 1.],</span><br><span class="line">         [4., 1., 0.],</span><br><span class="line">         [nan, 0., 1.]], dtype=torch.float64),</span><br><span class="line"> tensor([127500., 106000., 178100., 140000.], dtype=torch.float64))</span><br></pre></td></tr></table></figure>
+        <p>1.首先创建一个人工数据集，并存储在csv（逗号分隔值）文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.makedirs(os.path.join(&#x27;..&#x27;, &#x27;data&#x27;), exist_ok=True)</span><br><span class="line">data_file = os.path.join(&#x27;..&#x27;, &#x27;data&#x27;, &#x27;house_tiny.csv&#x27;)</span><br><span class="line">with open(data_file, &#x27;w&#x27;) as f:</span><br><span class="line">    f.write(&#x27;&#x27;&#x27;NumRooms,RoofType,Price</span><br><span class="line">NA,NA,127500</span><br><span class="line">2,NA,106000</span><br><span class="line">4,Slate,178100</span><br><span class="line">NA,NA,140000&#x27;&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line">data = pd.read_csv(data_file)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure><br>
+        
+          <a class="article-more-a" href="/2025/06/01/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/#more">more >></a>
+        
       
 
       
@@ -803,43 +546,10 @@ $\boldsymbol{L}_1$范数是向量元素平方和的平方根：</script>|\mathbf
 <li>2-d（矩阵） 一个样本-特征矩阵</li>
 <li>3-d     &nbsp;&nbsp;   RGB图片（宽×高×通道）</li>
 <li>4-d     &nbsp;&nbsp;   一个RGB图片批量（批量大小×宽×高×通道）</li>
-<li>5-d &nbsp;&nbsp; 一个视频批量（批量大小×时间×宽×高×通道）<h5 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h5>创建数组需要</li>
-<li>形状：例如3×4矩阵</li>
-<li>每个元素的数据类型：例如32位浮点数</li>
-<li>每个元素的值：例如全是0，或者随机数（正态分布、均匀分布 …）<h5 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h5>一个元素：[1,2]<br>一行：[1,:]<br>一列：[:,1]<br>子区域：[1:3,1:]（拿到第二行和第三行，因为是开区间，后面是拿到第二列和后面所有列）<br>子区域：[::3,::2]（行是每3行一跳，把第0行和第三行拿出来；列是每两列一跳，把第0列和第二列拿出来）<h4 id="数据操作实现"><a href="#数据操作实现" class="headerlink" title="数据操作实现"></a>数据操作实现</h4></li>
-<li>首先我们应该导入torch，注意不是pytorch<br><code>import torch</code></li>
-<li>张量表示一个数值组成的数组，这个数组可能有多个维度<br><code>x = torch.arange(12)</code><br>torch.arange是Pytorch中用于创建等差张量的函数，输出tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</li>
-<li>我们可以通过张量的shape属性来访问张量的形状和张量中的元素的总数<br><code>x.shape</code> 输出tensor.Size([12])<br><code>x.numel()</code>number of element length 输出12 是一个标量</li>
-<li>要想改变一个张量的形状而不改变元素数量和元素值，我们可以调用<code>reshape</code>函数<br><code>x = x.reshape(3,4)</code><br>输出为<br>`tensor([[ 0,  1,  2,  3],<pre><code>  [ 4,  5,  6,  7],
-  [ 8,  9, 10, 11]])
-</code></pre>`</li>
-<li>使用全0、全1、其他常量或者从特定分布中随机采样的数字<br><code>torch.zeros((2,3,4))</code><br>输出为<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tensor([[[0., 0., 0., 0.],</span><br><span class="line">         [0., 0., 0., 0.],</span><br><span class="line">         [0., 0., 0., 0.]],</span><br><span class="line"></span><br><span class="line">        [[0., 0., 0., 0.],</span><br><span class="line">         [0., 0., 0., 0.],</span><br><span class="line">         [0., 0., 0., 0.]]])</span><br></pre></td></tr></table></figure>
-这是2个3行4列的二维数组组成的三维数组<br><code>torch.ones((2, 3, 4))</code><br>输出为<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tensor([[[1., 1., 1., 1.],</span><br><span class="line">         [1., 1., 1., 1.],</span><br><span class="line">         [1., 1., 1., 1.]],</span><br><span class="line"></span><br><span class="line">        [[1., 1., 1., 1.],</span><br><span class="line">         [1., 1., 1., 1.],</span><br><span class="line">         [1., 1., 1., 1.]]])</span><br></pre></td></tr></table></figure></li>
-<li>通过提供包含数值的Python列表（或嵌套列表）来为所需张量中的每个元素赋予确定值<br><code>torch.tensor([[2, 1, 4, 3], [1, 2, 3, 4], [4, 3, 2, 1]])</code><br>输出为<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensor([[2, 1, 4, 3],</span><br><span class="line">        [1, 2, 3, 4],</span><br><span class="line">        [4, 3, 2, 1]])</span><br></pre></td></tr></table></figure></li>
-<li>选择张量中的元素<br><code>X[-1], X[1:3]</code><br>输出为<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(tensor([ 8,  9, 10, 11]),</span><br><span class="line"> tensor([[ 4,  5,  6,  7],</span><br><span class="line">         [ 8,  9, 10, 11]]))</span><br></pre></td></tr></table></figure>
-[-1]选择最后一行并[1:3]选择第二行和第三行（Python索引从0开始，切片范围为左闭右开，即包含起始索引，不包含结束索引）<br>还可以指定索引来写矩阵的元素</li>
-<li>常见的标准算术运算符（<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>和<code>**</code>）都可以被升级为按元素计算<br>（<code>**</code>运算符是求幂运算）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([1.0, 2, 4, 8])</span><br><span class="line">y = torch.tensor([2, 2, 2, 2])</span><br><span class="line">x + y, x - y, x * y, x / y, x ** y</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(tensor([ 3.,  4.,  6., 10.]),</span><br><span class="line"> tensor([-1.,  0.,  2.,  6.]),</span><br><span class="line"> tensor([ 2.,  4.,  8., 16.]),</span><br><span class="line"> tensor([0.5000, 1.0000, 2.0000, 4.0000]),</span><br><span class="line"> tensor([ 1.,  4., 16., 64.]))</span><br></pre></td></tr></table></figure>
-还有指数运算<br><code>torch.exp(x)</code>（e的x次方的）</li>
-<li>我们也可以把多个张量连结在一起<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X = torch.arange(12, dtype=torch.float32).reshape((3,4))</span><br><span class="line">Y = torch.tensor([[2.0, 1, 4, 3], [1, 2, 3, 4], [4, 3, 2, 1]])</span><br><span class="line">torch.cat((X, Y), dim=0), torch.cat((X, Y), dim=1)</span><br></pre></td></tr></table></figure>
-dim=0 按行连结在一起；dim=1 按列连结在一起<br>如果是一个三维张量（通道数×高×宽）<ul>
-<li>在第0维（深度方向）连结 dim=0</li>
-<li>在第1维（高度方向）连结 dim=1</li>
-<li>在第2维（宽度方向）连结 dim=2<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(tensor([[ 0.,  1.,  2.,  3.],</span><br><span class="line">         [ 4.,  5.,  6.,  7.],</span><br><span class="line">         [ 8.,  9., 10., 11.],</span><br><span class="line">         [ 2.,  1.,  4.,  3.],</span><br><span class="line">         [ 1.,  2.,  3.,  4.],</span><br><span class="line">         [ 4.,  3.,  2.,  1.]]),</span><br><span class="line"> tensor([[ 0.,  1.,  2.,  3.,  2.,  1.,  4.,  3.],</span><br><span class="line">         [ 4.,  5.,  6.,  7.,  1.,  2.,  3.,  4.],</span><br><span class="line">         [ 8.,  9., 10., 11.,  4.,  3.,  2.,  1.]]))</span><br></pre></td></tr></table></figure>
-还可以通过逻辑运算符来构建二元张量<br><code>X == Y</code>  按元素进行判断<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensor([[False,  True, False,  True],</span><br><span class="line">        [False, False, False, False],</span><br><span class="line">        [False, False, False, False]])</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>对张量中所有的元素进行求和会产生一个只有一个元素的张量<br><code>X.sum()</code><br><code>tensor(66.)</code></li>
-<li>注意即使形状不同，我们仍然可以通过调用广播机制（broadcasting mechanism） 来执行按元素操作<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = torch.arange(3).reshape((3, 1))</span><br><span class="line">b = torch.arange(2).reshape((1, 2))</span><br><span class="line">a, b</span><br><span class="line">(tensor([[0],</span><br><span class="line">         [1],</span><br><span class="line">         [2]]),</span><br><span class="line"> tensor([[0, 1]]))</span><br></pre></td></tr></table></figure>
-这里a是一个三行一列的二维数组，b是一个一行两列的二维数组，他们两个相加的时候，a和b都会变成一个3×2的矩阵<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a + b</span><br><span class="line">tensor([[0, 1],</span><br><span class="line">       [1, 2],</span><br><span class="line">       [2, 3]])</span><br></pre></td></tr></table></figure></li>
-<li>内存<br>运行一些操作可能会为新结果分配内存<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">before = id(Y)</span><br><span class="line">Y = Y + X</span><br><span class="line">id(Y) == before</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
-执行原地操作<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Z = torch.zeros_like(Y)  #Z和Y的形状和数据类型是一样的，但是是全0</span><br><span class="line">print(&#x27;id(Z):&#x27;, id(Z))</span><br><span class="line">Z[:] = X + Y            #Z里面所有的元素等于X+Y 对Z中的元素进行一次改写</span><br><span class="line">print(&#x27;id(Z):&#x27;, id(Z))</span><br><span class="line">id(Z): 2658763724096</span><br><span class="line">id(Z): 2658763724096</span><br></pre></td></tr></table></figure>
-如果在后续计算中没有重复使用X，我们也可以使用<code>X[:] = X + Y</code>或者<code>X += Y</code>来减少操作的内存开销<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">before = id(X)</span><br><span class="line">X += Y</span><br><span class="line">id(X) == before</span><br><span class="line">Ture</span><br></pre></td></tr></table></figure>
-在Pytorch中，x = x + y 会分配新内存，x += y 不会分配新的内存（原地操作）</li>
-<li>转换为NumPy张量<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A = X.numpy()</span><br><span class="line">B = torch.from_numpy(A)</span><br><span class="line">type(A), type(B)</span><br><span class="line">(numpy.ndarray, torch.Tensor)</span><br></pre></td></tr></table></figure>
-将大小为1的张量转换为Python标量<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([3.5])</span><br><span class="line">a, a.item(), float(a), int(a)</span><br><span class="line">(tensor([3.5000]), 3.5, 3.5, 3)</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+<li>5-d &nbsp;&nbsp; 一个视频批量（批量大小×时间×宽×高×通道）
+        
+          <a class="article-more-a" href="/2025/05/30/%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C/#more">more >></a>
+        
       
 
       
@@ -1028,32 +738,10 @@ dim=0 按行连结在一起；dim=1 按列连结在一起<br>如果是一个三�
 <ol>
 <li>打开冰箱门</li>
 <li>把大象塞进去</li>
-<li>关上冰箱门</li>
-</ol>
-<p>无序列表</p>
-<ul>
-<li>海绵宝宝</li>
-<li>派大星</li>
-</ul>
-<ul>
-<li>蟹老板</li>
-</ul>
-<p>明日计划：</p>
-<ul>
-<li>[ ] 吃饭</li>
-<li>[ ] 睡觉</li>
-<li>[ ] 打豆豆 </li>
-</ul>
-<p>代码块:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>数学公式</p>
-<script type="math/tex; mode=display">
-\frac{\partial f}{\partial x} = 2\sqrt{a}x</script><p>表格<br>|姓名|年龄|成绩|<br>|:—-|—-:|:—-:|<br>|小李|18|99|<br>|小张|18|98|</p>
-<p>横线</p>
-<hr>
-<p>请参考<a href="#标题一">标题1</a></p>
-<p>图片：<br><img src="/images/love.jpg"></p>
-<p><em>斜体</em>,<strong>加粗</strong>,<code>printf()</code>,<u>下划线</u>,:smile:,$\theta=x^2$<br>H<sub>2</sub>O,X<sup>2</sup>,<mark>这是一段高亮文字</mark></p>
-
+<li>关上冰箱门
+        
+          <a class="article-more-a" href="/2025/02/08/markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/#more">more >></a>
+        
       
 
       

@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>Softmax回归 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="回归VS分类 回归估计一个连续值 分类预测一个离散类别回归 单连续数值输出 自然区间R 跟真实值的区别作为损失分类 通常多个输出 输出i是预测为第i类的置信度从回归到分类-均方损失 对类别进行一位有效编码 \mathbf{y} &#x3D; \left[ y_1, y_2, \ldots, y_n \right]^T y_i &#x3D; \begin{cases} 1 &amp; \text{if } i &#x3D; y \\ 0">
+  <meta name="description" content="回归VS分类 回归估计一个连续值 分类预测一个离散类别回归 单连续数值输出 自然区间R 跟真实值的区别作为损失分类 通常多个输出 输出i是预测为第i类的置信度从回归到分类-均方损失 对类别进行一位有效编码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Softmax回归">
 <meta property="og:url" content="https://dayliau.github.io/2025/07/10/Softmax%E5%9B%9E%E5%BD%92/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="回归VS分类 回归估计一个连续值 分类预测一个离散类别回归 单连续数值输出 自然区间R 跟真实值的区别作为损失分类 通常多个输出 输出i是预测为第i类的置信度从回归到分类-均方损失 对类别进行一位有效编码 \mathbf{y} &#x3D; \left[ y_1, y_2, \ldots, y_n \right]^T y_i &#x3D; \begin{cases} 1 &amp; \text{if } i &#x3D; y \\ 0">
+<meta property="og:description" content="回归VS分类 回归估计一个连续值 分类预测一个离散类别回归 单连续数值输出 自然区间R 跟真实值的区别作为损失分类 通常多个输出 输出i是预测为第i类的置信度从回归到分类-均方损失 对类别进行一位有效编码">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://dayliau.github.io/images/softmax1.jpg">
 <meta property="og:image" content="https://dayliau.github.io/images/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B01.jpg">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://dayliau.github.io/images/softmax2.png">
 <meta property="og:image" content="https://dayliau.github.io/images/softmax3.png">
 <meta property="article:published_time" content="2025-07-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T10:00:25.054Z">
+<meta property="article:modified_time" content="2026-07-14T10:42:52.760Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="Softmax">
 <meta property="article:tag" content="交叉熵">
@@ -169,7 +169,8 @@
 <li>跟真实值的区别作为损失<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4></li>
 <li>通常多个输出</li>
 <li>输出i是预测为第i类的置信度<h4 id="从回归到分类-均方损失"><a href="#从回归到分类-均方损失" class="headerlink" title="从回归到分类-均方损失"></a>从回归到分类-均方损失</h4></li>
-<li>对类别进行一位有效编码<script type="math/tex; mode=display">
+<li>对类别进行一位有效编码<span id="more"></span>
+<script type="math/tex; mode=display">
 \mathbf{y} = \left[ y_1, y_2, \ldots, y_n \right]^T</script><script type="math/tex; mode=display">
 y_i =
 \begin{cases}

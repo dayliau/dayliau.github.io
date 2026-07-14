@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>丢弃法 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="丢弃法 一个好的模型需要对输入数据的扰动鲁棒 使用有噪音的数据等价于Tikhonov法则 丢弃法：在层之间加入噪音   对$\mathbf{x}$加入噪音得到$\mathbf{x^\prime}$，我们希望  \mathbf{E}[\mathbf{x}&#39;] &#x3D; \mathbf{x} 丢弃法对每个元素进行如下扰动  丢弃概率是控制模型复杂度的超参数 x_i&#39; &#x3D; \begin{cases} 0 &amp;">
+  <meta name="description" content="丢弃法 一个好的模型需要对输入数据的扰动鲁棒 使用有噪音的数据等价于Tikhonov法则 丢弃法：在层之间加入噪音   对$\mathbf{x}$加入噪音得到$\mathbf{x^\prime}$，我们希望 \mathbf{E}[\mathbf{x}&#39;] &#x3D; \mathbf{x}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="丢弃法">
 <meta property="og:url" content="https://dayliau.github.io/2025/08/07/%E4%B8%A2%E5%BC%83%E6%B3%95/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="丢弃法 一个好的模型需要对输入数据的扰动鲁棒 使用有噪音的数据等价于Tikhonov法则 丢弃法：在层之间加入噪音   对$\mathbf{x}$加入噪音得到$\mathbf{x^\prime}$，我们希望  \mathbf{E}[\mathbf{x}&#39;] &#x3D; \mathbf{x} 丢弃法对每个元素进行如下扰动  丢弃概率是控制模型复杂度的超参数 x_i&#39; &#x3D; \begin{cases} 0 &amp;">
+<meta property="og:description" content="丢弃法 一个好的模型需要对输入数据的扰动鲁棒 使用有噪音的数据等价于Tikhonov法则 丢弃法：在层之间加入噪音   对$\mathbf{x}$加入噪音得到$\mathbf{x^\prime}$，我们希望 \mathbf{E}[\mathbf{x}&#39;] &#x3D; \mathbf{x}">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://dayliau.github.io/images/%E4%B8%A2%E5%BC%83%E6%B3%951.jpg">
-<meta property="og:image" content="https://dayliau.github.io/images/%E4%B8%A2%E5%BC%83%E6%B3%952.png">
+<meta property="og:image" content="https://dayliau.github.io/2025/08/07/%E4%B8%A2%E5%BC%83%E6%B3%95/1.png">
+<meta property="og:image" content="https://dayliau.github.io/2025/08/07/%E4%B8%A2%E5%BC%83%E6%B3%95/2.png">
 <meta property="article:published_time" content="2025-08-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T09:55:17.238Z">
+<meta property="article:modified_time" content="2026-07-14T10:53:19.630Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="Dropout">
 <meta property="article:tag" content="正则化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://dayliau.github.io/images/%E4%B8%A2%E5%BC%83%E6%B3%951.jpg">
+<meta name="twitter:image" content="https://dayliau.github.io/2025/08/07/%E4%B8%A2%E5%BC%83%E6%B3%95/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Dayliaaa&#39;s Blog" type="application/atom+xml">
   
@@ -163,11 +163,9 @@
 <li>丢弃法：在层之间加入噪音</li>
 </ul>
 </li>
-<li><p>对$\mathbf{x}$加入噪音得到$\mathbf{x^\prime}$，我们希望</p>
-<script type="math/tex; mode=display">
-\mathbf{E}[\mathbf{x}'] = \mathbf{x}</script></li>
-<li><p>丢弃法对每个元素进行如下扰动</p>
-</li>
+<li>对$\mathbf{x}$加入噪音得到$\mathbf{x^\prime}$，我们希望<script type="math/tex; mode=display">
+\mathbf{E}[\mathbf{x}'] = \mathbf{x}</script><span id="more"></span></li>
+<li>丢弃法对每个元素进行如下扰动</li>
 <li>丢弃概率是控制模型复杂度的超参数<script type="math/tex; mode=display">
 x_i' =
 \begin{cases}
@@ -175,7 +173,7 @@ x_i' =
 \dfrac{x_i}{1 - p} & \text{otherwise}
 \end{cases}</script></li>
 </ul>
-<p><img src="/images/丢弃法1.jpg"></p>
+<p><img src="1.png" alt=""></p>
 <ul>
 <li>正则化是一类用于防止机器学习模型过拟合，提高泛化能力的技术</li>
 <li>正则项只在训练中使用：他们影响模型参数的更新</li>
@@ -186,7 +184,7 @@ x_i' =
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">net = nn.Sequential()</span><br><span class="line">net.add(nn.Dense(256, activation=&quot;relu&quot;),</span><br><span class="line">        # 在第一个全连接层之后添加一个dropout层</span><br><span class="line">        nn.Dropout(dropout1),</span><br><span class="line">        nn.Dense(256, activation=&quot;relu&quot;),</span><br><span class="line">        # 在第二个全连接层之后添加一个dropout层</span><br><span class="line">        nn.Dropout(dropout2),</span><br><span class="line">        nn.Dense(10))</span><br><span class="line">net.initialize(init.Normal(sigma=0.01))</span><br><span class="line">trainer = gluon.Trainer(net.collect_params(), &#x27;sgd&#x27;, &#123;&#x27;learning_rate&#x27;: lr&#125;)</span><br><span class="line">d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)</span><br></pre></td></tr></table></figure>
-<p><img src="/images/丢弃法2.png"></p>
+<p><img src="2.png" alt=""></p>
 
       
 

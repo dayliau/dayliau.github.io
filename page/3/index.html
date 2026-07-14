@@ -133,136 +133,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-大模型预训练" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/10/18/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83/">大模型预训练</a>
-    </h1>
-  
-
-        
-        <a href="/2025/10/18/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83/" class="archive-article-date">
-  	<time datetime="2025-10-17T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-10-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一些需要知道的代码的基础知识"><a href="#一些需要知道的代码的基础知识" class="headerlink" title="一些需要知道的代码的基础知识"></a>一些需要知道的代码的基础知识</h3><h4 id="1-确保项目可以找到项目中的所有模块"><a href="#1-确保项目可以找到项目中的所有模块" class="headerlink" title="1.确保项目可以找到项目中的所有模块"></a>1.确保项目可以找到项目中的所有模块</h4><ul>
-<li><code>os.path.dirname(_file_)</code>获取当前脚本所在路径</li>
-<li><code>os.path.join(...,...)</code>将两个路径拼接起来</li>
-<li><code>os.path.abspath()</code>将相对路径转换为绝对路径</li>
-<li><code>sys.path.append()</code>将路径添加到模块搜索路径中</li>
-<li><code>sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))</code>就是将项目根目录添加到Python查找模块的路径列表中</li>
-</ul>
-<h4 id="因果语言建模-Causal-Language-Modeling"><a href="#因果语言建模-Causal-Language-Modeling" class="headerlink" title="因果语言建模(Causal Language Modeling)"></a>因果语言建模(Causal Language Modeling)</h4><ul>
-<li>让大模型学会接龙</li>
-<li>原理：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原始序列: [token1, token2, token3, token4, ..., token_n]</span><br><span class="line">输入X:    [token1, token2, token3, ..., token_&#123;n-1&#125;]</span><br><span class="line">目标Y:    [token2, token3, token4, ..., token_n]</span><br><span class="line"></span><br><span class="line">训练目标: 给定X预测Y，即根据前文预测下一个token</span><br></pre></td></tr></table></figure>
-<h4 id="交叉熵损失计算的一些细节"><a href="#交叉熵损失计算的一些细节" class="headerlink" title="交叉熵损失计算的一些细节"></a>交叉熵损失计算的一些细节</h4></li>
-<li>首先我们有经过大模型处理后得到的logits，以及真实的标签y，计算损失时，将logits的形状由(batch_size,seq_len,vocab_size)变成(batch_size<em>seq__len,vocab_size)，y的形状由(batch_size</em>seq_len)</li>
-<li>然后对logits进行log softmax计算，根据真实标签y取出对应位置的概率（都小于1），交叉熵损失就是这些负对数概率的平均值或和（取决于reduction参数）<h4 id="学习率"><a href="#学习率" class="headerlink" title="学习率"></a>学习率</h4></li>
-<li><code>lr/10</code> 保证即使后面余弦的部分衰减到0学习率不会低于这个数，防止学习率过小导致训练停滞</li>
-<li>余弦退火  <code>0.5*lr*(1+math.cos(math.pi*current_step/total_steps))</code>保证模型训练在初期可以快速学习，中间稳定收敛，后期精细调整<h4 id="上下文管理器-contextlib"><a href="#上下文管理器-contextlib" class="headerlink" title="上下文管理器 contextlib"></a>上下文管理器 contextlib</h4></li>
-<li>实现混合精度训练，<code>ctx = nullcontext() if device_type == &quot;cpu&quot; else torch.cuda.amp.autocast()</code>  cpu不支持AMP</li>
-<li>实现禁用梯度计算,<code>ctx = torch.no_grad</code></li>
-<li>推理模式 <code>torch.inference_model</code></li>
-<li>…<h4 id="混合精度训练-scaler"><a href="#混合精度训练-scaler" class="headerlink" title="混合精度训练 scaler"></a>混合精度训练 scaler</h4></li>
-<li>梯度缩放器 scaler why? 由于FP16比FP32表示的范围小，以至于在FP16中变成0，为了避免，我们使用一个缩放因子来放大损失值，从而在反向传播中放大梯度，使其在FP16的表示范围内，然后在优化器更新参数前，再讲梯度缩小为原来的尺度</li>
-<li><code>scaler.scale(loss).backward</code>将前向传播得到的loss乘以一个<code>scaler factor</code>，保证使用FP16时不会发生下溢；然后<code>scaler.unscale_(optimizer)</code>,<code>scaler.step(optimizer)</code>会更新参数，如果有nan或者inf会自动跳过；最后<code>scaler.update()</code>来更新<code>scaler factor</code><h3 id="预训练流程"><a href="#预训练流程" class="headerlink" title="预训练流程"></a>预训练流程</h3><h4 id="以minimind为例-一般包括以下几个步骤"><a href="#以minimind为例-一般包括以下几个步骤" class="headerlink" title="以minimind为例 一般包括以下几个步骤"></a>以minimind为例 一般包括以下几个步骤</h4>1.数据准备和预处理</li>
-<li>在dataset/lm_dataset.py中实现的PretrainDataset类实现具体的数据处理逻辑，然后import这个类</li>
-<li>首先原始文本经过分词之后得到token ID向量，然后根据max_length的值，不够就填充0，长的就截断，损失掩码形状和填充后的一样，真实token对应是1，填充的对应是0；输入的序列x去掉最后一个token，目标序列y去掉第一个token，损失掩码与y对齐，只计算真实token的损失<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">class PretrainDataset(Dataset):</span><br><span class="line">    def __init__(self, data_path, tokenizer, max_length=512):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.tokenizer = tokenizer</span><br><span class="line">        self.max_length = max_length</span><br><span class="line">        self.samples = self.load_data(data_path)</span><br><span class="line"></span><br><span class="line">    def load_data(self, path):</span><br><span class="line">        samples = []</span><br><span class="line">        with open(path, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:</span><br><span class="line">            for line_num, line in enumerate(f, 1):</span><br><span class="line">                data = json.loads(line.strip())</span><br><span class="line">                samples.append(data)</span><br><span class="line">        return samples</span><br><span class="line"></span><br><span class="line">    def __len__(self):</span><br><span class="line">        return len(self.samples)</span><br><span class="line"></span><br><span class="line">    def __getitem__(self, index):</span><br><span class="line">        sample = self.samples[index]</span><br><span class="line"></span><br><span class="line">        # 构建输入文本</span><br><span class="line">        encoding = self.tokenizer(</span><br><span class="line">            str(sample[&#x27;text&#x27;]),   #将文本转化为字符串</span><br><span class="line">            max_length=self.max_length,</span><br><span class="line">            padding=&#x27;max_length&#x27;,</span><br><span class="line">            truncation=True,       #超长文本截断</span><br><span class="line">            return_tensors=&#x27;pt&#x27;    #返回Pytorch tensor</span><br><span class="line">        )</span><br><span class="line">        input_ids = encoding.input_ids.squeeze()   #去除batch维度</span><br><span class="line">        loss_mask = (input_ids != self.tokenizer.pad_token_id)  #损失掩码</span><br><span class="line"></span><br><span class="line">        X = torch.tensor(input_ids[:-1], dtype=torch.long)</span><br><span class="line">        Y = torch.tensor(input_ids[1:], dtype=torch.long)</span><br><span class="line">        loss_mask = torch.tensor(loss_mask[1:], dtype=torch.long)</span><br><span class="line">        return X, Y, loss_mask</span><br></pre></td></tr></table></figure></li>
-<li>返回的encoding是一个字典，其中的input_ids是一个形状为(1,seq_len)的张量，调用.squeeeze()方法，降低一个维度去掉，得到(seq_len),DataLoader会自动将这些一维张量堆叠成二维张量（batch_size, seq_len）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([[101,102,103,104,0,0]])</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([101,102,103,104,0,0])</span><br></pre></td></tr></table></figure>
-2.分词器</li>
-<li>.from_pretrained()方法可以直接调用一个现成的或者自定义的预训练资源<br>3.模型架构和配置<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def init_model(lm_config):</span><br><span class="line">    tokenizer = AutoTokenizer.from_pretrained(&#x27;../model/&#x27;)</span><br><span class="line">    model = MiniMindForCausalLM(lm_config).to(args.device)</span><br><span class="line">    Logger(f&#x27;LLM可训练总参数量：&#123;sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6:.3f&#125; 百万&#x27;)</span><br><span class="line">    return model, tokenizer</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="FileZilla"><a href="#FileZilla" class="headerlink" title="FileZilla"></a>FileZilla</h3><p>今天上传预训练数据，总是因为网络不稳定以及文件太大失败，然后下载了FileZilla，传的依然很慢，但是优点是可以从断点接着上传</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">混合精度</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">预训练</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CLM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MiniMind</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/大模型//" class="article-tag-list-link color4">大模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/大模型/训练与微调//" class="article-tag-list-link color1">训练与微调</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/10/18/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Prompt-Engineering" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -293,23 +163,10 @@
 <li>局限：<ul>
 <li>如果给出的示例的label是严重不平衡的，可能会影响结果</li>
 <li>越后来输入的示例的label对结果的影响越大</li>
-<li>在prompt中出现频率越多的token越容易影响结果</li>
-</ul>
-</li>
-</ul>
-<h4 id="Rule-2-Give-your-model-a-certain-role-角色扮演"><a href="#Rule-2-Give-your-model-a-certain-role-角色扮演" class="headerlink" title="Rule 2:Give your model a certain role 角色扮演"></a>Rule 2:Give your model a certain role 角色扮演</h4><h4 id="Rule-3-Chain-of-thought-for-reasoning-tasks"><a href="#Rule-3-Chain-of-thought-for-reasoning-tasks" class="headerlink" title="Rule 3:Chain-of-thought for reasoning tasks"></a>Rule 3:Chain-of-thought for reasoning tasks</h4><ul>
-<li>也就是让大模型think ste by step<h4 id="Rule-4-Clear-and-specific-promopts"><a href="#Rule-4-Clear-and-specific-promopts" class="headerlink" title="Rule 4:Clear and specific promopts"></a>Rule 4:Clear and specific promopts</h4></li>
-<li>用一些特殊的符号把重要的句子标出来 ``` ‘’’’’’ —- &lt;&gt; 等</li>
-<li>明确告诉大模型需要的输出格式 例如html python等等</li>
-<li>增加条件，例如如果你可以找到这个名字和位置就打印出来，找不到就返回nothing，这样是为了防止大模型一味地去满足用户的要求去胡言乱语<h4 id="Rule-5：Know-the-model-temperature"><a href="#Rule-5：Know-the-model-temperature" class="headerlink" title="Rule 5：Know the model temperature"></a>Rule 5：Know the model temperature</h4></li>
-<li>Set temp=0 for determined tasks</li>
-<li>Set temp&gt;0 to introduce randomness<h3 id="How-to-learn-prompts"><a href="#How-to-learn-prompts" class="headerlink" title="How to learn prompts?"></a>How to learn prompts?</h3></li>
-<li>Prompt tuning</li>
-<li>Tuning-free prompting</li>
-<li>Fixed-LM prompt tuning</li>
-<li>Visual prompt   VPT</li>
-</ul>
-
+<li>在prompt中出现频率越多的token越容易影响结果
+        
+          <a class="article-more-a" href="/2025/10/12/Prompt-Engineering/#more">more >></a>
+        
       
 
       
@@ -406,35 +263,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="AutoDL使用教程"><a href="#AutoDL使用教程" class="headerlink" title="AutoDL使用教程"></a>AutoDL使用教程</h2><ul>
-<li>之前感觉用的时候懵懵的，现在还是找一个教程来看</li>
-</ul>
-<h3 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h3><ul>
-<li>选择镜像的时候有基础镜像，社区镜像以及我的镜像，基础镜像就选择oytorch python cuda的一些版本，社区镜像一般来说比较少，我的镜像就是自己在其他实例上保存的，就不用再配置环境了</li>
-</ul>
-<h3 id="创建之后"><a href="#创建之后" class="headerlink" title="创建之后"></a>创建之后</h3><ul>
-<li>本地磁盘分为系统盘和数据盘，系统盘就是放配置这个环境需要的一些包，数据盘就是放这个项目，就是代码啊，数据啊，基座模型啊等等</li>
-<li>快捷工具里jupyterlab，可以进行一些终端操作，也可以打开代码</li>
-</ul>
-<h3 id="PyCharm连接远程服务器"><a href="#PyCharm连接远程服务器" class="headerlink" title="PyCharm连接远程服务器"></a>PyCharm连接远程服务器</h3><ul>
-<li>只有专业版才可以 <a target="_blank" rel="noopener" href="https://api.autodl.com/docs/pycharm/">https://api.autodl.com/docs/pycharm/</a>  直接看这个</li>
-<li>提一下这个 Sync-floders，这个是文件夹同步工具，就是将本地的这个项目映射到远程服务器的一个文件夹 /root/autodl-tmp/project，这个project就是自己在jupyterlab里创建的</li>
-</ul>
-<h3 id="文件上传与下载"><a href="#文件上传与下载" class="headerlink" title="文件上传与下载"></a>文件上传与下载</h3><ul>
-<li>本地文件可以直接拖到jupyterlab</li>
-<li>如果大批量下载 FileZilla</li>
-</ul>
-<h3 id="终端操作"><a href="#终端操作" class="headerlink" title="终端操作"></a>终端操作</h3><ul>
-<li>这个已经很熟了</li>
-<li>如果下载一些包很慢 可以去找清华的镜像源</li>
-</ul>
-<h3 id="手动设置包的路径"><a href="#手动设置包的路径" class="headerlink" title="手动设置包的路径"></a>手动设置包的路径</h3><ul>
-<li>这个需要手动设置的就是他这个项目里有自己写的包，然后在代码中用到的，在解释器里手动添加这个Path</li>
-</ul>
-<h2 id="常见错误与解决方案"><a href="#常见错误与解决方案" class="headerlink" title="常见错误与解决方案"></a>常见错误与解决方案</h2><h3 id="conda-init-before-conda-activate"><a href="#conda-init-before-conda-activate" class="headerlink" title="conda init before conda activate"></a>conda init before conda activate</h3><p><img src="/images/error1.png"></p>
-<h3 id="git-clone错误"><a href="#git-clone错误" class="headerlink" title="git clone错误"></a>git clone错误</h3><p><img src="/images/error2.png"></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45934285/article/details/131736984">https://blog.csdn.net/qq_45934285/article/details/131736984</a></p>
-<h3 id="AutoDL端口映射"><a href="#AutoDL端口映射" class="headerlink" title="AutoDL端口映射"></a>AutoDL端口映射</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_76361504/article/details/140193023">https://blog.csdn.net/2301_76361504/article/details/140193023</a></p>
-
+<li><p>之前感觉用的时候懵懵的，现在还是找一个教程来看</p>
+        
+          <a class="article-more-a" href="/2025/09/30/%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8E%92%E9%94%99%E6%8C%87%E5%8D%97/#more">more >></a>
+        
       
 
       
@@ -531,19 +363,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Mixture-of-experts"><a href="#Mixture-of-experts" class="headerlink" title="Mixture of experts"></a>Mixture of experts</h3><ul>
-<li>Replace big feedforward with (many) small feedforward networks and a selector layer.<h3 id="Why-are-MoEs-gettig-popular"><a href="#Why-are-MoEs-gettig-popular" class="headerlink" title="Why are MoEs gettig popular?"></a>Why are MoEs gettig popular?</h3></li>
-<li>Same FLOP,more param does better</li>
-<li>Faster to train MoEs</li>
-<li>parallelizable to many devices<h3 id="What-varies"><a href="#What-varies" class="headerlink" title="What varies?"></a>What varies?</h3><h4 id="Routing-function"><a href="#Routing-function" class="headerlink" title="Routing function"></a>Routing function</h4></li>
-<li>How we are going to routhe or essentially match tokens to experts</li>
-<li>Not all experts will process every token<h5 id="Token-Choice-almost-all-the-MoEs"><a href="#Token-Choice-almost-all-the-MoEs" class="headerlink" title="Token Choice(almost all the MoEs)"></a>Token Choice(almost all the MoEs)</h5></li>
-<li>each token is going to have a srt of preference for different experts,and will choose the top K for each token<h5 id="Expert-Choice"><a href="#Expert-Choice" class="headerlink" title="Expert Choice"></a>Expert Choice</h5></li>
-<li>each expert is going to have a rank preference over tokens,and will choose the top K tokens for each expert<h5 id="Global-Assignment"><a href="#Global-Assignment" class="headerlink" title="Global Assignment"></a>Global Assignment</h5></li>
-<li>make sure that the mapping between experts and tokens is somehow balanced<h4 id="Coomon-routing-variants-in-detail"><a href="#Coomon-routing-variants-in-detail" class="headerlink" title="Coomon routing variants in detail"></a>Coomon routing variants in detail</h4></li>
-<li>Top-k</li>
-<li>Hashing<h4 id="Expert-sizes"><a href="#Expert-sizes" class="headerlink" title="Expert sizes"></a>Expert sizes</h4><h4 id="Training-objectives"><a href="#Training-objectives" class="headerlink" title="Training objectives"></a>Training objectives</h4></li>
-</ul>
-
+<li>Replace big feedforward with (many) small feedforward networks and a selector layer.
+        
+          <a class="article-more-a" href="/2025/09/29/MoE/#more">more >></a>
+        
       
 
       
@@ -644,58 +467,10 @@
 <li>LayerNorm is in the front of the block</li>
 <li>Rotary position embeddings(RoPE)</li>
 <li>FF layers use SwiGLU,not ReLU</li>
-<li>Linear layers(and layernorm) have no bias(constant)terms</li>
-</ul>
-<h4 id="Pre-norm-is-better-than-post-norm"><a href="#Pre-norm-is-better-than-post-norm" class="headerlink" title="Pre norm is better than post norm"></a>Pre norm is better than post norm</h4><ul>
-<li>Original transformer:LayerNorm after residual stream.First you do Multi-Head attention , add back to the resdual stream ,and then layernorm.You will do the same thing with the FFN layer.</li>
-<li>Use post norm is much less stable,which means you have to do some careful learning rate warm-up style things(reference the previous large model fine_tuning I did) to make it train in a stable way</li>
-<li>Now the layernorm is in front of the residual stream,which did much better in many different ways.(almost all modern LMs use Pre norm)</li>
-<li>Using pre norm we can remove warm up and it works just as well as post norm with some other stability-inducing tricks,even better</li>
-<li>Pre norm iss just a more stable architecture to tain.Today pre norm and other layer norm tricks being used essentially as stability-inducing</li>
-<li>New-things:double norm(pre norm with post norm)<h5 id="Why-is-layer-norm-in-the-residual-bad"><a href="#Why-is-layer-norm-in-the-residual-bad" class="headerlink" title="Why is layer norm in the residual bad?"></a>Why is layer norm in the residual bad?</h5></li>
-<li>Residual gives identity connection all the way from almost the top of the network all the way to the bottom,this makes gradient propagation very easy when you train models,if putting layer norm in the middle,might mess with that kind of gradient behavior.(梯度在深层反向传播，容易造成梯度消失)<h4 id="LayerNorm-vs-RMSNorm"><a href="#LayerNorm-vs-RMSNorm" class="headerlink" title="LayerNorm vs RMSNorm"></a>LayerNorm vs RMSNorm</h4></li>
-<li>LayerNorm<script type="math/tex; mode=display">
-y = \frac{x - \mathrm{E}[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} * \gamma + \beta</script></li>
-<li>RMSNorm<script type="math/tex; mode=display">
-y = \frac{x}{\sqrt{\|x\|_2^2 + \epsilon}} * \gamma</script></li>
-<li>Many models have moved on to RSMNorm,which is faster and just as good as LayerNorm</li>
-<li>RMSNorm has fewer operations and fewer parameters</li>
-<li>Flops:Tensor constraction is 99.8%,Stat.normalization is 0.17% ,but for runtime,Tensor constraction is 61%,Stat.normalization is 25.5%.Because tensor constraction is dense computation,Stat.normalization operations incur a lot of memory movement overhead.</li>
-<li>We not only think about FLOPs,but also memory movement.Optimize this is matter.<h4 id="More-generally-dropping-bias-terms"><a href="#More-generally-dropping-bias-terms" class="headerlink" title="More generally:dropping bias terms"></a>More generally:dropping bias terms</h4></li>
-<li>Most modern transformers don’t have bias terms,it performs as well as before and makes train more stable<h4 id="Activations"><a href="#Activations" class="headerlink" title="Activations"></a>Activations</h4><h5 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h5><script type="math/tex; mode=display">
-max(0,xW_1)</script><h5 id="GeLU"><a href="#GeLU" class="headerlink" title="GeLU"></a>GeLU</h5><script type="math/tex; mode=display">
-x\Phi(x)</script></li>
-<li>GeLU在x=0处是平滑的<h6 id="GLU-门控线性单元"><a href="#GLU-门控线性单元" class="headerlink" title="GLU 门控线性单元"></a>GLU 门控线性单元</h6></li>
-<li>$ \otimes$是逐元素乘法</li>
-<li>xV是输入依赖的门控，V是固定门控，如果仅仅使用V，门控信号是固定的，与输入无关，无法根据不同输入特征调整筛选策略</li>
-<li>ReGLU<script type="math/tex; mode=display">
-max(x,xW_1) \otimes xV</script></li>
-<li>GeGLU<script type="math/tex; mode=display">
-GeLU(xW_1) \otimes xV</script></li>
-<li>SwiGLU<script type="math/tex; mode=display">
-Swish(xW_1) \otimes xV</script><ul>
-<li>swish is x*sigmoid(x)</li>
-</ul>
-</li>
-</ul>
-<h4 id="Serial-VS-Parallel-layers"><a href="#Serial-VS-Parallel-layers" class="headerlink" title="Serial VS Parallel layers"></a>Serial VS Parallel layers</h4><ul>
-<li>layernorm和attenyion并行处理</li>
-<li>已经不再流行，多数模型还是使用串行架构<h4 id="RoPE-rotary-position-embeddings"><a href="#RoPE-rotary-position-embeddings" class="headerlink" title="RoPE:rotary position embeddings"></a>RoPE:rotary position embeddings</h4><img src="/images/RoPE.jpg"></li>
-</ul>
-<h4 id="Hyperparameters"><a href="#Hyperparameters" class="headerlink" title="Hyperparameters"></a>Hyperparameters</h4><h5 id="Feedforward-size"><a href="#Feedforward-size" class="headerlink" title="Feedforward size"></a>Feedforward size</h5><ul>
-<li>Feedforward layer的隐藏层的维度</li>
-<li>$d<em>{model}$ 每个token被表示成一个$d</em>{model}$大小的向量 经过每层都保持这个大小</li>
-<li>$ d<em>{ff} = 4 d</em>{model} $，这是业界普遍的共识</li>
-<li>例外1：GLU variants scale down by 2/3,which means most GLU variants have $ d<em>{ff} = 8/3 d</em>{model} $ 2至6倍</li>
-<li>例外2：T5 $d<em>{ff} = 65536$  $d</em>{model}=1024$ 64倍 后来T5更新换代使用了2.5倍的GLU<h5 id="Model-dim-amp-Num-heads-amp-Head-dim"><a href="#Model-dim-amp-Num-heads-amp-Head-dim" class="headerlink" title="Model dim &amp; Num heads &amp; Head dim"></a>Model dim &amp; Num heads &amp; Head dim</h5></li>
-<li>head dim 太小，每个头视野太窄，捕捉不到复杂的关系；太大，每个头很宽，但是头数少，可能缺乏多样性</li>
-<li>大多数模型 radio=head dim×num heads / model dim 通常等于1，但有些模型不等于1<h5 id="Aspect-ratios-宽高比"><a href="#Aspect-ratios-宽高比" class="headerlink" title="Aspect ratios 宽高比"></a>Aspect ratios 宽高比</h5></li>
-<li>$d<em>{model}/n</em>{layers}$</li>
-<li>业界普遍使用的128<h5 id="Typical-vocabulary-size"><a href="#Typical-vocabulary-size" class="headerlink" title="Typical vocabulary size"></a>Typical vocabulary size</h5></li>
-<li>Token count 通常在10万到20万之间<h4 id="Dropout-and-other-regularization"><a href="#Dropout-and-other-regularization" class="headerlink" title="Dropout and other regularization"></a>Dropout and other regularization</h4></li>
-<li>预训练时，从直觉上来说，不需要权重衰减，但是实际上会做，原因:已经超越了”防止过拟合”这个传统概念，而更多地与优化过程本身的稳定性、收敛性和泛化能力的提升密切相关。<h4 id="训练稳定的一些技巧"><a href="#训练稳定的一些技巧" class="headerlink" title="训练稳定的一些技巧"></a>训练稳定的一些技巧</h4><h5 id="Z-Loss"><a href="#Z-Loss" class="headerlink" title="Z-Loss"></a>Z-Loss</h5><h5 id="QK-norm"><a href="#QK-norm" class="headerlink" title="QK norm"></a>QK norm</h5><h5 id="Logit-soft-capping"><a href="#Logit-soft-capping" class="headerlink" title="Logit soft-capping"></a>Logit soft-capping</h5>这里不再详细叙述 直接问ai即可，它解释的很好<h4 id="GQA-MQA"><a href="#GQA-MQA" class="headerlink" title="GQA MQA"></a>GQA MQA</h4></li>
-</ul>
-
+<li>Linear layers(and layernorm) have no bias(constant)terms
+        
+          <a class="article-more-a" href="/2025/09/26/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%AD%E7%BB%83/#more">more >></a>
+        
       
 
       
@@ -799,163 +574,10 @@ Swish(xW_1) \otimes xV</script><ul>
 <li>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/80170182">https://blog.csdn.net/v_JULY_v/article/details/80170182</a><h4 id="1-传统的目标检测算法"><a href="#1-传统的目标检测算法" class="headerlink" title="1.传统的目标检测算法"></a>1.传统的目标检测算法</h4><h5 id="核心流程："><a href="#核心流程：" class="headerlink" title="核心流程："></a>核心流程：</h5>1.区域选择（穷举策略，使用不同大小的滑动窗口对图像进行遍历，时间复杂度很高）<br>2.特征提取<br>常用的包括：</li>
 <li>HOG 方向梯度直方图 计算图像局部区域中梯度方向的分布统计直方图，并将其组合成一个长的特征向量</li>
 <li>Haar-like特征  通过计算图像中相邻矩形区域的像素和之差来表示特征</li>
-<li>SIFT/SURF<br>3.分类器分类<br>常用的包括：</li>
-<li>SVM 支持向量机：寻找一个最优的超平面，能够最大化不同类别特征向量直接的间隔</li>
-<li>AdaBoost 自适应增强 将多个弱分类器组合成一个强分类器<h4 id="2-候选区域-深度学习分类-Two-Stage"><a href="#2-候选区域-深度学习分类-Two-Stage" class="headerlink" title="2.候选区域 + 深度学习分类 Two-Stage"></a>2.候选区域 + 深度学习分类 Two-Stage</h4>首先找出图像中可能包含物体的候选区域（Region Proposal），然后利用深度卷积神经网络（CNN）对这些候选区域进行精细的分类和位置微调。<h5 id="R-CNN系列-核心流程"><a href="#R-CNN系列-核心流程" class="headerlink" title="R-CNN系列 核心流程"></a>R-CNN系列 核心流程</h5>1.生成候选区域<br>目标：替代传统的滑动窗口，用更高效、更准确的方式生成可能包含物体的区域。这些区域的数量通常控制在1k-2k个，远少于滑动窗口，且召回率高。（召回率关注漏检问题，精确率关注误检问题，二者之间存在一种权衡）<ul>
-<li>早期方法（如R-CNN, SPPnet）：使用选择性搜索（Selective Search） 等传统算法。原理：基于图像的颜色、纹理、大小和形状等特征，将相似的相邻区域逐步合并，生成各种尺度的候选区域。</li>
-<li>进化方法（如Faster R-CNN）：引入区域提议网络（Region Proposal Network, RPN），这是一个革命性的改进。原理：RPN是一个小的神经网络，直接在CNN提取的特征图上滑动，自动判断每个位置是否有物体（前景/背景）并预测出候选框的粗略位置。这使得候选区域的生成过程也变成了端到端的学习，速度极快。<br>2.对候选区域进行分类和位置精修<ul>
-<li>特征提取：R-CNN：将每个候选区域缩放（扭曲） 成固定大小（如227x227），然后分别送入CNN中提取特征。缺点：重复计算极其严重，因为成千上万个候选区域之间有大量重叠部分；SPPnet 和 Fast R-CNN：革命性改进！ 只对整张图像进行一次CNN特征提取，得到一个共享的特征图。然后，将每个候选区域映射到这张特征图上，对应截取出一个小的特征块。为了解决特征块大小不一的问题，SPPnet使用了空间金字塔池化（SPP），Fast R-CNN使用了更简单的RoI池化（RoI Pooling），将它们转化为固定尺寸的特征向量。</li>
-<li>分类与回归：将固定大小的特征向量输入到后续的全连接层中。两个并列的输出头：分类器：输出每个候选区域属于各个类别（包括”背景”类）的概率。边界框回归器：对候选区域的边界框坐标（x, y, w, h）进行微调，使其更精确地包围目标。</li>
-<li>后处理：非极大值抑制（NMS）：与传统方法一样，在第二阶段之后，可能会对同一个物体产生多个重叠的、得分不同的检测框。NMS用于去除冗余框，只保留每个物体最可信的一个检测结果。<h4 id="3-基于深度学习的回归方法-One-Stage"><a href="#3-基于深度学习的回归方法-One-Stage" class="headerlink" title="3.基于深度学习的回归方法 One-Stage"></a>3.基于深度学习的回归方法 One-Stage</h4></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>摒弃了”生成候选区域”这一独立步骤，直接将目标检测任务视为一个端到端的回归（Regression）问题<h5 id="YOLO系列"><a href="#YOLO系列" class="headerlink" title="YOLO系列"></a>YOLO系列</h5><h5 id="SSD"><a href="#SSD" class="headerlink" title="SSD"></a>SSD</h5></li>
-<li>在多尺度的特征图上进行预测。不仅在最深的特征图上预测，也会在较浅的特征图上进行预测。浅层特征图分辨率高，利于检测小物体；深层特征图语义信息强，利于检测大物体。<h5 id="RetinaNet"><a href="#RetinaNet" class="headerlink" title="RetinaNet"></a>RetinaNet</h5></li>
-<li>图像中大部分区域是背景，只有少部分区域有目标。导致在训练时，容易分类的背景样本贡献了大部分损失，淹没了难以分类的正样本的声音，使模型优化方向偏离。解决方案：提出了 Focal Loss 损失函数。通过降低容易样本的权重，让模型更加专注于训练那些难以分类的样本。</li>
-</ul>
-<h2 id="YOLO系列-1"><a href="#YOLO系列-1" class="headerlink" title="YOLO系列"></a>YOLO系列</h2><h3 id="YOLOv1"><a href="#YOLOv1" class="headerlink" title="YOLOv1"></a>YOLOv1</h3><ul>
-<li>原文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1506.02640">https://arxiv.org/pdf/1506.02640</a></li>
-<li>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43334693/article/details/129011644">https://blog.csdn.net/weixin_43334693/article/details/129011644</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xu1129005165/article/details/132540581">https://blog.csdn.net/xu1129005165/article/details/132540581</a></li>
-<li>本文将检测变为一个regression problem（回归问题），YOLO 从输入的图像，仅仅经过一个神经网络，直接得到一些bounding box以及每个bounding box所属类别的概率。因为整个的检测过程仅仅有一个网络，所以它可以直接进行end-to-end的优化。<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4></li>
-<li>速度快</li>
-<li>在整个图像上推断</li>
-<li>可以学习到目标的泛化表征，泛化能力高<br>但精度不高，尤其对于小物体<h4 id="Unified-Detection"><a href="#Unified-Detection" class="headerlink" title="Unified Detection"></a>Unified Detection</h4></li>
-<li>YOLO将输入图像划分为S*S的栅格，每个栅格负责检测中心落在该栅格中的物体。yolov1中S=7,B=2。</li>
-<li><p>每一个栅格预测B个bounding boxes，以及这些bounding boxes的confidence scores。这个 confidence scores反映了模型对于这个栅格的预测：该栅格是否含有物体，以及这个box的坐标预测的有多准。公式定义如下：如果这个栅格中不存在一个object，则confidencescore应该为0。否则的话，confidence score则为predicted bounding box与 ground truth box之间的交并比IOU（intersection over union）。<br>YOLO对每个bounding box有5个predictions：x, y, w, h,<br>and confidence。<br>坐标x,y代表了预测的bounding box的中心与栅格边界的相对值。<br>坐标w,h代表了预测的bounding box的width、height相对于整幅图像width,height的比例。<br>confidence就是预测的bounding box和ground truth box的IOU值。 每一个栅格还要预测C个conditional class probability（条件类别概率）：Pr(Classi|Object)。即在一个栅格包含一个Object的前提下，它属于某个类的概率。我们只为每个栅格预测一组（C个）类概率，而不考虑框B的数量。整个yolo算法的流程如图2.</p>
-<h4 id="Network-Design"><a href="#Network-Design" class="headerlink" title="Network Design"></a>Network Design</h4><p><img src="/images/yolov1.png"></p>
-</li>
-<li><p>包含24个卷积层和2个全连接层</p>
-</li>
-<li>1×1卷积层的存在是为了跨通道信息整合<h4 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h4></li>
-<li>预训练：首先利用ImageNet 1000-class的分类任务数据集Pretrain卷积层。使用上述网络中的前20个卷积层，加上一个average-pooling layer，最后加一个全连接层，作为 Pretrain 的网络。</li>
-<li>模型微调：在预训练模型基础上添加4个卷积层和2个全连接层，同时为了获取更精细化的结果，将输入图像的分辨率由 224<em> 224 提升到 448</em> 448。</li>
-<li>归一化：将x,y,w,h归一化到[0,1]区间</li>
-<li>激活函数：最后的全连接层采用线性激活函数，其他层均使用Leaky RELU函数</li>
-<li>损失函数：边界框损失(Bounding box loss)、置信度损失(confidence loss)和分类损失(classification loss)，其中置信度损失又可以细分为包含目标的Bbox的置信度损失和未包含目标的Bbox的置信度损失两种。最后的输出形状是7<em>7</em>30<br><img src="/images/yolov1loss.png"></li>
-</ul>
-<p><img src="/images/yolov1loss2.jpg"></p>
-<h4 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h4><ul>
-<li>Yolov1网络输入是448x448的图像，输出是7x7x30的张量。每张图片分成49个grid cell，每个grid cell预测2个Bounding box，整个推理过程会产生98个检测框。</li>
-<li>多数情况下，模型能够清晰的判断目标中心位置位于哪个grid cell，然后仅用一个Bounding box预测目标位置。</li>
-<li>对于较大或者位于多个网格边界的目标物，可能会被多个网格同时较好地定位，此时则采用非极大值抑制NMS的方法，去除冗余，即对于同一目标物只保留置信度(这里等于IoU)最大的Bounding box。训练阶段不需要NMS。</li>
-</ul>
-<h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><p><img src="/images/yolov1inference.png"></p>
-<ul>
-<li>每个grid cell包含两个bbox和20个class类别的条件概率，每个bbox包含x,y,w,h以及一个置信度c，每个置信度与20个class类别的条件概率相乘，得到一个权概率向量（20维），因此每个grid cell有2个权概率向量，整个推理过程中有98个权概率向量</li>
-<li>然后将98个权概率分别以颜色(class类别)和粗细(box置信度)加持，可视化即可得到如下图的98个框。经过NMS非极大值抑制之后，进而得到检测结果。</li>
-</ul>
-<p><img src="/images/yolov1nms.png"></p>
-<ul>
-<li>NMS:选择权概率最高的为输出，与该输出重叠的去掉，不断重复这一过程</li>
-</ul>
-<h3 id="YOLO-v8"><a href="#YOLO-v8" class="headerlink" title="YOLO v8"></a>YOLO v8</h3><p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2408.15857">https://arxiv.org/pdf/2408.15857</a></p>
-<p><img src="/images/yolov81.png"></p>
-<ul>
-<li>Backbone骨干网络：提取图像的多尺度多层次特征；<ul>
-<li>低层特征：分辨率高，感受野小，定位比较精确，但语义弱（难以区分类别）</li>
-<li>高层特征：分辨率低，感受野大，有很强的类别判别能力，但由于分辨率低，定位能力差</li>
-</ul>
-</li>
-<li>Neck：融合特征，将深层的语义信息与浅层的空间信息融合起来<ul>
-<li>FPN(Feature Pyramid Network) 自上向下把高层的语义信息传递给低层，每一层都具有语义信息，又具有分辨率，解决了传统检测对小目标不敏感的问题，提升了多尺度目标检测效果</li>
-<li>PAN(Path Aggregation Network) 在FPN的基础上增加了自下向上的路径，把低层的细粒度信息传递到高层，使高层具有更强的定位能力，使得语义和位置信息双向流动</li>
-</ul>
-</li>
-<li>Head：输出检测结果，包括边界框x,y,w,h、目标置信度、类别分布概率<br><img src="/images/yolov82.png"></li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Anchor</th>
-<th>Input</th>
-<th>Backbone</th>
-<th>Neck</th>
-<th>Predict/Train</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>YOLOv1</td>
-<td>锚框（7*7grids，2 anchors）</td>
-<td>resize(448×448×3)：<br>训练是224 <em> 224，测试是448</em>448；</td>
-<td>GoogLeNet（24<em>Conv+2</em>FC+reshape；<br>Dropout防止过拟合；<br>最后一层使用线性激活函数，其余层都使用ReLU激活函数）；</td>
-<td>无</td>
-<td>IOU_Loss、nms；<br>一个网格只预测了2个框，并且都属于同一类；<br>全连接层直接预测bbox的坐标值；</td>
-</tr>
-<tr>
-<td>YOLOv2</td>
-<td>锚框（13*13grids，5 anchors：<br>通过k-means选择先验框）</td>
-<td>resize（416<em> 416</em>3）：<br>416/32=13，最后得到的是奇数值有实际的中心点；<br>在原训练的基础上又加上了（10个epoch）的448x448高分辨率样本进行微调；</td>
-<td>Darknet-19（19<em>Conv+5</em>MaxPool+AvgPool+Softmax；<br>没有FC层，每一个卷积后都使用BN和ReLU防止过拟合（舍弃dropout）；<br>提出passthrough层：把高分辨率特征拆分叠加大到低分辨率特征中，进行特征融合，有利于小目标的检测）；</td>
-<td>无</td>
-<td>IOU_Loss、nms；<br>一个网络预测5个框，每个框都可以属于不同类；<br>预测相对于anchor box的偏移量；<br>多尺度训练（训练模型经过一定迭代后，输入图像尺寸变换）、联合训练机制；</td>
-</tr>
-<tr>
-<td>YOLOv3</td>
-<td>锚框（13<em> 13grids，9 anchors：<br>三种尺度</em>三种宽高比）</td>
-<td>resize（608<em> 608</em>3）</td>
-<td>Darknet-53（53*Conv，每一个卷积层后都使用BN和Leaky ReLU防止过拟合，残差连接）；</td>
-<td>FPN（多尺度检测，特征融合）</td>
-<td>IOU_Loss、nms；<br>多标签预测（softmax分类函数更改为logistic分类器）；</td>
-</tr>
-<tr>
-<td>YOLOv4</td>
-<td>锚框</td>
-<td>resize（608<em> 608</em>3）、<br>Mosaic数据增强、<br>SAT自对抗训练数据增强</td>
-<td>CSPDarknet53（CSP模块：更丰富的梯度组合，同时减少计算量、<br>跨小批量标准化（CmBN）和Mish激活、<br>DropBlock正则化（随机删除一大块神经元）、<br>采用改进SAM注意力机制：在空间位置上添加权重）；</td>
-<td>SPP（通过最大池化将不同尺寸的输入图像变得尺寸一致）、<br>PANnet（修改PAN，add替换成concat）</td>
-<td>CIOU_Loss、DIOU_nms；<br>自对抗训练SAT：在原始图像的基础上，添加噪音并设置权重阈值让神经网络对自身进行对抗性攻击训练；<br>类标签平滑：将绝对化标签进行平滑（如：[0,1]→[0.05,0.95]），即分类结果具有一定的模糊化，使得网络的抗过拟合能力增强；</td>
-</tr>
-<tr>
-<td>YOLOv5</td>
-<td>锚框</td>
-<td>resize（608<em> 608</em>3）、<br>Mosaic数据增强、<br>自适应锚框计算、<br>自适应图片缩放</td>
-<td>CSPDarknet53（CSP模块，每一个卷积层后都使用BN和Leaky ReLU防止过拟合，Focus模块）；</td>
-<td>SPP、PAN</td>
-<td>GIOU_Loss、DIOU_Nms；<br>跨网格匹配（当前网格的上、下、左、右的四个网格中找到离目标中心点最近的两个网格，再加上当前网格共三个网格进行匹配）；</td>
-</tr>
-<tr>
-<td>YOLOX</td>
-<td>无锚框</td>
-<td>resize（608<em> 608</em>3）</td>
-<td>Darknet-53</td>
-<td>SPP、FPN</td>
-<td>CIOU_Loss、DIOU_Nms、<br>Decoupled Head、<br>SimOTA标签分配策略；</td>
-</tr>
-<tr>
-<td>YOLOv6</td>
-<td>无锚框</td>
-<td>resize（640<em> 640</em>3）</td>
-<td>EfficientRep Backbone（Rep算子）</td>
-<td>SPP、Rep-PAN Neck</td>
-<td>SIOU_Loss、DIOU_Nms、<br>Efficient Decoupled Head、<br>SimOTA标签分配策略；</td>
-</tr>
-<tr>
-<td>YOLOv7</td>
-<td>锚框</td>
-<td>resize（640<em> 640</em>3）</td>
-<td>Darknet-53（CSP模块替换了ELAN模块；<br>下采样变成MP2层；<br>每一个卷积层后都使用BN和SiLU防止过拟合）；</td>
-<td>SPP、PAN</td>
-<td>CIOU_Loss、DIOU_Nms、<br>SimOTA标签分配策略、<br>带辅助头的训练（通过增加训练成本，提升精度，同时不影响推理的时间）；</td>
-</tr>
-<tr>
-<td>YOLOv8</td>
-<td>无锚框</td>
-<td>resize（640<em> 640</em>3）</td>
-<td>Darknet-53（C3模块换成了C2F模块）</td>
-<td>SPP、PAN</td>
-<td>CIOU_Loss、DFL_Loss、<br>DIOU_Nms、<br>TAL标签分配策略、<br>Decoupled Head；</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><img src="/images/yolov11.png"></p>
-<h5 id="相对于v8"><a href="#相对于v8" class="headerlink" title="相对于v8"></a>相对于v8</h5><p>1.C2f -&gt; C3k2 更轻量<br>2.Backbone增加了C2PSA模块 增强空间注意力，帮助模型聚焦重要或难以检测的区域</p>
-
+<li>SIFT/SURF
+        
+          <a class="article-more-a" href="/2025/09/23/YOLO%E7%B3%BB%E5%88%97/#more">more >></a>
+        
       
 
       
@@ -1050,29 +672,10 @@ Swish(xW_1) \otimes xV</script><ul>
         <ul>
 <li>Tokenization is the process of taking raw text which is generally represented as Unicode strings and turning it into a set of integers.</li>
 <li>A tokenizer is a class that implements the encode and decode methods.</li>
-<li>The vocabulary size is number of possible tokens(integers).<br><a target="_blank" rel="noopener" href="https://tiktokenizer.vercel.app/?model=gpt-4o">https://tiktokenizer.vercel.app/?model=gpt-4o</a></li>
-</ul>
-<h4 id="Character-based-tokenization"><a href="#Character-based-tokenization" class="headerlink" title="Character-based tokenization"></a>Character-based tokenization</h4><ul>
-<li>This method allocate each one slot in vocabulary for every character.</li>
-<li>Some characters appear way more frequently than others and some code poits are actually really large.</li>
-<li>This is not a effective way to use your buget.</li>
-</ul>
-<h4 id="Byte-based-tokenization"><a href="#Byte-based-tokenization" class="headerlink" title="Byte-based tokenization"></a>Byte-based tokenization</h4><ul>
-<li>Unicode strings can be represented as a sequence of bytes,which can be represented by integers between 0 and 255.(one byte is fixed to consist of 8 binary bits)</li>
-<li>The most common Unicode encoding is UTF-8,which is a variable-length character encoding for Unicode. It is widely used for transmitting and storing text on the internet.</li>
-<li>compression ratio == 1,it is terrible,which means the sequence will be too long.</li>
-</ul>
-<h4 id="Word-based-tokenization"><a href="#Word-based-tokenization" class="headerlink" title="Word-based tokenization"></a>Word-based tokenization</h4><ul>
-<li>The number of words is huge(like for Unicode characters).</li>
-<li>Many words are rare and the model won’t learn much about them.</li>
-<li>New words we haven’t seen during training get a special UNK token,which is ugly and can mess up perplexity(PPL).</li>
-</ul>
-<h4 id="Byte-Pair-Encoding-BPE"><a href="#Byte-Pair-Encoding-BPE" class="headerlink" title="Byte Pair Encoding(BPE)"></a>Byte Pair Encoding(BPE)</h4><ul>
-<li>Basic idea:train the tokenizer on raw text to automatocally detemine the vocabulary.</li>
-<li>Common sequences of characters are represented by a single token,rare sequences are represented by many tokens.</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://huggingface.co/learn/llm-course/zh-CN/chapter6/5">https://huggingface.co/learn/llm-course/zh-CN/chapter6/5</a><br><a target="_blank" rel="noopener" href="https://github.com/rsennrich/subword-nmt">https://github.com/rsennrich/subword-nmt</a></p>
-
+<li>The vocabulary size is number of possible tokens(integers).<br><a target="_blank" rel="noopener" href="https://tiktokenizer.vercel.app/?model=gpt-4o">https://tiktokenizer.vercel.app/?model=gpt-4o</a>
+        
+          <a class="article-more-a" href="/2025/09/14/tokenization/#more">more >></a>
+        
       
 
       
@@ -1185,27 +788,10 @@ Swish(xW_1) \otimes xV</script><ul>
 <h3 id="浮点数计算成本"><a href="#浮点数计算成本" class="headerlink" title="浮点数计算成本"></a>浮点数计算成本</h3><h4 id="FLOP-Floating-point-operation"><a href="#FLOP-Floating-point-operation" class="headerlink" title="FLOP(Floating-point operation)"></a>FLOP(Floating-point operation)</h4><ul>
 <li>任何涉及浮点数的运算<h4 id="FLOPs"><a href="#FLOPs" class="headerlink" title="FLOPs"></a>FLOPs</h4></li>
 <li>浮点操作的次数<h4 id="FLOP-S-or-FLOPS"><a href="#FLOP-S-or-FLOPS" class="headerlink" title="FLOP/S or FLOPS"></a>FLOP/S or FLOPS</h4></li>
-<li>每秒浮点操作次数</li>
-</ul>
-<h3 id="Linear-Model"><a href="#Linear-Model" class="headerlink" title="Linear Model"></a>Linear Model</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = torch.ones(B,D)</span><br><span class="line">w = torch.randn(D,K)</span><br><span class="line">Y = torch.matmul(x,w)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>矩阵乘法的浮点计算次数近似为 2<em>B</em>D*K</li>
-<li>在深度学习中，如果你的模型足够大，我们主要关注模型的矩阵乘法，因为矩阵乘法是最耗时的</li>
-</ul>
-<h3 id="MFU-Model-FLOPs-utilization"><a href="#MFU-Model-FLOPs-utilization" class="headerlink" title="MFU(Model FLOPs utilization)"></a>MFU(Model FLOPs utilization)</h3><p>mfu = actual_flop_per_sec / promised_flop_per_sec</p>
-<ul>
-<li>MFU of &gt;= 0.5 is quite good</li>
-</ul>
-<h3 id="gradient"><a href="#gradient" class="headerlink" title="gradient"></a>gradient</h3><ul>
-<li>参考之前的自动求导部分</li>
-</ul>
-<h3 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h3><ul>
-<li>鱼书之前看过初始化的一些技巧</li>
-</ul>
-<h3 id="数据加载"><a href="#数据加载" class="headerlink" title="数据加载"></a>数据加载</h3><h3 id="优化器-optimizer"><a href="#优化器-optimizer" class="headerlink" title="优化器 optimizer"></a>优化器 optimizer</h3><ul>
-<li>之前鱼书里也有对不同优化器的介绍</li>
-</ul>
-
+<li>每秒浮点操作次数
+        
+          <a class="article-more-a" href="/2025/09/14/%E5%88%A9%E7%94%A8PyTorch%E6%9E%84%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B/#more">more >></a>
+        
       
 
       
@@ -1301,72 +887,10 @@ Swish(xW_1) \otimes xV</script><ul>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h3><h4 id="1-of-N-Encoding"><a href="#1-of-N-Encoding" class="headerlink" title="1-of-N Encoding"></a>1-of-N Encoding</h4><h4 id="Word-Class"><a href="#Word-Class" class="headerlink" title="Word Class"></a>Word Class</h4><h4 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h4><h3 id="一个词在不同句子里意思不一样怎么办？"><a href="#一个词在不同句子里意思不一样怎么办？" class="headerlink" title="一个词在不同句子里意思不一样怎么办？"></a>一个词在不同句子里意思不一样怎么办？</h3><h4 id="Contextualized-Word-Embedding"><a href="#Contextualized-Word-Embedding" class="headerlink" title="Contextualized Word Embedding"></a>Contextualized Word Embedding</h4><ul>
-<li>Each word token has its own embadding(even though it has the same word type).</li>
-<li>The embeddings of word tokens also depend on its context.</li>
-</ul>
-<h3 id="ELMO-Embeddings-from-Language-Model"><a href="#ELMO-Embeddings-from-Language-Model" class="headerlink" title="ELMO - Embeddings from Language Model"></a>ELMO - Embeddings from Language Model</h3><ul>
-<li>上下文词嵌入（Contextual Word Embeddings）技术</li>
-<li>一个词的嵌入表示不应该是一个固定的向量，而应该根据它所在的上下文句子动态变化</li>
-<li>ELMo的核心是一个双向语言模型（BiLM），它通过在大规模语料库上训练这个模型来获得词的嵌入<ul>
-<li>前向语言模型：从一个句子的开头到结尾进行阅读，根据前面的词预测下一个词</li>
-<li>后向语言模型：从一个句子的结尾到开头进行”倒着”阅读，根据后面的词预测前一个词</li>
-</ul>
-</li>
-<li><p>ELMo使用多层双向长短期记忆网络（BiLSTM） 作为其语言模型的架构</p>
-<ul>
-<li><p>每一层LSTM都会对输入的词生成一个隐藏状态（向量表示）</p>
-<ul>
-<li>低层的LSTM更多地捕捉句法信息（如词性标注）。</li>
-</ul>
-</li>
-<li><p>高层的LSTM更多地捕捉语义信息（如一词多义）。</p>
-</li>
-</ul>
-</li>
-<li><p>生成ELMo词向量（关键步骤）</p>
-<ul>
-<li>对于一个句子中的某个词（例如 “银行”），ELMo的最终向量表示是它所有层（包括初始嵌入层）的隐藏状态的加权组合<br><img src="/images/elmo1.png"></li>
-</ul>
-</li>
-</ul>
-<h3 id="Bert-Bidirectional-Encoder-Representations-from-Transformers"><a href="#Bert-Bidirectional-Encoder-Representations-from-Transformers" class="headerlink" title="Bert- Bidirectional Encoder Representations from Transformers"></a>Bert- Bidirectional Encoder Representations from Transformers</h3><ul>
-<li>BERT完全基于Transformer模型中的编码器（Encoder）部分构建,使用了12层Transformer编码器堆叠而成，形成了非常深的模型结构</li>
-<li>它不再使用传统的”根据上文预测下一个词”的语言模型任务，而是设计了两个新颖的无监督任务:掩码语言模型（Masked Language Model, MLM）、下一句预测（Next Sentence Prediction, NSP）<ul>
-<li>MLM:整个句子包含被mask的词输入到bert模型中，bert在12个transformer encoder学习到丰富的上下文信息之后会输出整个句子每个词的向量，当然包括被mask的词，此时这个被mask掉的词向量已经包含了非常丰富的上下文信息，把这个输出的mask的词向量送入一个分类层，先进行线性变换得到适合分类表形状大小的向量，然后送入softmax进行归一化得到每个token的可能性，也就是概率，到此为止，被mask的词就可以被预测出来。</li>
-<li>NSP:NSP任务的核心目标是：让模型学会理解两个句子之间的关系。首先创建正负样本各一半一半作为bert的输入，正样本就是语料库（如维基百科）中随机选取一个连续的文本段落，负样本就是从语料库中随机选取一个连续的文本段落，句子A是该段落中的一句话，句子B是从整个语料库中随机抽取的任意一句话，它与句子A在语义上完全无关。输入BERT的Transformer编码器序列的最终形式：[CLS] + 句子A + [SEP] + 句子B + [SEP]，模型处理完整个序列后，会输出序列中每个位置对应的上下文向量。取出 [CLS] 标签对应的输出向量（记为 C）。我们认为这个向量已经编码了整个输入序列的聚合信息，尤其适合做分类判断。将向量 C 送入一个分类层（一个简单的全连接层+Softmax），该层将 C 映射为一个2维的概率分布，分别对应 IsNext 和 NotNext 的概率。但是存在问题：任务过于简单，负样本质量不高。<ul>
-<li>[SEP]:the boundary of two sentences</li>
-<li>[CLS]:the position that outputs classification results<h4 id="How-to-use-BERT"><a href="#How-to-use-BERT" class="headerlink" title="How to use BERT?"></a>How to use BERT?</h4></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>情感分析:判断一条影评是”正面”还是”负面”</li>
-<li>自然语言推理:判断一个”假设”句子是否可以从”前提”句子中推断出来</li>
-<li>命名实体识别:识别句子中的人名、地名、组织机构名等实体</li>
-<li>抽取式问答:从给定的段落中找出答案的起止位置,这是BERT的招牌应用之一<br>。。。<h4 id="BERT处理不同任务时，每一层的重要性"><a href="#BERT处理不同任务时，每一层的重要性" class="headerlink" title="BERT处理不同任务时，每一层的重要性"></a>BERT处理不同任务时，每一层的重要性</h4><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.05950">https://arxiv.org/pdf/1905.05950</a></li>
-</ul>
-<h3 id="GPT-Generative-Pre-Training"><a href="#GPT-Generative-Pre-Training" class="headerlink" title="GPT-Generative Pre-Training"></a>GPT-Generative Pre-Training</h3><h4 id="参数量巨大"><a href="#参数量巨大" class="headerlink" title="参数量巨大"></a>参数量巨大</h4><ul>
-<li>ELMO 94M</li>
-<li>BERT 340M</li>
-<li>GPT 1542M</li>
-</ul>
-<h4 id="在没有训练资料的情况下，就可以"><a href="#在没有训练资料的情况下，就可以" class="headerlink" title="在没有训练资料的情况下，就可以"></a>在没有训练资料的情况下，就可以</h4><ul>
-<li>Reading Comprehension</li>
-<li>Summarization</li>
-<li>Translation</li>
-</ul>
-<h4 id="GPT2模型结构"><a href="#GPT2模型结构" class="headerlink" title="GPT2模型结构"></a>GPT2模型结构</h4><ul>
-<li>GPT-2完全由堆叠的Transformer Decoder 块构成。但需要注意的是，它只使用了原始Transformer中Decoder的一部分，具体来说是移除了编码器-解码器注意力层的Decoder</li>
-<li>GPT-2模型就是将这些完全相同的Transformer Decoder块一个一个堆叠起来<ul>
-<li>GPT-2 Small: 12层</li>
-<li>GPT-2 Medium: 24层</li>
-<li>GPT-2 Large: 36层</li>
-<li>GPT-2 XL: 48层<br>层数越多，模型的表示能力和学习能力就越强</li>
-</ul>
-</li>
-</ul>
-
+        <h3 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h3><h4 id="1-of-N-Encoding"><a href="#1-of-N-Encoding" class="headerlink" title="1-of-N Encoding"></a>1-of-N Encoding</h4><h4 id="Word-Class"><a href="#Word-Class" class="headerlink" title="Word Class"></a>Word Class</h4><h4 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h4>
+        
+          <a class="article-more-a" href="/2025/09/07/ELMO%E4%B8%8EBERT%E4%B8%8EGPT/#more">more >></a>
+        
       
 
       
@@ -1469,60 +993,10 @@ Swish(xW_1) \otimes xV</script><ul>
         <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=M2Yg1kwPpts">https://www.youtube.com/watch?v=M2Yg1kwPpts</a></p>
 <ul>
 <li>今天使用AI的方式：人类给予明确的口令，AI根据这一个口令做一个动作</li>
-<li>AI Agent：人类给予目标，AI自动想办法完成</li>
-</ul>
-<h3 id="如何打造AI-Agent？"><a href="#如何打造AI-Agent？" class="headerlink" title="如何打造AI Agent？"></a>如何打造AI Agent？</h3><h4 id="RL"><a href="#RL" class="headerlink" title="RL"></a>RL</h4><p><img src="/images/agent1.png"></p>
-<ul>
-<li>缺点：每一个任务都需要一个rl模型去训练<h4 id="LLM"><a href="#LLM" class="headerlink" title="LLM"></a>LLM</h4><img src="/images/agent2.png"></li>
-</ul>
-<h4 id="从LLM的角度看Agent要解决的问题"><a href="#从LLM的角度看Agent要解决的问题" class="headerlink" title="从LLM的角度看Agent要解决的问题"></a>从LLM的角度看Agent要解决的问题</h4><p><img src="/images/agent3.png"></p>
-<h4 id="以LLM运行Agent的优势"><a href="#以LLM运行Agent的优势" class="headerlink" title="以LLM运行Agent的优势"></a>以LLM运行Agent的优势</h4><ul>
-<li>原来以Alphago为例，它局限于事先设定好的有限的行为，只能在棋盘上落子；使用LLM，它有近乎无限的可能，而且可以使用外部工具</li>
-<li>例如都是一个AI programmer出现了Compile error,如果是Typical Agent的话，就会给Agent一个Reward=-1，但是为什么是-1呢？  如果是LLM Agent我们可以直接把错误的log发给agent，它获得更多资讯，就会给出更好的结果<h4 id="AI-Agent举例"><a href="#AI-Agent举例" class="headerlink" title="AI Agent举例"></a>AI Agent举例</h4></li>
-<li>Minecraft中的AI NPC</li>
-<li>让AI使用电脑</li>
-<li>用AI做科学研究<h4 id="对于更加真实的互动情景"><a href="#对于更加真实的互动情景" class="headerlink" title="对于更加真实的互动情景"></a>对于更加真实的互动情景</h4></li>
-<li>回合制互动到即时互动，外部环境变了，就立即采取新的行动</li>
-</ul>
-<h3 id="AI-Agent关键能力"><a href="#AI-Agent关键能力" class="headerlink" title="AI Agent关键能力"></a>AI Agent关键能力</h3><h4 id="AI-如何根据经验调整行为"><a href="#AI-如何根据经验调整行为" class="headerlink" title="AI 如何根据经验调整行为"></a>AI 如何根据经验调整行为</h4><ul>
-<li><p>很多语言模型可以根据回馈来改变行为，不用调整或更新参数<br><img src="/images/agent4.png"></p>
-</li>
-<li><p>Read模块其实相当于一个RAG模块，只不过检索的是自己的记忆</p>
-</li>
-<li><p>StreamBench 正面的反馈比负面的反馈更有用，也就是说你要告诉ai要去做什么，而不是不要做什么<br><img src="/images/agent5.png"></p>
-</li>
-<li><p>Write就是决定目前的对话要不要存入Memory里</p>
-</li>
-<li>Reflection就是对记忆做出更高层次的总结和抽象，可以形成知识图谱</li>
-</ul>
-<h5 id="有记忆的GPT"><a href="#有记忆的GPT" class="headerlink" title="有记忆的GPT"></a>有记忆的GPT</h5><h4 id="AI如何使用工具"><a href="#AI如何使用工具" class="headerlink" title="AI如何使用工具"></a>AI如何使用工具</h4><ul>
-<li>工具可以看做Function，使用工具就是调用这些Function，使用工具又叫Function Call</li>
-<li><p>模型不必在意工具内部是怎么样运作的，只需要知道给它什么样的输入，可以得到什么样的输出</p>
-<h5 id="如何使用工具？"><a href="#如何使用工具？" class="headerlink" title="如何使用工具？"></a>如何使用工具？</h5><p><img src="/images/agent6.png"></p>
-</li>
-<li><p>最常使用的就是搜索引擎</p>
-</li>
-<li>可以使用其他AI作为工具，例如一个只能识别文本的模型，可以使用语音识别的模型来得到文字，或者用户的情绪分析等<h5 id="非常多工具怎么办？"><a href="#非常多工具怎么办？" class="headerlink" title="非常多工具怎么办？"></a>非常多工具怎么办？</h5></li>
-<li><p>做一个Tool Selection 模块来选择工具，其实跟RAG很像<br><img src="/images/agent7.png"></p>
-</li>
-<li><p>而且模型可以自己写一个function当做工具自己来用</p>
-<h5 id="工具也会出错？"><a href="#工具也会出错？" class="headerlink" title="工具也会出错？"></a>工具也会出错？</h5></li>
-<li>例如调用温度的function,如果得到100度，他会说这个温度不合理</li>
-<li>内部的knowledge和外部的knowledge在做竞争<h5 id="什么样的外部资讯比较容易说服AI？"><a href="#什么样的外部资讯比较容易说服AI？" class="headerlink" title="什么样的外部资讯比较容易说服AI？"></a>什么样的外部资讯比较容易说服AI？</h5></li>
-<li>跟自己内部知识比较相近的</li>
-<li>相比于人类，更相信AI同类<h5 id="就算工具可靠，不代表AI就不会犯错"><a href="#就算工具可靠，不代表AI就不会犯错" class="headerlink" title="就算工具可靠，不代表AI就不会犯错"></a>就算工具可靠，不代表AI就不会犯错</h5><h4 id="AI能不能做计划"><a href="#AI能不能做计划" class="headerlink" title="AI能不能做计划"></a>AI能不能做计划</h4></li>
-<li>计划赶不上变化</li>
-</ul>
-<p>PlanBench</p>
-<ul>
-<li>LLM做计划？会不会是从资料里拿出来的？</li>
-<li>创造一个新规则体系来测试</li>
-</ul>
-<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><ul>
-<li>Tree Search for Language Model Agents</li>
-<li>做出的动作覆水难收，那就把制作计划当做”梦境”，找出一个成功的solution再做出行动</li>
-</ul>
-
+<li>AI Agent：人类给予目标，AI自动想办法完成
+        
+          <a class="article-more-a" href="/2025/09/06/AI-Agent/#more">more >></a>
+        
       
 
       
@@ -1573,6 +1047,115 @@ Swish(xW_1) \otimes xV</script><ul>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2025/09/06/AI-Agent/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-大模型微调" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/03/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/">大模型微调</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/03/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/" class="archive-article-date">
+  	<time datetime="2025-09-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="大模型优化技术"><a href="#大模型优化技术" class="headerlink" title="大模型优化技术"></a>大模型优化技术</h3><ul>
+<li>大模型构建一般分为三个阶段：预训练(Pretrained),有监督微调(STF),基于人类反馈的强化学习(RLHF)<h4 id="SFT-（Supervised-Fine-Tuning）有监督微调"><a href="#SFT-（Supervised-Fine-Tuning）有监督微调" class="headerlink" title="SFT - （Supervised Fine-Tuning）有监督微调"></a>SFT - （Supervised Fine-Tuning）有监督微调</h4></li>
+<li>使用高质量的人工标注的问答数据（输入-输出对），以传统的监督学习方式对预训练好的基座模型进行微调，也就是提高大模型对一个企业专有信息的理解，增强模型在特定领域的知识。<br>🌟会更新模型权重
+        
+          <a class="article-more-a" href="/2025/09/03/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LoRA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">QLoRA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SFT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">RLHF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DPO</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/大模型//" class="article-tag-list-link color4">大模型</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/大模型/训练与微调//" class="article-tag-list-link color1">训练与微调</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/09/03/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/">展开全文 >></a>
         </p>
       
 
