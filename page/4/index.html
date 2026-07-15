@@ -153,8 +153,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p>【【循环神经网络】5分钟搞懂RNN，3D动画深入浅出】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1z5411f7Bm/?share_source=copy_web">https://www.bilibili.com/video/BV1z5411f7Bm/?share_source=copy_web</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.RNN.html">https://docs.pytorch.org/docs/stable/generated/torch.nn.RNN.html</a><br>
+        <h1>RNN</h1>
+<p>【【循环神经网络】5分钟搞懂RNN，3D动画深入浅出】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1z5411f7Bm/?share_source=copy_web">https://www.bilibili.com/video/BV1z5411f7Bm/?share_source=copy_web</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.RNN.html">https://docs.pytorch.org/docs/stable/generated/torch.nn.RNN.html</a></p>
         
           <a class="article-more-a" href="/2025/09/01/RNN%E4%B8%8ELSTM/#more">more >></a>
         
@@ -545,7 +546,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在学动手学深度学习，但是学得比较懵懂，而且我做笔记的方式也比较费时间，于是为了激发新的兴趣，我现在打算阅读深度学习入门这本书。<br>
+        <p>最近在学动手学深度学习，但是学得比较懵懂，而且我做笔记的方式也比较费时间，于是为了激发新的兴趣，我现在打算阅读深度学习入门这本书。</p>
         
           <a class="article-more-a" href="/2025/08/07/%E9%B1%BC%E4%B9%A6-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/#more">more >></a>
         
@@ -640,11 +641,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="解决过拟合"><a href="#解决过拟合" class="headerlink" title="解决过拟合"></a>解决过拟合</h3><h4 id="使用均方范数作为硬性限制"><a href="#使用均方范数作为硬性限制" class="headerlink" title="使用均方范数作为硬性限制"></a>使用均方范数作为硬性限制</h4><ul>
-<li>通过限制参数值的选择范围来控制模型容量<script type="math/tex; mode=display">
-\min \mathcal{l}(w, b) \quad \text{subject to} \quad \|w\|_2^2 \leq \theta</script></li>
+        <h3 id="解决过拟合">解决过拟合</h3>
+<h4 id="使用均方范数作为硬性限制">使用均方范数作为硬性限制</h4>
+<ul>
+<li>通过限制参数值的选择范围来控制模型容量</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>min</mi><mrow><mi>l</mi></mrow><mo>(</mo><mi>w</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo><mspace width="1em"></mspace><mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">j</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mtext> </mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi></mtext><mspace width="1em"></mspace><mi mathvariant="normal">∥</mi><mi>w</mi><msubsup><mi mathvariant="normal">∥</mi><mn>2</mn><mn>2</mn></msubsup><mo>≤</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\min \mathcal{l}(w, b) \quad \text{subject to} \quad \|w\|_2^2 \leq \theta
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8641079999999999em;"></span><span class="strut bottom" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mop">min</span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mord mspace quad"></span><span class="text mord displaystyle textstyle uncramped"><span class="mord mathrm">s</span><span class="mord mathrm">u</span><span class="mord mathrm">b</span><span class="mord mathrm">j</span><span class="mord mathrm">e</span><span class="mord mathrm">c</span><span class="mord mathrm">t</span><span class="mord mspace"> </span><span class="mord mathrm">t</span><span class="mord mathrm">o</span></span><span class="mord mspace quad"></span><span class="mord mathrm">∥</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord"><span class="mord mathrm">∥</span><span class="vlist"><span style="top:0.247em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span style="top:-0.4129999999999999em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">≤</span><span class="mord mathit" style="margin-right:0.02778em;">θ</span></span></span></span></span></p>
+<ul>
 <li>通常不限制偏移b</li>
-<li>小的$\theta$意味着更强的正则项
+<li>小的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">θ</span></span></span></span>意味着更强的正则项</li>
+</ul>
         
           <a class="article-more-a" href="/2025/08/06/%E6%9D%83%E9%87%8D%E8%A1%B0%E9%80%80/#more">more >></a>
         
@@ -739,9 +746,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="训练误差和泛化误差"><a href="#训练误差和泛化误差" class="headerlink" title="训练误差和泛化误差"></a>训练误差和泛化误差</h5><ul>
+        <h5 id="训练误差和泛化误差">训练误差和泛化误差</h5>
+<ul>
 <li>训练误差：模型在训练数据上的误差</li>
-<li>泛化误差：模型在新数据上的误差
+<li>泛化误差：模型在新数据上的误差</li>
+</ul>
         
           <a class="article-more-a" href="/2025/08/05/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9/#more">more >></a>
         
@@ -836,10 +845,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="什么是目标检测"><a href="#什么是目标检测" class="headerlink" title="什么是目标检测"></a>什么是目标检测</h4><ul>
+        <h4 id="什么是目标检测">什么是目标检测</h4>
+<ul>
 <li>感兴趣的目标</li>
 <li>定位</li>
-<li>识别
+<li>识别</li>
+</ul>
         
           <a class="article-more-a" href="/2025/08/01/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8/#more">more >></a>
         
@@ -938,15 +949,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="回归VS分类"><a href="#回归VS分类" class="headerlink" title="回归VS分类"></a>回归VS分类</h4><ul>
+        <h4 id="回归VS分类">回归VS分类</h4>
+<ul>
 <li>回归估计一个连续值</li>
-<li>分类预测一个离散类别<h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4></li>
+<li>分类预测一个离散类别</li>
+</ul>
+<h4 id="回归">回归</h4>
+<ul>
 <li>单连续数值输出</li>
 <li>自然区间R</li>
-<li>跟真实值的区别作为损失<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4></li>
+<li>跟真实值的区别作为损失</li>
+</ul>
+<h4 id="分类">分类</h4>
+<ul>
 <li>通常多个输出</li>
-<li>输出i是预测为第i类的置信度<h4 id="从回归到分类-均方损失"><a href="#从回归到分类-均方损失" class="headerlink" title="从回归到分类-均方损失"></a>从回归到分类-均方损失</h4></li>
-<li>对类别进行一位有效编码
+<li>输出i是预测为第i类的置信度</li>
+</ul>
+<h4 id="从回归到分类-均方损失">从回归到分类-均方损失</h4>
+<ul>
+<li>对类别进行一位有效编码</li>
+</ul>
         
           <a class="article-more-a" href="/2025/07/10/Softmax%E5%9B%9E%E5%BD%92/#more">more >></a>
         
@@ -1041,10 +1063,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h4><ul>
-<li>给定n维输入<script type="math/tex; mode=display">\mathbf{x} = [x_1, x_2, \ldots, x_n]^T</script></li>
-<li>线性模型有一个n维权重和一个标量偏差<script type="math/tex; mode=display">\mathbf{w} = [w_1, w_2, \ldots, w_n]^T, \quad b</script></li>
-<li>输出是输入的加权和<script type="math/tex; mode=display">y = w_1 x_1 + w_2 x_2 + \ldots + w_n x_n + b</script>向量版本：<script type="math/tex; mode=display">y = \langle \mathbf{w}, \mathbf{x} \rangle + b</script><h4 id="线性模型可以看做是单层神经网络"><a href="#线性模型可以看做是单层神经网络" class="headerlink" title="线性模型可以看做是单层神经网络"></a>线性模型可以看做是单层神经网络</h4>
+        <h4 id="线性模型">线性模型</h4>
+<ul>
+<li>给定n维输入</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="bold">x</mi></mrow><mo>=</mo><mo>[</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>x</mi><mi>n</mi></msub><msup><mo>]</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{x} = [x_1, x_2, \ldots, x_n]^T
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8913309999999999em;"></span><span class="strut bottom" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"><span class="mord mathbf">x</span></span><span class="mrel">=</span><span class="mopen">[</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="minner">…</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">]</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
+<ul>
+<li>线性模型有一个n维权重和一个标量偏差</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="bold">w</mi></mrow><mo>=</mo><mo>[</mo><msub><mi>w</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>w</mi><mi>n</mi></msub><msup><mo>]</mo><mi>T</mi></msup><mo separator="true">,</mo><mspace width="1em"></mspace><mi>b</mi></mrow><annotation encoding="application/x-tex">\mathbf{w} = [w_1, w_2, \ldots, w_n]^T, \quad b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8913309999999999em;"></span><span class="strut bottom" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"><span class="mord mathbf" style="margin-right:0.01597em;">w</span></span><span class="mrel">=</span><span class="mopen">[</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="minner">…</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">]</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mspace quad"></span><span class="mord mathit">b</span></span></span></span></span></p>
+<ul>
+<li>输出是输入的加权和</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>w</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>w</mi><mn>2</mn></msub><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mo>…</mo><mo>+</mo><msub><mi>w</mi><mi>n</mi></msub><msub><mi>x</mi><mi>n</mi></msub><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">y = w_1 x_1 + w_2 x_2 + \ldots + w_n x_n + b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="minner">…</span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span></span></span></span></span></p>
+<p>向量版本：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mo>⟨</mo><mrow><mi mathvariant="bold">w</mi></mrow><mo separator="true">,</mo><mrow><mi mathvariant="bold">x</mi></mrow><mo>⟩</mo><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">y = \langle \mathbf{w}, \mathbf{x} \rangle + b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mopen">⟨</span><span class="mord displaystyle textstyle uncramped"><span class="mord mathbf" style="margin-right:0.01597em;">w</span></span><span class="mpunct">,</span><span class="mord displaystyle textstyle uncramped"><span class="mord mathbf">x</span></span><span class="mclose">⟩</span><span class="mbin">+</span><span class="mord mathit">b</span></span></span></span></span></p>
+<h4 id="线性模型可以看做是单层神经网络">线性模型可以看做是单层神经网络</h4>
         
           <a class="article-more-a" href="/2025/06/19/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/#more">more >></a>
         

@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>语言模型架构与训练 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Transformer组件的各种变体Difference:  LayerNorm is in the front of the block Rotary position embeddings(RoPE) FF layers use SwiGLU,not ReLU Linear layers(and layernorm) have no bias(constant)terms">
+  <meta name="description" content="Transformer组件的各种变体 Difference:  LayerNorm is in the front of the block Rotary position embeddings(RoPE) FF layers use SwiGLU,not ReLU Linear layers(and layernorm) have no bias(constant)terms">
 <meta property="og:type" content="article">
 <meta property="og:title" content="语言模型架构与训练">
 <meta property="og:url" content="https://dayliau.github.io/2025/09/26/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%AD%E7%BB%83/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="Transformer组件的各种变体Difference:  LayerNorm is in the front of the block Rotary position embeddings(RoPE) FF layers use SwiGLU,not ReLU Linear layers(and layernorm) have no bias(constant)terms">
+<meta property="og:description" content="Transformer组件的各种变体 Difference:  LayerNorm is in the front of the block Rotary position embeddings(RoPE) FF layers use SwiGLU,not ReLU Linear layers(and layernorm) have no bias(constant)terms">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://dayliau.github.io/images/RoPE.jpg">
+<meta property="og:image" content="https://dayliau.github.io/2025/09/26/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%AD%E7%BB%83/1.jpg">
 <meta property="article:published_time" content="2025-09-25T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T10:41:07.049Z">
+<meta property="article:modified_time" content="2026-07-15T07:25:23.212Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="RMSNorm">
 <meta property="article:tag" content="RoPE">
 <meta property="article:tag" content="SwiGLU">
 <meta property="article:tag" content="Transformer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://dayliau.github.io/images/RoPE.jpg">
+<meta name="twitter:image" content="https://dayliau.github.io/2025/09/26/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%AD%E7%BB%83/1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Dayliaaa&#39;s Blog" type="application/atom+xml">
   
@@ -158,61 +158,120 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Transformer组件的各种变体"><a href="#Transformer组件的各种变体" class="headerlink" title="Transformer组件的各种变体"></a>Transformer组件的各种变体</h3><p>Difference:</p>
+        <h3 id="Transformer组件的各种变体">Transformer组件的各种变体</h3>
+<p>Difference:</p>
 <ul>
 <li>LayerNorm is in the front of the block</li>
 <li>Rotary position embeddings(RoPE)</li>
 <li>FF layers use SwiGLU,not ReLU</li>
-<li>Linear layers(and layernorm) have no bias(constant)terms<span id="more"></span>
-<h4 id="Pre-norm-is-better-than-post-norm"><a href="#Pre-norm-is-better-than-post-norm" class="headerlink" title="Pre norm is better than post norm"></a>Pre norm is better than post norm</h4></li>
+<li>Linear layers(and layernorm) have no bias(constant)terms</li>
+</ul>
+<span id="more"></span>
+<h4 id="Pre-norm-is-better-than-post-norm">Pre norm is better than post norm</h4>
+<ul>
 <li>Original transformer:LayerNorm after residual stream.First you do Multi-Head attention , add back to the resdual stream ,and then layernorm.You will do the same thing with the FFN layer.</li>
 <li>Use post norm is much less stable,which means you have to do some careful learning rate warm-up style things(reference the previous large model fine_tuning I did) to make it train in a stable way</li>
 <li>Now the layernorm is in front of the residual stream,which did much better in many different ways.(almost all modern LMs use Pre norm)</li>
 <li>Using pre norm we can remove warm up and it works just as well as post norm with some other stability-inducing tricks,even better</li>
 <li>Pre norm iss just a more stable architecture to tain.Today pre norm and other layer norm tricks being used essentially as stability-inducing</li>
-<li>New-things:double norm(pre norm with post norm)<h5 id="Why-is-layer-norm-in-the-residual-bad"><a href="#Why-is-layer-norm-in-the-residual-bad" class="headerlink" title="Why is layer norm in the residual bad?"></a>Why is layer norm in the residual bad?</h5></li>
-<li>Residual gives identity connection all the way from almost the top of the network all the way to the bottom,this makes gradient propagation very easy when you train models,if putting layer norm in the middle,might mess with that kind of gradient behavior.(梯度在深层反向传播，容易造成梯度消失)<h4 id="LayerNorm-vs-RMSNorm"><a href="#LayerNorm-vs-RMSNorm" class="headerlink" title="LayerNorm vs RMSNorm"></a>LayerNorm vs RMSNorm</h4></li>
-<li>LayerNorm<script type="math/tex; mode=display">
-y = \frac{x - \mathrm{E}[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} * \gamma + \beta</script></li>
-<li>RMSNorm<script type="math/tex; mode=display">
-y = \frac{x}{\sqrt{\|x\|_2^2 + \epsilon}} * \gamma</script></li>
+<li>New-things:double norm(pre norm with post norm)</li>
+</ul>
+<h5 id="Why-is-layer-norm-in-the-residual-bad">Why is layer norm in the residual bad?</h5>
+<ul>
+<li>Residual gives identity connection all the way from almost the top of the network all the way to the bottom,this makes gradient propagation very easy when you train models,if putting layer norm in the middle,might mess with that kind of gradient behavior.(梯度在深层反向传播，容易造成梯度消失)</li>
+</ul>
+<h4 id="LayerNorm-vs-RMSNorm">LayerNorm vs RMSNorm</h4>
+<ul>
+<li>LayerNorm</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mrow><mi mathvariant="normal">E</mi></mrow><mo>[</mo><mi>x</mi><mo>]</mo></mrow><mrow><msqrt><mrow><mrow><mi mathvariant="normal">V</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mo>[</mo><mi>x</mi><mo>]</mo><mo>+</mo><mi>ϵ</mi></mrow></msqrt></mrow></mfrac><mo>∗</mo><mi>γ</mi><mo>+</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">y = \frac{x - \mathrm{E}[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} * \gamma + \beta
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.427em;"></span><span class="strut bottom" style="height:2.55701em;vertical-align:-1.13001em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.825005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.04500500000000007em;"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size1">√</span></span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm" style="margin-right:0.01389em;">V</span><span class="mord mathrm">a</span><span class="mord mathrm">r</span></span><span class="mopen">[</span><span class="mord mathit">x</span><span class="mclose">]</span><span class="mbin">+</span><span class="mord mathit">ϵ</span></span></span><span style="top:-0.855005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit">x</span><span class="mbin">−</span><span class="mord textstyle uncramped"><span class="mord mathrm">E</span></span><span class="mopen">[</span><span class="mord mathit">x</span><span class="mclose">]</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">∗</span><span class="mord mathit" style="margin-right:0.05556em;">γ</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.05278em;">β</span></span></span></span></span></p>
+<ul>
+<li>RMSNorm</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mfrac><mrow><mi>x</mi></mrow><mrow><msqrt><mrow><mi mathvariant="normal">∥</mi><mi>x</mi><msubsup><mi mathvariant="normal">∥</mi><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mi>ϵ</mi></mrow></msqrt></mrow></mfrac><mo>∗</mo><mi>γ</mi></mrow><annotation encoding="application/x-tex">y = \frac{x}{\sqrt{\|x\|_2^2 + \epsilon}} * \gamma
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.10756em;"></span><span class="strut bottom" style="height:2.23757em;vertical-align:-1.13001em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.8398050000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.05980500000000011em;"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size1">√</span></span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord textstyle cramped"><span class="mord mathrm">∥</span><span class="mord mathit">x</span><span class="mord"><span class="mord mathrm">∥</span><span class="vlist"><span style="top:0.26630799999999993em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span style="top:-0.34480000000000005em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">ϵ</span></span></span><span style="top:-0.869805em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">∗</span><span class="mord mathit" style="margin-right:0.05556em;">γ</span></span></span></span></span></p>
+<ul>
 <li>Many models have moved on to RSMNorm,which is faster and just as good as LayerNorm</li>
 <li>RMSNorm has fewer operations and fewer parameters</li>
 <li>Flops:Tensor constraction is 99.8%,Stat.normalization is 0.17% ,but for runtime,Tensor constraction is 61%,Stat.normalization is 25.5%.Because tensor constraction is dense computation,Stat.normalization operations incur a lot of memory movement overhead.</li>
-<li>We not only think about FLOPs,but also memory movement.Optimize this is matter.<h4 id="More-generally-dropping-bias-terms"><a href="#More-generally-dropping-bias-terms" class="headerlink" title="More generally:dropping bias terms"></a>More generally:dropping bias terms</h4></li>
-<li>Most modern transformers don’t have bias terms,it performs as well as before and makes train more stable<h4 id="Activations"><a href="#Activations" class="headerlink" title="Activations"></a>Activations</h4><h5 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h5><script type="math/tex; mode=display">
-max(0,xW_1)</script><h5 id="GeLU"><a href="#GeLU" class="headerlink" title="GeLU"></a>GeLU</h5><script type="math/tex; mode=display">
-x\Phi(x)</script></li>
-<li>GeLU在x=0处是平滑的<h6 id="GLU-门控线性单元"><a href="#GLU-门控线性单元" class="headerlink" title="GLU 门控线性单元"></a>GLU 门控线性单元</h6></li>
+<li>We not only think about FLOPs,but also memory movement.Optimize this is matter.</li>
+</ul>
+<h4 id="More-generally-dropping-bias-terms">More generally:dropping bias terms</h4>
+<ul>
+<li>Most modern transformers don’t have bias terms,it performs as well as before and makes train more stable</li>
+</ul>
+<h4 id="Activations">Activations</h4>
+<h5 id="ReLU">ReLU</h5>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><msub><mi>W</mi><mn>1</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">max(0,xW_1)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathit">x</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<h5 id="GeLU">GeLU</h5>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mi mathvariant="normal">Φ</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">x\Phi(x)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">x</span><span class="mord mathrm">Φ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span></span></p>
+<ul>
+<li>GeLU在x=0处是平滑的</li>
+</ul>
+<h6 id="GLU-门控线性单元">GLU 门控线性单元</h6>
+<ul>
 <li>$ \otimes$是逐元素乘法</li>
 <li>xV是输入依赖的门控，V是固定门控，如果仅仅使用V，门控信号是固定的，与输入无关，无法根据不同输入特征调整筛选策略</li>
-<li>ReGLU<script type="math/tex; mode=display">
-max(x,xW_1) \otimes xV</script></li>
-<li>GeGLU<script type="math/tex; mode=display">
-GeLU(xW_1) \otimes xV</script></li>
-<li>SwiGLU<script type="math/tex; mode=display">
-Swish(xW_1) \otimes xV</script><ul>
+<li>ReGLU</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>x</mi><msub><mi>W</mi><mn>1</mn></msub><mo>)</mo><mo>⊗</mo><mi>x</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">max(x,xW_1) \otimes xV
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit">x</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mbin">⊗</span><span class="mord mathit">x</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></span></p>
+<ul>
+<li>GeGLU</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mi>e</mi><mi>L</mi><mi>U</mi><mo>(</mo><mi>x</mi><msub><mi>W</mi><mn>1</mn></msub><mo>)</mo><mo>⊗</mo><mi>x</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">GeLU(xW_1) \otimes xV
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">G</span><span class="mord mathit">e</span><span class="mord mathit">L</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mbin">⊗</span><span class="mord mathit">x</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></span></p>
+<ul>
+<li>SwiGLU</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>w</mi><mi>i</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>x</mi><msub><mi>W</mi><mn>1</mn></msub><mo>)</mo><mo>⊗</mo><mi>x</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">Swish(xW_1) \otimes xV
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit">i</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mbin">⊗</span><span class="mord mathit">x</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></span></p>
+<ul>
 <li>swish is x*sigmoid(x)</li>
 </ul>
-</li>
-</ul>
-<h4 id="Serial-VS-Parallel-layers"><a href="#Serial-VS-Parallel-layers" class="headerlink" title="Serial VS Parallel layers"></a>Serial VS Parallel layers</h4><ul>
+<h4 id="Serial-VS-Parallel-layers">Serial VS Parallel layers</h4>
+<ul>
 <li>layernorm和attenyion并行处理</li>
-<li>已经不再流行，多数模型还是使用串行架构<h4 id="RoPE-rotary-position-embeddings"><a href="#RoPE-rotary-position-embeddings" class="headerlink" title="RoPE:rotary position embeddings"></a>RoPE:rotary position embeddings</h4><img src="/images/RoPE.jpg"></li>
+<li>已经不再流行，多数模型还是使用串行架构</li>
 </ul>
-<h4 id="Hyperparameters"><a href="#Hyperparameters" class="headerlink" title="Hyperparameters"></a>Hyperparameters</h4><h5 id="Feedforward-size"><a href="#Feedforward-size" class="headerlink" title="Feedforward size"></a>Feedforward size</h5><ul>
+<h4 id="RoPE-rotary-position-embeddings">RoPE:rotary position embeddings</h4>
+<p><img src="1.jpg" alt=""></p>
+<h4 id="Hyperparameters">Hyperparameters</h4>
+<h5 id="Feedforward-size">Feedforward size</h5>
+<ul>
 <li>Feedforward layer的隐藏层的维度</li>
-<li>$d<em>{model}$ 每个token被表示成一个$d</em>{model}$大小的向量 经过每层都保持这个大小</li>
-<li>$ d<em>{ff} = 4 d</em>{model} $，这是业界普遍的共识</li>
-<li>例外1：GLU variants scale down by 2/3,which means most GLU variants have $ d<em>{ff} = 8/3 d</em>{model} $ 2至6倍</li>
-<li>例外2：T5 $d<em>{ff} = 65536$  $d</em>{model}=1024$ 64倍 后来T5更新换代使用了2.5倍的GLU<h5 id="Model-dim-amp-Num-heads-amp-Head-dim"><a href="#Model-dim-amp-Num-heads-amp-Head-dim" class="headerlink" title="Model dim &amp; Num heads &amp; Head dim"></a>Model dim &amp; Num heads &amp; Head dim</h5></li>
-<li>head dim 太小，每个头视野太窄，捕捉不到复杂的关系；太大，每个头很宽，但是头数少，可能缺乏多样性</li>
-<li>大多数模型 radio=head dim×num heads / model dim 通常等于1，但有些模型不等于1<h5 id="Aspect-ratios-宽高比"><a href="#Aspect-ratios-宽高比" class="headerlink" title="Aspect ratios 宽高比"></a>Aspect ratios 宽高比</h5></li>
-<li>$d<em>{model}/n</em>{layers}$</li>
-<li>业界普遍使用的128<h5 id="Typical-vocabulary-size"><a href="#Typical-vocabulary-size" class="headerlink" title="Typical vocabulary size"></a>Typical vocabulary size</h5></li>
-<li>Token count 通常在10万到20万之间<h4 id="Dropout-and-other-regularization"><a href="#Dropout-and-other-regularization" class="headerlink" title="Dropout and other regularization"></a>Dropout and other regularization</h4></li>
-<li>预训练时，从直觉上来说，不需要权重衰减，但是实际上会做，原因:已经超越了”防止过拟合”这个传统概念，而更多地与优化过程本身的稳定性、收敛性和泛化能力的提升密切相关。<h4 id="训练稳定的一些技巧"><a href="#训练稳定的一些技巧" class="headerlink" title="训练稳定的一些技巧"></a>训练稳定的一些技巧</h4><h5 id="Z-Loss"><a href="#Z-Loss" class="headerlink" title="Z-Loss"></a>Z-Loss</h5><h5 id="QK-norm"><a href="#QK-norm" class="headerlink" title="QK norm"></a>QK norm</h5><h5 id="Logit-soft-capping"><a href="#Logit-soft-capping" class="headerlink" title="Logit soft-capping"></a>Logit soft-capping</h5>这里不再详细叙述 直接问ai即可，它解释的很好<h4 id="GQA-MQA"><a href="#GQA-MQA" class="headerlink" title="GQA MQA"></a>GQA MQA</h4></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow></msub></mrow><annotation encoding="application/x-tex">d_{model}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mord mathit">o</span><span class="mord mathit">d</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 每个token被表示成一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow></msub></mrow><annotation encoding="application/x-tex">d_{model}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mord mathit">o</span><span class="mord mathit">d</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>大小的向量 经过每层都保持这个大小</li>
+<li>$ d_{ff} = 4 d_{model} $，这是业界普遍的共识</li>
+<li>例外1：GLU variants scale down by 2/3,which means most GLU variants have $ d_{ff} = 8/3 d_{model} $ 2至6倍</li>
+<li>例外2：T5 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mrow><mi>f</mi><mi>f</mi></mrow></msub><mo>=</mo><mn>6</mn><mn>5</mn><mn>5</mn><mn>3</mn><mn>6</mn></mrow><annotation encoding="application/x-tex">d_{ff} = 65536</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit" style="margin-right:0.10764em;">f</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">6</span><span class="mord mathrm">5</span><span class="mord mathrm">5</span><span class="mord mathrm">3</span><span class="mord mathrm">6</span></span></span></span>  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow></msub><mo>=</mo><mn>1</mn><mn>0</mn><mn>2</mn><mn>4</mn></mrow><annotation encoding="application/x-tex">d_{model}=1024</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mord mathit">o</span><span class="mord mathit">d</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span></span></span></span> 64倍 后来T5更新换代使用了2.5倍的GLU</li>
 </ul>
+<h5 id="Model-dim-Num-heads-Head-dim">Model dim &amp; Num heads &amp; Head dim</h5>
+<ul>
+<li>head dim 太小，每个头视野太窄，捕捉不到复杂的关系；太大，每个头很宽，但是头数少，可能缺乏多样性</li>
+<li>大多数模型 radio=head dim×num heads / model dim 通常等于1，但有些模型不等于1</li>
+</ul>
+<h5 id="Aspect-ratios-宽高比">Aspect ratios 宽高比</h5>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow></msub><mi mathvariant="normal">/</mi><msub><mi>n</mi><mrow><mi>l</mi><mi>a</mi><mi>y</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">d_{model}/n_{layers}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mord mathit">o</span><span class="mord mathit">d</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">/</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></li>
+<li>业界普遍使用的128</li>
+</ul>
+<h5 id="Typical-vocabulary-size">Typical vocabulary size</h5>
+<ul>
+<li>Token count 通常在10万到20万之间</li>
+</ul>
+<h4 id="Dropout-and-other-regularization">Dropout and other regularization</h4>
+<ul>
+<li>预训练时，从直觉上来说，不需要权重衰减，但是实际上会做，原因:已经超越了&quot;防止过拟合&quot;这个传统概念，而更多地与优化过程本身的稳定性、收敛性和泛化能力的提升密切相关。</li>
+</ul>
+<h4 id="训练稳定的一些技巧">训练稳定的一些技巧</h4>
+<h5 id="Z-Loss">Z-Loss</h5>
+<h5 id="QK-norm">QK norm</h5>
+<h5 id="Logit-soft-capping">Logit soft-capping</h5>
+<p>这里不再详细叙述 直接问ai即可，它解释的很好</p>
+<h4 id="GQA-MQA">GQA MQA</h4>
 
       
 
