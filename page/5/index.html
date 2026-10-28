@@ -185,30 +185,11 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">自动求导</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Autograd</a>
-        		</li>
       		
 		</ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/数学基础//" class="article-tag-list-link color5">数学基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -263,7 +244,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li>标量导数<br><img src="1.jpg" alt="">
+<li>标量导数<br>
+<img src="1.jpg" alt=""></li>
+</ul>
         
           <a class="article-more-a" href="/2025/06/04/%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97/#more">more >></a>
         
@@ -290,21 +273,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/数学基础//" class="article-tag-list-link color5">数学基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -386,21 +354,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/数学基础//" class="article-tag-list-link color5">数学基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -454,7 +407,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.首先创建一个人工数据集，并存储在csv（逗号分隔值）文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.makedirs(os.path.join(&#x27;..&#x27;, &#x27;data&#x27;), exist_ok=True)</span><br><span class="line">data_file = os.path.join(&#x27;..&#x27;, &#x27;data&#x27;, &#x27;house_tiny.csv&#x27;)</span><br><span class="line">with open(data_file, &#x27;w&#x27;) as f:</span><br><span class="line">    f.write(&#x27;&#x27;&#x27;NumRooms,RoofType,Price</span><br><span class="line">NA,NA,127500</span><br><span class="line">2,NA,106000</span><br><span class="line">4,Slate,178100</span><br><span class="line">NA,NA,140000&#x27;&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line">data = pd.read_csv(data_file)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure><br>
+        <p>1.首先创建一个人工数据集，并存储在csv（逗号分隔值）文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.makedirs(os.path.join(&#x27;..&#x27;, &#x27;data&#x27;), exist_ok=True)</span><br><span class="line">data_file = os.path.join(&#x27;..&#x27;, &#x27;data&#x27;, &#x27;house_tiny.csv&#x27;)</span><br><span class="line">with open(data_file, &#x27;w&#x27;) as f:</span><br><span class="line">    f.write(&#x27;&#x27;&#x27;NumRooms,RoofType,Price</span><br><span class="line">NA,NA,127500</span><br><span class="line">2,NA,106000</span><br><span class="line">4,Slate,178100</span><br><span class="line">NA,NA,140000&#x27;&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line">data = pd.read_csv(data_file)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/2025/06/01/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/#more">more >></a>
         
@@ -481,21 +435,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/数学基础//" class="article-tag-list-link color5">数学基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -549,14 +488,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h4><h5 id="N维数组样例"><a href="#N维数组样例" class="headerlink" title="N维数组样例"></a>N维数组样例</h5><p>N维数组是机器学习和神经网络的主要数据结构</p>
+        <h4 id="数据操作">数据操作</h4>
+<h5 id="N维数组样例">N维数组样例</h5>
+<p>N维数组是机器学习和神经网络的主要数据结构</p>
 <ul>
 <li>0-d（标量） 一个类别</li>
 <li>1-d（向量） 一个特征向量</li>
 <li>2-d（矩阵） 一个样本-特征矩阵</li>
-<li>3-d     &nbsp;&nbsp;   RGB图片（宽×高×通道）</li>
-<li>4-d     &nbsp;&nbsp;   一个RGB图片批量（批量大小×宽×高×通道）</li>
-<li>5-d &nbsp;&nbsp; 一个视频批量（批量大小×时间×宽×高×通道）
+<li>3-d          RGB图片（宽×高×通道）</li>
+<li>4-d          一个RGB图片批量（批量大小×宽×高×通道）</li>
+<li>5-d    一个视频批量（批量大小×时间×宽×高×通道）</li>
+</ul>
         
           <a class="article-more-a" href="/2025/05/30/%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C/#more">more >></a>
         
@@ -583,21 +525,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/数学基础//" class="article-tag-list-link color5">数学基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -682,17 +609,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程基础//" class="article-tag-list-link color5">编程基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -780,17 +696,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程基础//" class="article-tag-list-link color5">编程基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
@@ -943,10 +848,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,10 +1072,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Autograd</a>
               </li>
              
               <li class="article-tag-list-item">

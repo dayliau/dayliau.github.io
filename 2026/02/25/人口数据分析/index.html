@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://dayliau.github.io/2026/02/25/%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Figure_1.png">
 <meta property="article:published_time" content="2026-02-25T06:31:25.000Z">
-<meta property="article:modified_time" content="2026-06-29T07:13:58.362Z">
+<meta property="article:modified_time" content="2026-10-28T02:41:15.651Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -157,10 +157,9 @@
       
         <p>接上篇，对得到的人口数据的表格进行分析，在这里我就以男女人口为例绘了一个折线图，其他等用到的时候再学，这个绘图的库还是挺简单的</p>
 <span id="more"></span>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">df = pd.read_csv(&#x27;人口数据.csv&#x27;, encoding=&#x27;utf-8&#x27;)</span><br><span class="line"></span><br><span class="line">plt.plot(df[&#x27;年份&#x27;], df[&#x27;男性人口(万人)&#x27;], label=&#x27;man&#x27;,color=&#x27;blue&#x27;)</span><br><span class="line">plt.plot(df[&#x27;年份&#x27;], df[&#x27;女性人口(万人)&#x27;], label=&#x27;woman&#x27;,color=&#x27;red&#x27;)</span><br><span class="line">plt.xlabel(&#x27;year&#x27;)</span><br><span class="line">plt.ylabel(&#x27;Population (ten thousand people)&#x27;)    </span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p>如图所示：</p>
-<p><img src="/2026/02/25/%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Figure_1.png"></p>
+<p><img src="Figure_1.png" alt=""></p>
 
       
 
@@ -207,17 +206,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数据爬取与分析//" class="article-tag-list-link color3">数据爬取与分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -389,10 +377,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,10 +601,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Autograd</a>
               </li>
              
               <li class="article-tag-list-item">

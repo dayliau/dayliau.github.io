@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>pytorch基础 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="https:&#x2F;&#x2F;www.runoob.com&#x2F;pytorch&#x2F;pytorch-neural-network.html 核心数据结构：张量 有关tensor的一些基础操作，我整理成了Jupyter Notebookhttps:&#x2F;&#x2F;github.com&#x2F;dayliau&#x2F;Deeplearning-Jupyternotebook&#x2F;blob&#x2F;main&#x2F;%E9%A2%84%E5%A4%87%E7%9F%A5%">
+  <meta name="description" content="https:&#x2F;&#x2F;www.runoob.com&#x2F;pytorch&#x2F;pytorch-neural-network.html 核心数据结构：张量  有关tensor的一些基础操作，我整理成了Jupyter Notebook https:&#x2F;&#x2F;github.com&#x2F;dayliau&#x2F;Deeplearning-Jupyternotebook&#x2F;blob&#x2F;main&#x2F;预备知识&#x2F;数据操作.ipynb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pytorch基础">
 <meta property="og:url" content="https://dayliau.github.io/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="https:&#x2F;&#x2F;www.runoob.com&#x2F;pytorch&#x2F;pytorch-neural-network.html 核心数据结构：张量 有关tensor的一些基础操作，我整理成了Jupyter Notebookhttps:&#x2F;&#x2F;github.com&#x2F;dayliau&#x2F;Deeplearning-Jupyternotebook&#x2F;blob&#x2F;main&#x2F;%E9%A2%84%E5%A4%87%E7%9F%A5%">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.runoob.com&#x2F;pytorch&#x2F;pytorch-neural-network.html 核心数据结构：张量  有关tensor的一些基础操作，我整理成了Jupyter Notebook https:&#x2F;&#x2F;github.com&#x2F;dayliau&#x2F;Deeplearning-Jupyternotebook&#x2F;blob&#x2F;main&#x2F;预备知识&#x2F;数据操作.ipynb">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://dayliau.github.io/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/1.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/2.png">
 <meta property="article:published_time" content="2026-03-12T10:43:50.000Z">
-<meta property="article:modified_time" content="2026-06-29T07:14:11.042Z">
+<meta property="article:modified_time" content="2026-10-28T02:41:15.649Z">
 <meta property="article:author" content="Dayliaaa">
-<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="PyTorch">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://dayliau.github.io/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/1.png">
   
@@ -157,27 +157,40 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><a target="_blank" rel="noopener" href="https://www.runoob.com/pytorch/pytorch-neural-network.html">https://www.runoob.com/pytorch/pytorch-neural-network.html</a></p>
-<h3 id="核心数据结构：张量"><a href="#核心数据结构：张量" class="headerlink" title="核心数据结构：张量"></a>核心数据结构：张量</h3><ul>
-<li>有关tensor的一些基础操作，我整理成了Jupyter Notebook<br><a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C.ipynb</a></li>
+<h3 id="核心数据结构：张量">核心数据结构：张量</h3>
+<ul>
+<li>有关tensor的一些基础操作，我整理成了Jupyter Notebook<br>
+<a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/预备知识/数据操作.ipynb</a></li>
 </ul>
 <span id="more"></span>
-<h3 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h3><p><a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86.ipynb</a></p>
-<h3 id="神经网络-nn-Module"><a href="#神经网络-nn-Module" class="headerlink" title="神经网络(nn.Module)"></a>神经网络(nn.Module)</h3><p>官方文档：<br><a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/nn.html">https://docs.pytorch.org/docs/stable/nn.html</a></p>
-<h3 id="线性层（全连接层）Linear-Layer"><a href="#线性层（全连接层）Linear-Layer" class="headerlink" title="线性层（全连接层）Linear Layer"></a>线性层（全连接层）Linear Layer</h3><p>进行数据空间的线性映射与特征加权组合。它将前层提取到的局部特征“展平”并融合，确保全局信息能影响最终输出，常在神经网络末端用于分类（输出类概率）或回归任务。 </p>
+<h3 id="自动求导">自动求导</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/预备知识/自动微分.ipynb</a></p>
+<h3 id="神经网络-nn-Module">神经网络(nn.Module)</h3>
+<p>官方文档：<br>
+<a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/nn.html">https://docs.pytorch.org/docs/stable/nn.html</a></p>
+<h3 id="线性层（全连接层）Linear-Layer">线性层（全连接层）Linear Layer</h3>
+<p>进行数据空间的线性映射与特征加权组合。它将前层提取到的局部特征“展平”并融合，确保全局信息能影响最终输出，常在神经网络末端用于分类（输出类概率）或回归任务。</p>
 <p>具体工作与作用包括：</p>
 <ul>
-<li>全连接映射：上一层（如卷积层&#x2F;池化层）的每一个节点都与当前层的所有节点相连，实现信息的充分整合。</li>
+<li>全连接映射：上一层（如卷积层/池化层）的每一个节点都与当前层的所有节点相连，实现信息的充分整合。</li>
 <li>线性变换与特征组合：通过线性变换的公式计算，对前层产生的局部、空间特征进行综合，形成更高级别的抽象特征。</li>
-<li>作为分类器：在CNN末端，将学到的“分布式特征表示”映射到样本的类别标记空间，是实现最终预测的关键层。<br>高参数量与非线性转换：由于连接稠密，全连接层参数量庞大，通常配合ReLU等激活函数，增加网络的拟合能力。</li>
+<li>作为分类器：在CNN末端，将学到的“分布式特征表示”映射到样本的类别标记空间，是实现最终预测的关键层。<br>
+高参数量与非线性转换：由于连接稠密，全连接层参数量庞大，通常配合ReLU等激活函数，增加网络的拟合能力。</li>
 </ul>
-<h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><h4 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h4><h4 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h4><p>引入非线性特性、决定神经元是否激活以及将信号映射到特定范围，它使得深层网络能够逼近任何复杂的非线性函数，从而解决如图像识别、语音处理等无法用简单线性模型处理的实际问题，是神经网络具备学习能力的根基。 </p>
+<h3 id="激活函数">激活函数</h3>
+<h4 id="线性">线性</h4>
+<h4 id="非线性">非线性</h4>
+<p>引入非线性特性、决定神经元是否激活以及将信号映射到特定范围，它使得深层网络能够逼近任何复杂的非线性函数，从而解决如图像识别、语音处理等无法用简单线性模型处理的实际问题，是神经网络具备学习能力的根基。</p>
 <ul>
 <li>引入非线性映射（最核心作用）： 现实世界的数据大都是非线性的，如果没有激活函数，无论神经网络有多少层，其本质仍然是线性组合，表达能力极其有限。</li>
 <li>模拟神经元激发： 类似于人类大脑，激活函数决定了神经元接收到的信息是否重要并被传递到下一层。</li>
 <li>防止数据幅度过大： 将神经元的输出限制在一定范围内（如Sigmoid将输出映射到 (0,1)），防止随着网络加深数据数值过大导致的梯度消失或溢出问题。</li>
-<li>优化网络训练： 现代激活函数（如ReLU）不仅计算简单，还能显著加快训练速度并缓解深层网络中的梯度消失问题。<br>几种常见的激活函数介绍：<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1155542">https://developer.aliyun.com/article/1155542</a></li>
+<li>优化网络训练： 现代激活函数（如ReLU）不仅计算简单，还能显著加快训练速度并缓解深层网络中的梯度消失问题。<br>
+几种常见的激活函数介绍：<br>
+<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1155542">https://developer.aliyun.com/article/1155542</a></li>
 </ul>
-<h4 id="卷积层-Convolution-Layer"><a href="#卷积层-Convolution-Layer" class="headerlink" title="卷积层 Convolution Layer"></a>卷积层 Convolution Layer</h4><p>自动且高效地提取输入数据（如图像）的局部特征</p>
+<h4 id="卷积层-Convolution-Layer">卷积层 Convolution Layer</h4>
+<p>自动且高效地提取输入数据（如图像）的局部特征</p>
 <ul>
 <li>提取局部特征： 卷积核作为特征探测器，专注于输入数据局部邻域的信息，对特征的位置不敏感，这赋予了CNN空间不变性。</li>
 <li>生成特征图（Feature Maps）： 一个滤波器在图像上滑动，通过激活函数后形成一幅特征图，标示了特定特征在图像中出现的位置和强度。</li>
@@ -185,11 +198,15 @@
 <li>局部连接与参数共享： 卷积核与输入局部连接，使网络关注局部细节；在滑动过程中使用相同的权重（参数共享），有效降低了网络参数数量，防止过拟合。</li>
 <li>下采样与信息聚合： 虽然不直接进行池化，但通过配合步幅（Stride）和填充（Padding），卷积层能调节输入输出的大小，将局部的特征信息汇聚到更深层的特征中。</li>
 </ul>
-<h5 id="卷积操作"><a href="#卷积操作" class="headerlink" title="卷积操作"></a>卷积操作</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn.functional as F</span><br><span class="line"></span><br><span class="line">input = torch.tensor([[1,2,0,3,1],</span><br><span class="line">                      [0,1,2,3,1],</span><br><span class="line">                      [1,2,1,0,0],</span><br><span class="line">                      [5,2,3,1,1],</span><br><span class="line">                      [2,1,0,1,1]])</span><br><span class="line">kernel = torch.tensor([[1,2,1],</span><br><span class="line">                       [0,1,0],</span><br><span class="line">                       [2,1,0]])</span><br><span class="line"></span><br><span class="line">input = torch.reshape(input,(1,1,5,5))</span><br><span class="line">kernel = torch.reshape(kernel,(1,1,3,3))</span><br><span class="line">output = F.conv2d(input,kernel,stride=1)</span><br><span class="line">print(output)</span><br></pre></td></tr></table></figure>
+<h5 id="卷积操作">卷积操作</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn.functional as F</span><br><span class="line"></span><br><span class="line">input = torch.tensor([[1,2,0,3,1],</span><br><span class="line">                      [0,1,2,3,1],</span><br><span class="line">                      [1,2,1,0,0],</span><br><span class="line">                      [5,2,3,1,1],</span><br><span class="line">                      [2,1,0,1,1]])</span><br><span class="line">kernel = torch.tensor([[1,2,1],</span><br><span class="line">                       [0,1,0],</span><br><span class="line">                       [2,1,0]])</span><br><span class="line"></span><br><span class="line">input = torch.reshape(input,(1,1,5,5))</span><br><span class="line">kernel = torch.reshape(kernel,(1,1,3,3))</span><br><span class="line">output = F.conv2d(input,kernel,stride=1)</span><br><span class="line">print(output)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tensor([[[[10, 12, 12],</span><br><span class="line">          [18, 16, 16],</span><br><span class="line">          [13,  9,  3]]]])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/1.png"></p>
-<h4 id="池化层-Pooling-Layer"><a href="#池化层-Pooling-Layer" class="headerlink" title="池化层 Pooling Layer"></a>池化层 Pooling Layer</h4><p>这是利用Tensorboard一张图片经过池化层之后的效果<br><img src="/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/2.png"></p>
-<p>池化层（Pooling Layer）在卷积神经网络（CNN）中主要用于对特征图进行下采样（降维）和特征筛选，即通过计算窗口内特征的最大值（最大池化）或平均值（平均池化）来压缩特征，保留重要特征的同时减少数据量和参数，以此提升计算速度、防止过拟合，并让模型获得一定的平移不变性。<br>具体作用总结如下：</p>
+<p><img src="1.png" alt=""></p>
+<h4 id="池化层-Pooling-Layer">池化层 Pooling Layer</h4>
+<p>这是利用Tensorboard一张图片经过池化层之后的效果<br>
+<img src="2.png" alt=""></p>
+<p>池化层（Pooling Layer）在卷积神经网络（CNN）中主要用于对特征图进行下采样（降维）和特征筛选，即通过计算窗口内特征的最大值（最大池化）或平均值（平均池化）来压缩特征，保留重要特征的同时减少数据量和参数，以此提升计算速度、防止过拟合，并让模型获得一定的平移不变性。<br>
+具体作用总结如下：</p>
 <ul>
 <li>降维（数据压缩）：通过减少特征图的尺寸（空间维度），减少参数数量，大幅降低计算量和模型的复杂度。</li>
 <li>特征选择与特征不变性：提取出区域内的主要特征（最大值最为常见），使模型更加关注特征是否存在于区域中，而非它具体的位置，从而实现尺度、平移和旋转不变性。</li>
@@ -200,14 +217,27 @@
 <li>最大池化（Max Pooling）：选取窗口内最大值，能更好的保留纹理和显著特征。</li>
 <li>平均池化（Average Pooling）：选取窗口内平均值，能更好地保留背景信息</li>
 </ul>
-<h3 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h3><h4 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h4><h5 id="Datasets-DataLoaders"><a href="#Datasets-DataLoaders" class="headerlink" title="Datasets &amp; DataLoaders"></a>Datasets &amp; DataLoaders</h5><p><a target="_blank" rel="noopener" href="https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html">https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html</a><br>一般流程：<br>1.创建一个 Dataset 对象，实现__getitem__()和__len__()这两个方法</p>
+<h3 id="训练模型">训练模型</h3>
+<h4 id="数据准备">数据准备</h4>
+<h5 id="Datasets-DataLoaders">Datasets &amp; DataLoaders</h5>
+<p><a target="_blank" rel="noopener" href="https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html">https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html</a><br>
+一般流程：<br>
+1.创建一个 Dataset 对象，实现__getitem__()和__len__()这两个方法</p>
 <p>2.创建一个 DataLoader 对象，该对象可以对上述Dataset对象进行迭代</p>
 <p>3.遍历DataLoader对象，将样本和标签加载到模型中进行训练</p>
-<h4 id="构建模型"><a href="#构建模型" class="headerlink" title="构建模型"></a>构建模型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyNet(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(MyNet,self).__init__()</span><br><span class="line">        self.model1 = Sequential(</span><br><span class="line">            Conv2d(in_channels=3, out_channels=32, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Conv2d(in_channels=32, out_channels=32, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Conv2d(in_channels=32, out_channels=64, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(in_features=1024, out_features=64),</span><br><span class="line">            Linear(in_features=64, out_features=10),</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
-<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure>
-<h4 id="选择优化器"><a href="#选择优化器" class="headerlink" title="选择优化器"></a>选择优化器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer = torch.optim.SGD(mynet.parameters(),lr=learning_rate)</span><br></pre></td></tr></table></figure>
-<h4 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def forward(self, x):</span><br><span class="line">       x = self.model(x)</span><br><span class="line">       return x</span><br></pre></td></tr></table></figure>
-<h4 id="损失计算"><a href="#损失计算" class="headerlink" title="损失计算"></a>损失计算</h4><h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><h4 id="更新参数"><a href="#更新参数" class="headerlink" title="更新参数"></a>更新参数</h4><p>下面是一个简单的模型训练流程：<br><a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E7%AE%80%E5%8D%95%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E9%97%A8.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E7%AE%80%E5%8D%95%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E9%97%A8.ipynb</a></p>
+<h4 id="构建模型">构建模型</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyNet(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(MyNet,self).__init__()</span><br><span class="line">        self.model1 = Sequential(</span><br><span class="line">            Conv2d(in_channels=3, out_channels=32, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Conv2d(in_channels=32, out_channels=32, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Conv2d(in_channels=32, out_channels=64, kernel_size=5, padding=2),</span><br><span class="line">            MaxPool2d(kernel_size=2),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(in_features=1024, out_features=64),</span><br><span class="line">            Linear(in_features=64, out_features=10),</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<h4 id="损失函数">损失函数</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure>
+<h4 id="选择优化器">选择优化器</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer = torch.optim.SGD(mynet.parameters(),lr=learning_rate)</span><br></pre></td></tr></table></figure>
+<h4 id="前向传播">前向传播</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def forward(self, x):</span><br><span class="line">       x = self.model(x)</span><br><span class="line">       return x</span><br></pre></td></tr></table></figure>
+<h4 id="损失计算">损失计算</h4>
+<h4 id="反向传播">反向传播</h4>
+<h4 id="更新参数">更新参数</h4>
+<p>下面是一个简单的模型训练流程：<br>
+<a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E7%AE%80%E5%8D%95%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E9%97%A8.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/预备知识/简单模型训练入门.ipynb</a></p>
 
       
 
@@ -247,24 +277,13 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Pytorch</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">PyTorch</a>
         		</li>
       		
 		</ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -436,10 +455,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,10 +679,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Autograd</a>
               </li>
              
               <li class="article-tag-list-item">
