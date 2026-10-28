@@ -17,8 +17,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/fcn.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/unet.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/seg.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv1.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv2.png">
 <meta property="article:published_time" content="2026-10-28T05:10:45.000Z">
-<meta property="article:modified_time" content="2026-10-28T12:26:05.352Z">
+<meta property="article:modified_time" content="2026-10-28T14:26:19.165Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
@@ -172,7 +175,10 @@
 <p><img src="unet.png" alt=""></p>
 <p>左半部分为编码器，图像经过卷积和池化，尺寸逐步缩小，更高级的语义特征被提取出来。</p>
 <p>输入图像为572 * 572 * 3</p>
-<p>第一次卷积和池化：卷积核Kernel大小为3 * 3 * 64 ，步长Stride=1，填充Padding=0，根据计算公式 $$ H_{\text{out}}=\frac{H_{\text{in}}-K+2P}{S}+1 $$ ,连续进行两次卷积，特征图尺寸变为568 * 568 * 64，然后进行2*2最大池化，步长为2，特征图尺寸变为284 * 284 * 64。</p>
+<p>第一次卷积和池化：卷积核Kernel大小为3 * 3 * 64 ，步长Stride=1，填充Padding=0，根据计算公式</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>H</mi><mtext>out</mtext></msub><mo>=</mo><mfrac><mrow><msub><mi>H</mi><mtext>in</mtext></msub><mo>−</mo><mi>K</mi><mo>+</mo><mn>2</mn><mi>P</mi></mrow><mi>S</mi></mfrac><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">H_{\text{out}}=\frac{H_{\text{in}}-K+2P}{S}+1 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">out</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0463em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0576em;">S</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">in</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>连续进行两次卷积，特征图尺寸变为568 * 568 * 64，然后进行2*2最大池化，步长为2，特征图尺寸变为284 * 284 * 64。</p>
 <p>第二次卷积和池化，卷积核Kernel大小为3 * 3 * 128 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为280 * 280 * 128，然后进行2 * 2最大池化，步长为2，特征图尺寸变为140 * 140 * 128。</p>
 <p>第三次卷积和池化，卷积核Kernel大小为3 * 3 * 256 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为136 * 136 * 256，然后进行2 * 2最大池化，步长为2，特征图尺寸变为68 * 68 * 256。</p>
 <p>第四次卷积和池化，卷积核Kernel大小为3 * 3 * 512 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为64 * 64 * 512，然后进行2 * 2最大池化，步长为2，特征图尺寸变为32 * 32 * 512。</p>
@@ -184,6 +190,23 @@
 <p>第三次上采样，100 * 100 * 256通过2 * 2转置卷积变为200 * 200 * 128，与左侧280 * 280 * 256拼接得到 200 * 200 * 256，连续进行两次3 * 3 * 128卷积后得到196 * 196 * 128</p>
 <p>第四次上采样，196 * 196 * 128通过2 * 2转置卷积变为392 * 392 * 64，与左侧568 * 568 * 64拼接得到 392 * 392 * 128，连续进行两次3 * 3 * 64卷积后得到388 * 388 * 64</p>
 <p>最后388 * 388 * 64经过卷积核大小为1 * 1 * 2，步长为1，填充为1的卷积，尺寸变为388 * 388 * 2，最后一个卷积通道数为2是因为这张图进行的是一个二分类任务，对每个像素输出两个类别的得分。</p>
+<h4 id="2-3-SegNet">2.3 SegNet</h4>
+<p>也是一个编码器-解码器网络，与U-net的区别在于SegNet主要利用最大池化的索引恢复空间分辨率，而 U-Net 通过跳跃连接，将编码器的特征图与解码器的特征图进行拼接。</p>
+<p><img src="seg.png" alt=""></p>
+<p>编码器网络对应VGG16的前13个卷积层，划分为五组，每组包括Conv卷积、BN归一化、 ReLU激活函数、2 * 2的MaxPooling。在最大池化时SegNet会存储最大池化的索引，也就是保存编码器特征图中最大特征值的位置，这样在进行上采样放大特征图时，除最大值对应的位置其他位置都设置为0，这样可以更好地反应物体的边界。解码器网络也划分为五组，包括上采样、卷积，最后一组经过一个Softmax层输出每个像素的类别。</p>
+<h4 id="2-4-DeepLab">2.4 DeepLab</h4>
+<h5 id="2-4-1-DeepLab-V1">2.4.1 DeepLab V1</h5>
+<p>核心是VGG16改造版提取图像特征，再通过空洞卷积尽量保留空间分辨率，再使用全连接条件随机场西化分割边界。</p>
+<p>VGG16的卷积和池化会不断缩小特征图，难以精确判断物体边界，DeepLab V1使用了空洞卷积来扩大感受野。空洞卷积和普通卷积的区别是空洞卷积的采样点之间存在间隔，用膨胀率（dilation rate）控制间隔大小，对于3 * 3 卷积核，有效感受野尺寸为k+(k-1)(r-1)，若r=2，则有效感受野尺寸为5 * 5。</p>
+<p><img src="deeplabv1.png" alt=""></p>
+<p>经过空洞卷积后，对每个像素进行类别预测，然后经过双线性插值上采样将特征图恢复到原图尺寸，最后经过条件随机场CRF（Conditional Random Field）使最后分类结果的边缘更加精细。</p>
+<h5 id="2-4-2-DeepLab-V2">2.4.2 DeepLab V2</h5>
+<p>DeepLab V2 最重要的改进是引入 ASPP（Atrous Spatial Pyramid Pooling，空洞空间金字塔池化），通过多个不同膨胀率的空洞卷积分支，同时提取不同尺度的特征。它要解决的问题是：同一张图像中，目标可能有大有小，单一感受野不容易同时处理好不同尺度的目标。</p>
+<p><img src="deeplabv2.png" alt=""></p>
+<p>DeepLab V2 可以搭配不同的主干网络，常见的是 ResNet-101，也存在基于 VGG-16 的版本。经过猪肝网络后的特征图同时经过多个使用不同膨胀率的空洞卷积分支，因为小膨胀率关注相对局部的细节;中等膨胀率关注更大范围的物体结构;大膨胀率关注更广泛的上下文信息，各分支进行类别预测，融合输出。<br>
+经过 ASPP 后，网络会得到类别分数图，再通过双线性插值将预测结果恢复到原图的空间尺寸，最后也是全连接 CRF。</p>
+<h5 id="2-4-3-DeepLab-V3">2.4.3 DeepLab V3</h5>
+<h4 id="2-5-PSPNet">2.5 PSPNet</h4>
 
       
 
