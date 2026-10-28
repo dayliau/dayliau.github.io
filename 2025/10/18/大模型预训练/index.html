@@ -8,19 +8,17 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>大模型预训练 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一些需要知道的代码的基础知识1.确保项目可以找到项目中的所有模块 os.path.dirname(_file_)获取当前脚本所在路径 os.path.join(...,...)将两个路径拼接起来">
+  <meta name="description" content="一些需要知道的代码的基础知识 1.确保项目可以找到项目中的所有模块  os.path.dirname(_file_)获取当前脚本所在路径 os.path.join(...,...)将两个路径拼接起来">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大模型预训练">
 <meta property="og:url" content="https://dayliau.github.io/2025/10/18/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="一些需要知道的代码的基础知识1.确保项目可以找到项目中的所有模块 os.path.dirname(_file_)获取当前脚本所在路径 os.path.join(...,...)将两个路径拼接起来">
+<meta property="og:description" content="一些需要知道的代码的基础知识 1.确保项目可以找到项目中的所有模块  os.path.dirname(_file_)获取当前脚本所在路径 os.path.join(...,...)将两个路径拼接起来">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T10:37:27.275Z">
+<meta property="article:modified_time" content="2026-10-28T02:21:58.338Z">
 <meta property="article:author" content="Dayliaaa">
-<meta property="article:tag" content="CLM">
 <meta property="article:tag" content="MiniMind">
-<meta property="article:tag" content="混合精度">
 <meta property="article:tag" content="预训练">
 <meta name="twitter:card" content="summary">
   
@@ -156,36 +154,67 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一些需要知道的代码的基础知识"><a href="#一些需要知道的代码的基础知识" class="headerlink" title="一些需要知道的代码的基础知识"></a>一些需要知道的代码的基础知识</h3><h4 id="1-确保项目可以找到项目中的所有模块"><a href="#1-确保项目可以找到项目中的所有模块" class="headerlink" title="1.确保项目可以找到项目中的所有模块"></a>1.确保项目可以找到项目中的所有模块</h4><ul>
+        <h3 id="一些需要知道的代码的基础知识">一些需要知道的代码的基础知识</h3>
+<h4 id="1-确保项目可以找到项目中的所有模块">1.确保项目可以找到项目中的所有模块</h4>
+<ul>
 <li><code>os.path.dirname(_file_)</code>获取当前脚本所在路径</li>
-<li><code>os.path.join(...,...)</code>将两个路径拼接起来<span id="more"></span></li>
+<li><code>os.path.join(...,...)</code>将两个路径拼接起来</li>
+</ul>
+<span id="more"></span>
+<ul>
 <li><code>os.path.abspath()</code>将相对路径转换为绝对路径</li>
 <li><code>sys.path.append()</code>将路径添加到模块搜索路径中</li>
-<li><code>sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))</code>就是将项目根目录添加到Python查找模块的路径列表中</li>
+<li><code>sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))</code>就是将项目根目录添加到Python查找模块的路径列表中</li>
 </ul>
-<h4 id="因果语言建模-Causal-Language-Modeling"><a href="#因果语言建模-Causal-Language-Modeling" class="headerlink" title="因果语言建模(Causal Language Modeling)"></a>因果语言建模(Causal Language Modeling)</h4><ul>
+<h4 id="因果语言建模-Causal-Language-Modeling">因果语言建模(Causal Language Modeling)</h4>
+<ul>
 <li>让大模型学会接龙</li>
-<li>原理：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原始序列: [token1, token2, token3, token4, ..., token_n]</span><br><span class="line">输入X:    [token1, token2, token3, ..., token_&#123;n-1&#125;]</span><br><span class="line">目标Y:    [token2, token3, token4, ..., token_n]</span><br><span class="line"></span><br><span class="line">训练目标: 给定X预测Y，即根据前文预测下一个token</span><br></pre></td></tr></table></figure>
-<h4 id="交叉熵损失计算的一些细节"><a href="#交叉熵损失计算的一些细节" class="headerlink" title="交叉熵损失计算的一些细节"></a>交叉熵损失计算的一些细节</h4></li>
+<li>原理：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原始序列: [token1, token2, token3, token4, ..., token_n]</span><br><span class="line">输入X:    [token1, token2, token3, ..., token_&#123;n-1&#125;]</span><br><span class="line">目标Y:    [token2, token3, token4, ..., token_n]</span><br><span class="line"></span><br><span class="line">训练目标: 给定X预测Y，即根据前文预测下一个token</span><br></pre></td></tr></table></figure>
+<h4 id="交叉熵损失计算的一些细节">交叉熵损失计算的一些细节</h4>
+<ul>
 <li>首先我们有经过大模型处理后得到的logits，以及真实的标签y，计算损失时，将logits的形状由(batch_size,seq_len,vocab_size)变成(batch_size<em>seq__len,vocab_size)，y的形状由(batch_size</em>seq_len)</li>
-<li>然后对logits进行log softmax计算，根据真实标签y取出对应位置的概率（都小于1），交叉熵损失就是这些负对数概率的平均值或和（取决于reduction参数）<h4 id="学习率"><a href="#学习率" class="headerlink" title="学习率"></a>学习率</h4></li>
+<li>然后对logits进行log softmax计算，根据真实标签y取出对应位置的概率（都小于1），交叉熵损失就是这些负对数概率的平均值或和（取决于reduction参数）</li>
+</ul>
+<h4 id="学习率">学习率</h4>
+<ul>
 <li><code>lr/10</code> 保证即使后面余弦的部分衰减到0学习率不会低于这个数，防止学习率过小导致训练停滞</li>
-<li>余弦退火  <code>0.5*lr*(1+math.cos(math.pi*current_step/total_steps))</code>保证模型训练在初期可以快速学习，中间稳定收敛，后期精细调整<h4 id="上下文管理器-contextlib"><a href="#上下文管理器-contextlib" class="headerlink" title="上下文管理器 contextlib"></a>上下文管理器 contextlib</h4></li>
+<li>余弦退火  <code>0.5*lr*(1+math.cos(math.pi*current_step/total_steps))</code>保证模型训练在初期可以快速学习，中间稳定收敛，后期精细调整</li>
+</ul>
+<h4 id="上下文管理器-contextlib">上下文管理器 contextlib</h4>
+<ul>
 <li>实现混合精度训练，<code>ctx = nullcontext() if device_type == &quot;cpu&quot; else torch.cuda.amp.autocast()</code>  cpu不支持AMP</li>
 <li>实现禁用梯度计算,<code>ctx = torch.no_grad</code></li>
 <li>推理模式 <code>torch.inference_model</code></li>
-<li>…<h4 id="混合精度训练-scaler"><a href="#混合精度训练-scaler" class="headerlink" title="混合精度训练 scaler"></a>混合精度训练 scaler</h4></li>
-<li>梯度缩放器 scaler why? 由于FP16比FP32表示的范围小，以至于在FP16中变成0，为了避免，我们使用一个缩放因子来放大损失值，从而在反向传播中放大梯度，使其在FP16的表示范围内，然后在优化器更新参数前，再讲梯度缩小为原来的尺度</li>
-<li><code>scaler.scale(loss).backward</code>将前向传播得到的loss乘以一个<code>scaler factor</code>，保证使用FP16时不会发生下溢；然后<code>scaler.unscale_(optimizer)</code>,<code>scaler.step(optimizer)</code>会更新参数，如果有nan或者inf会自动跳过；最后<code>scaler.update()</code>来更新<code>scaler factor</code><h3 id="预训练流程"><a href="#预训练流程" class="headerlink" title="预训练流程"></a>预训练流程</h3><h4 id="以minimind为例-一般包括以下几个步骤"><a href="#以minimind为例-一般包括以下几个步骤" class="headerlink" title="以minimind为例 一般包括以下几个步骤"></a>以minimind为例 一般包括以下几个步骤</h4>1.数据准备和预处理</li>
-<li>在dataset/lm_dataset.py中实现的PretrainDataset类实现具体的数据处理逻辑，然后import这个类</li>
-<li>首先原始文本经过分词之后得到token ID向量，然后根据max_length的值，不够就填充0，长的就截断，损失掩码形状和填充后的一样，真实token对应是1，填充的对应是0；输入的序列x去掉最后一个token，目标序列y去掉第一个token，损失掩码与y对齐，只计算真实token的损失<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">class PretrainDataset(Dataset):</span><br><span class="line">    def __init__(self, data_path, tokenizer, max_length=512):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.tokenizer = tokenizer</span><br><span class="line">        self.max_length = max_length</span><br><span class="line">        self.samples = self.load_data(data_path)</span><br><span class="line"></span><br><span class="line">    def load_data(self, path):</span><br><span class="line">        samples = []</span><br><span class="line">        with open(path, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:</span><br><span class="line">            for line_num, line in enumerate(f, 1):</span><br><span class="line">                data = json.loads(line.strip())</span><br><span class="line">                samples.append(data)</span><br><span class="line">        return samples</span><br><span class="line"></span><br><span class="line">    def __len__(self):</span><br><span class="line">        return len(self.samples)</span><br><span class="line"></span><br><span class="line">    def __getitem__(self, index):</span><br><span class="line">        sample = self.samples[index]</span><br><span class="line"></span><br><span class="line">        # 构建输入文本</span><br><span class="line">        encoding = self.tokenizer(</span><br><span class="line">            str(sample[&#x27;text&#x27;]),   #将文本转化为字符串</span><br><span class="line">            max_length=self.max_length,</span><br><span class="line">            padding=&#x27;max_length&#x27;,</span><br><span class="line">            truncation=True,       #超长文本截断</span><br><span class="line">            return_tensors=&#x27;pt&#x27;    #返回Pytorch tensor</span><br><span class="line">        )</span><br><span class="line">        input_ids = encoding.input_ids.squeeze()   #去除batch维度</span><br><span class="line">        loss_mask = (input_ids != self.tokenizer.pad_token_id)  #损失掩码</span><br><span class="line"></span><br><span class="line">        X = torch.tensor(input_ids[:-1], dtype=torch.long)</span><br><span class="line">        Y = torch.tensor(input_ids[1:], dtype=torch.long)</span><br><span class="line">        loss_mask = torch.tensor(loss_mask[1:], dtype=torch.long)</span><br><span class="line">        return X, Y, loss_mask</span><br></pre></td></tr></table></figure></li>
-<li>返回的encoding是一个字典，其中的input_ids是一个形状为(1,seq_len)的张量，调用.squeeeze()方法，降低一个维度去掉，得到(seq_len),DataLoader会自动将这些一维张量堆叠成二维张量（batch_size, seq_len）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([[101,102,103,104,0,0]])</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([101,102,103,104,0,0])</span><br></pre></td></tr></table></figure>
-2.分词器</li>
-<li>.from_pretrained()方法可以直接调用一个现成的或者自定义的预训练资源<br>3.模型架构和配置<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def init_model(lm_config):</span><br><span class="line">    tokenizer = AutoTokenizer.from_pretrained(&#x27;../model/&#x27;)</span><br><span class="line">    model = MiniMindForCausalLM(lm_config).to(args.device)</span><br><span class="line">    Logger(f&#x27;LLM可训练总参数量：&#123;sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6:.3f&#125; 百万&#x27;)</span><br><span class="line">    return model, tokenizer</span><br></pre></td></tr></table></figure>
-</li>
+<li>…</li>
 </ul>
-<h3 id="FileZilla"><a href="#FileZilla" class="headerlink" title="FileZilla"></a>FileZilla</h3><p>今天上传预训练数据，总是因为网络不稳定以及文件太大失败，然后下载了FileZilla，传的依然很慢，但是优点是可以从断点接着上传</p>
+<h4 id="混合精度训练-scaler">混合精度训练 scaler</h4>
+<ul>
+<li>梯度缩放器 scaler why? 由于FP16比FP32表示的范围小，以至于在FP16中变成0，为了避免，我们使用一个缩放因子来放大损失值，从而在反向传播中放大梯度，使其在FP16的表示范围内，然后在优化器更新参数前，再讲梯度缩小为原来的尺度</li>
+<li><code>scaler.scale(loss).backward</code>将前向传播得到的loss乘以一个<code>scaler factor</code>，保证使用FP16时不会发生下溢；然后<code>scaler.unscale_(optimizer)</code>,<code>scaler.step(optimizer)</code>会更新参数，如果有nan或者inf会自动跳过；最后<code>scaler.update()</code>来更新<code>scaler factor</code></li>
+</ul>
+<h3 id="预训练流程">预训练流程</h3>
+<h4 id="以minimind为例-一般包括以下几个步骤">以minimind为例 一般包括以下几个步骤</h4>
+<p>1.数据准备和预处理</p>
+<ul>
+<li>在dataset/lm_dataset.py中实现的PretrainDataset类实现具体的数据处理逻辑，然后import这个类</li>
+<li>首先原始文本经过分词之后得到token ID向量，然后根据max_length的值，不够就填充0，长的就截断，损失掩码形状和填充后的一样，真实token对应是1，填充的对应是0；输入的序列x去掉最后一个token，目标序列y去掉第一个token，损失掩码与y对齐，只计算真实token的损失</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">class PretrainDataset(Dataset):</span><br><span class="line">    def __init__(self, data_path, tokenizer, max_length=512):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.tokenizer = tokenizer</span><br><span class="line">        self.max_length = max_length</span><br><span class="line">        self.samples = self.load_data(data_path)</span><br><span class="line"></span><br><span class="line">    def load_data(self, path):</span><br><span class="line">        samples = []</span><br><span class="line">        with open(path, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:</span><br><span class="line">            for line_num, line in enumerate(f, 1):</span><br><span class="line">                data = json.loads(line.strip())</span><br><span class="line">                samples.append(data)</span><br><span class="line">        return samples</span><br><span class="line"></span><br><span class="line">    def __len__(self):</span><br><span class="line">        return len(self.samples)</span><br><span class="line"></span><br><span class="line">    def __getitem__(self, index):</span><br><span class="line">        sample = self.samples[index]</span><br><span class="line"></span><br><span class="line">        # 构建输入文本</span><br><span class="line">        encoding = self.tokenizer(</span><br><span class="line">            str(sample[&#x27;text&#x27;]),   #将文本转化为字符串</span><br><span class="line">            max_length=self.max_length,</span><br><span class="line">            padding=&#x27;max_length&#x27;,</span><br><span class="line">            truncation=True,       #超长文本截断</span><br><span class="line">            return_tensors=&#x27;pt&#x27;    #返回Pytorch tensor</span><br><span class="line">        )</span><br><span class="line">        input_ids = encoding.input_ids.squeeze()   #去除batch维度</span><br><span class="line">        loss_mask = (input_ids != self.tokenizer.pad_token_id)  #损失掩码</span><br><span class="line"></span><br><span class="line">        X = torch.tensor(input_ids[:-1], dtype=torch.long)</span><br><span class="line">        Y = torch.tensor(input_ids[1:], dtype=torch.long)</span><br><span class="line">        loss_mask = torch.tensor(loss_mask[1:], dtype=torch.long)</span><br><span class="line">        return X, Y, loss_mask</span><br></pre></td></tr></table></figure>
+<ul>
+<li>返回的encoding是一个字典，其中的input_ids是一个形状为(1,seq_len)的张量，调用.squeeeze()方法，降低一个维度去掉，得到(seq_len),DataLoader会自动将这些一维张量堆叠成二维张量（batch_size, seq_len）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([[101,102,103,104,0,0]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([101,102,103,104,0,0])</span><br></pre></td></tr></table></figure>
+<p>2.分词器</p>
+<ul>
+<li>.from_pretrained()方法可以直接调用一个现成的或者自定义的预训练资源<br>
+3.模型架构和配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def init_model(lm_config):</span><br><span class="line">    tokenizer = AutoTokenizer.from_pretrained(&#x27;../model/&#x27;)</span><br><span class="line">    model = MiniMindForCausalLM(lm_config).to(args.device)</span><br><span class="line">    Logger(f&#x27;LLM可训练总参数量：&#123;sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6:.3f&#125; 百万&#x27;)</span><br><span class="line">    return model, tokenizer</span><br></pre></td></tr></table></figure>
+<h3 id="FileZilla">FileZilla</h3>
+<p>今天上传预训练数据，总是因为网络不稳定以及文件太大失败，然后下载了FileZilla，传的依然很慢，但是优点是可以从断点接着上传</p>
 
       
 
@@ -225,15 +254,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">混合精度</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">预训练</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CLM</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -469,14 +490,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">记忆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工具使用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">规划</a>
               </li>
              
@@ -497,27 +510,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ELMo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">词嵌入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MoE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">混合专家</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">路由</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,10 +534,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Attention</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
               </li>
              
@@ -557,10 +550,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">YOLOv8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
@@ -570,10 +559,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">BPE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,10 +586,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MFU</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">FineWeb</a>
               </li>
              
@@ -617,19 +598,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">QLoRA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SFT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RLHF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DPO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,19 +606,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PyCharm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,14 +654,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VOC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">COCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">矩阵求导</a>
               </li>
              
@@ -742,14 +691,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RMSNorm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SwiGLU</a>
               </li>
              
               <li class="article-tag-list-item">

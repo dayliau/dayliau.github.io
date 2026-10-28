@@ -16,11 +16,10 @@
 <meta property="og:description" content="Tokenization is the process of taking raw text which is generally represented as Unicode strings and turning it into a set of integers. A tokenizer is a class that implements the encode and decode me">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T10:42:57.505Z">
+<meta property="article:modified_time" content="2026-10-28T02:21:46.664Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="BPE">
 <meta property="article:tag" content="Tokenization">
-<meta property="article:tag" content="分词">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Dayliaaa&#39;s Blog" type="application/atom+xml">
@@ -158,29 +157,35 @@
         <ul>
 <li>Tokenization is the process of taking raw text which is generally represented as Unicode strings and turning it into a set of integers.</li>
 <li>A tokenizer is a class that implements the encode and decode methods.</li>
-<li>The vocabulary size is number of possible tokens(integers).<br><a target="_blank" rel="noopener" href="https://tiktokenizer.vercel.app/?model=gpt-4o">https://tiktokenizer.vercel.app/?model=gpt-4o</a><span id="more"></span>
-</li>
+<li>The vocabulary size is number of possible tokens(integers).<br>
+<a target="_blank" rel="noopener" href="https://tiktokenizer.vercel.app/?model=gpt-4o">https://tiktokenizer.vercel.app/?model=gpt-4o</a></li>
 </ul>
-<h4 id="Character-based-tokenization"><a href="#Character-based-tokenization" class="headerlink" title="Character-based tokenization"></a>Character-based tokenization</h4><ul>
+<span id="more"></span>
+<h4 id="Character-based-tokenization">Character-based tokenization</h4>
+<ul>
 <li>This method allocate each one slot in vocabulary for every character.</li>
 <li>Some characters appear way more frequently than others and some code poits are actually really large.</li>
 <li>This is not a effective way to use your buget.</li>
 </ul>
-<h4 id="Byte-based-tokenization"><a href="#Byte-based-tokenization" class="headerlink" title="Byte-based tokenization"></a>Byte-based tokenization</h4><ul>
+<h4 id="Byte-based-tokenization">Byte-based tokenization</h4>
+<ul>
 <li>Unicode strings can be represented as a sequence of bytes,which can be represented by integers between 0 and 255.(one byte is fixed to consist of 8 binary bits)</li>
 <li>The most common Unicode encoding is UTF-8,which is a variable-length character encoding for Unicode. It is widely used for transmitting and storing text on the internet.</li>
 <li>compression ratio == 1,it is terrible,which means the sequence will be too long.</li>
 </ul>
-<h4 id="Word-based-tokenization"><a href="#Word-based-tokenization" class="headerlink" title="Word-based tokenization"></a>Word-based tokenization</h4><ul>
+<h4 id="Word-based-tokenization">Word-based tokenization</h4>
+<ul>
 <li>The number of words is huge(like for Unicode characters).</li>
 <li>Many words are rare and the model won’t learn much about them.</li>
 <li>New words we haven’t seen during training get a special UNK token,which is ugly and can mess up perplexity(PPL).</li>
 </ul>
-<h4 id="Byte-Pair-Encoding-BPE"><a href="#Byte-Pair-Encoding-BPE" class="headerlink" title="Byte Pair Encoding(BPE)"></a>Byte Pair Encoding(BPE)</h4><ul>
+<h4 id="Byte-Pair-Encoding-BPE">Byte Pair Encoding(BPE)</h4>
+<ul>
 <li>Basic idea:train the tokenizer on raw text to automatocally detemine the vocabulary.</li>
 <li>Common sequences of characters are represented by a single token,rare sequences are represented by many tokens.</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://huggingface.co/learn/llm-course/zh-CN/chapter6/5">https://huggingface.co/learn/llm-course/zh-CN/chapter6/5</a><br><a target="_blank" rel="noopener" href="https://github.com/rsennrich/subword-nmt">https://github.com/rsennrich/subword-nmt</a></p>
+<p><a target="_blank" rel="noopener" href="https://huggingface.co/learn/llm-course/zh-CN/chapter6/5">https://huggingface.co/learn/llm-course/zh-CN/chapter6/5</a><br>
+<a target="_blank" rel="noopener" href="https://github.com/rsennrich/subword-nmt">https://github.com/rsennrich/subword-nmt</a></p>
 
       
 
@@ -225,10 +230,6 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">BPE</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分词</a>
         		</li>
       		
 		</ul>
@@ -460,14 +461,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">记忆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工具使用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">规划</a>
               </li>
              
@@ -488,27 +481,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ELMo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">词嵌入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MoE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">混合专家</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">路由</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,10 +505,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Attention</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
               </li>
              
@@ -548,10 +521,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">YOLOv8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
@@ -561,10 +530,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">BPE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,10 +557,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MFU</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">FineWeb</a>
               </li>
              
@@ -608,19 +569,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">QLoRA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SFT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RLHF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DPO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,19 +577,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PyCharm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -688,14 +625,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VOC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">COCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">矩阵求导</a>
               </li>
              
@@ -733,14 +662,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RMSNorm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SwiGLU</a>
               </li>
              
               <li class="article-tag-list-item">

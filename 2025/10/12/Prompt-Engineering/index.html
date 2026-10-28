@@ -8,18 +8,17 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>Prompt Engineering | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="How to use prompts?Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好 在prompt中给出更多示例帮助prompt思考 tips： 使用和target相似的示例 kNN 输入所有的示例然后做一些排序   局限： 如果给出的示例的label是严重不平衡的，可能会影响结果 越后来输入的示例的label对结">
+  <meta name="description" content="How to use prompts? Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好  在prompt中给出更多示例帮助prompt思考 tips：  使用和target相似的示例 kNN 输入所有的示例然后做一些排序   局限：  如果给出的示例的label是严重不平衡的，可能会影响结果 越后来输入的示例的lab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prompt Engineering">
 <meta property="og:url" content="https://dayliau.github.io/2025/10/12/Prompt-Engineering/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="How to use prompts?Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好 在prompt中给出更多示例帮助prompt思考 tips： 使用和target相似的示例 kNN 输入所有的示例然后做一些排序   局限： 如果给出的示例的label是严重不平衡的，可能会影响结果 越后来输入的示例的label对结">
+<meta property="og:description" content="How to use prompts? Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好  在prompt中给出更多示例帮助prompt思考 tips：  使用和target相似的示例 kNN 输入所有的示例然后做一些排序   局限：  如果给出的示例的label是严重不平衡的，可能会影响结果 越后来输入的示例的lab">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-14T10:42:19.900Z">
+<meta property="article:modified_time" content="2026-10-28T02:21:47.789Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="CoT">
-<meta property="article:tag" content="Prompt">
 <meta property="article:tag" content="提示工程">
 <meta name="twitter:card" content="summary">
   
@@ -155,28 +154,43 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="How-to-use-prompts"><a href="#How-to-use-prompts" class="headerlink" title="How to use prompts?"></a>How to use prompts?</h3><h4 id="Rule-1-Few-shot-is-likely-bettter-than-zero-shot-少样本学习可能比无样本学习更好"><a href="#Rule-1-Few-shot-is-likely-bettter-than-zero-shot-少样本学习可能比无样本学习更好" class="headerlink" title="Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好"></a>Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好</h4><ul>
+        <h3 id="How-to-use-prompts">How to use prompts?</h3>
+<h4 id="Rule-1-Few-shot-is-likely-bettter-than-zero-shot-少样本学习可能比无样本学习更好">Rule 1:Few-shot is likely bettter than zero-shot 少样本学习可能比无样本学习更好</h4>
+<ul>
 <li>在prompt中给出更多示例帮助prompt思考</li>
-<li>tips：<ul>
+<li>tips：
+<ul>
 <li>使用和target相似的示例 kNN</li>
 <li>输入所有的示例然后做一些排序</li>
 </ul>
 </li>
-<li>局限：<ul>
+<li>局限：
+<ul>
 <li>如果给出的示例的label是严重不平衡的，可能会影响结果</li>
 <li>越后来输入的示例的label对结果的影响越大</li>
-<li>在prompt中出现频率越多的token越容易影响结果<span id="more"></span>
-</li>
+<li>在prompt中出现频率越多的token越容易影响结果</li>
 </ul>
 </li>
 </ul>
-<h4 id="Rule-2-Give-your-model-a-certain-role-角色扮演"><a href="#Rule-2-Give-your-model-a-certain-role-角色扮演" class="headerlink" title="Rule 2:Give your model a certain role 角色扮演"></a>Rule 2:Give your model a certain role 角色扮演</h4><h4 id="Rule-3-Chain-of-thought-for-reasoning-tasks"><a href="#Rule-3-Chain-of-thought-for-reasoning-tasks" class="headerlink" title="Rule 3:Chain-of-thought for reasoning tasks"></a>Rule 3:Chain-of-thought for reasoning tasks</h4><ul>
-<li>也就是让大模型think ste by step<h4 id="Rule-4-Clear-and-specific-promopts"><a href="#Rule-4-Clear-and-specific-promopts" class="headerlink" title="Rule 4:Clear and specific promopts"></a>Rule 4:Clear and specific promopts</h4></li>
-<li>用一些特殊的符号把重要的句子标出来 ``` ‘’’’’’ —- &lt;&gt; 等</li>
+<span id="more"></span>
+<h4 id="Rule-2-Give-your-model-a-certain-role-角色扮演">Rule 2:Give your model a certain role 角色扮演</h4>
+<h4 id="Rule-3-Chain-of-thought-for-reasoning-tasks">Rule 3:Chain-of-thought for reasoning tasks</h4>
+<ul>
+<li>也就是让大模型think ste by step</li>
+</ul>
+<h4 id="Rule-4-Clear-and-specific-promopts">Rule 4:Clear and specific promopts</h4>
+<ul>
+<li>用一些特殊的符号把重要的句子标出来 ``` ‘’‘’‘’ — &lt;&gt; 等</li>
 <li>明确告诉大模型需要的输出格式 例如html python等等</li>
-<li>增加条件，例如如果你可以找到这个名字和位置就打印出来，找不到就返回nothing，这样是为了防止大模型一味地去满足用户的要求去胡言乱语<h4 id="Rule-5：Know-the-model-temperature"><a href="#Rule-5：Know-the-model-temperature" class="headerlink" title="Rule 5：Know the model temperature"></a>Rule 5：Know the model temperature</h4></li>
+<li>增加条件，例如如果你可以找到这个名字和位置就打印出来，找不到就返回nothing，这样是为了防止大模型一味地去满足用户的要求去胡言乱语</li>
+</ul>
+<h4 id="Rule-5：Know-the-model-temperature">Rule 5：Know the model temperature</h4>
+<ul>
 <li>Set temp=0 for determined tasks</li>
-<li>Set temp&gt;0 to introduce randomness<h3 id="How-to-learn-prompts"><a href="#How-to-learn-prompts" class="headerlink" title="How to learn prompts?"></a>How to learn prompts?</h3></li>
+<li>Set temp&gt;0 to introduce randomness</li>
+</ul>
+<h3 id="How-to-learn-prompts">How to learn prompts?</h3>
+<ul>
 <li>Prompt tuning</li>
 <li>Tuning-free prompting</li>
 <li>Fixed-LM prompt tuning</li>
@@ -220,10 +234,6 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">提示工程</a>
         		</li>
@@ -461,14 +471,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">记忆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工具使用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">规划</a>
               </li>
              
@@ -489,27 +491,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ELMo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">词嵌入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MoE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">混合专家</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">路由</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,10 +515,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Attention</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
               </li>
              
@@ -549,10 +531,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">YOLOv8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
@@ -562,10 +540,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">BPE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,10 +567,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MFU</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">FineWeb</a>
               </li>
              
@@ -609,19 +579,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">QLoRA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SFT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RLHF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DPO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,19 +587,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PyCharm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,14 +635,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VOC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">COCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">矩阵求导</a>
               </li>
              
@@ -734,14 +672,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RMSNorm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SwiGLU</a>
               </li>
              
               <li class="article-tag-list-item">
