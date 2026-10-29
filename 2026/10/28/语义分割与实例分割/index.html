@@ -20,9 +20,8 @@
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/seg.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv1.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv2.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv2.png">
 <meta property="article:published_time" content="2026-10-28T05:10:45.000Z">
-<meta property="article:modified_time" content="2026-10-28T14:36:28.427Z">
+<meta property="article:modified_time" content="2026-10-29T03:13:30.572Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
@@ -168,47 +167,76 @@
 <span id="more"></span>
 <h3 id="2-广泛使用的语义分割模型">2 广泛使用的语义分割模型</h3>
 <h4 id="2-1-全卷积网络-FCN">2.1 全卷积网络 (FCN)</h4>
-<p>FCN将通常的卷积神经网络架构最后的全连接层变为卷积层，一个确定大小的全连接层对应的图像大小也得是固定的，而FCN可以输入任意大小的图像，因为它不再依赖固定长度的展平向量；假设要识别的种类是C,全连接层中的一个神经元同时连接了特征图中所有空间位置、所有通道的特征，最后输出的大小也是C，一张图片输出每个类别对应的概率大小，FCN的输出是H * W * C，也就是说一张图片里的每个像素都会有一个每个类别对应的概率大小，从而保留空间布局信息。</p>
+<p>FCN将通常的卷积神经网络架构最后的全连接层变为卷积层，一个确定大小的全连接层对应的图像大小也得是固定的，而FCN可以输入任意大小的图像，因为它不再依赖固定长度的展平向量；假设要识别的种类是C,全连接层中的一个神经元同时连接了特征图中所有空间位置、所有通道的特征，最后输出的大小也是C，一张图片输出每个类别对应的概率大小，FCN的输出是H × W × C，也就是说一张图片里的每个像素都会有一个每个类别对应的概率大小，从而保留空间布局信息。</p>
 <p>FCN先使用一些经典的CNN网络提取特征，由于卷积过程会使特征图变小，所以需要上采样，由于最后一层的特征图太小，仅对最后一层的特征图进行上采样得到原图大小的分割，细节会丢失。因此，通过跳级结构将低层（精细层）与高层（粗糙层）结合，使得模型兼顾局部预测以及全局结构。</p>
 <p><img src="fcn.png" alt=""></p>
 <h4 id="2-2-U-Net">2.2 U-Net</h4>
 <p>U-Net是一个典型的编码器—解码器网络，使用跳跃连接，信息可以从编码器直接传递到解码器，这样模型就可以保留图象在压缩过程中的重要细节。</p>
 <p><img src="unet.png" alt=""></p>
 <p>左半部分为编码器，图像经过卷积和池化，尺寸逐步缩小，更高级的语义特征被提取出来。</p>
-<p>输入图像为572 * 572 * 3</p>
-<p>第一次卷积和池化：卷积核Kernel大小为3 * 3 * 64 ，步长Stride=1，填充Padding=0，根据计算公式</p>
+<p>输入图像为572 × 572 × 3</p>
+<ul>
+<li>第一次卷积和池化：卷积核Kernel大小为3 × 3 × 64 ，步长Stride=1，填充Padding=0，根据计算公式</li>
+</ul>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>H</mi><mtext>out</mtext></msub><mo>=</mo><mfrac><mrow><msub><mi>H</mi><mtext>in</mtext></msub><mo>−</mo><mi>K</mi><mo>+</mo><mn>2</mn><mi>P</mi></mrow><mi>S</mi></mfrac><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">H_{\text{out}}=\frac{H_{\text{in}}-K+2P}{S}+1 
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">out</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0463em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0576em;">S</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">in</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
-<p>连续进行两次卷积，特征图尺寸变为568 * 568 * 64，然后进行2*2最大池化，步长为2，特征图尺寸变为284 * 284 * 64。</p>
-<p>第二次卷积和池化，卷积核Kernel大小为3 * 3 * 128 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为280 * 280 * 128，然后进行2 * 2最大池化，步长为2，特征图尺寸变为140 * 140 * 128。</p>
-<p>第三次卷积和池化，卷积核Kernel大小为3 * 3 * 256 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为136 * 136 * 256，然后进行2 * 2最大池化，步长为2，特征图尺寸变为68 * 68 * 256。</p>
-<p>第四次卷积和池化，卷积核Kernel大小为3 * 3 * 512 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为64 * 64 * 512，然后进行2 * 2最大池化，步长为2，特征图尺寸变为32 * 32 * 512。</p>
-<p>第五次卷积，卷积核Kernel大小为3 * 3 * 1024 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为28 * 28 * 1024，网络将图像压缩成了空间分辨率较低、通道数量较多的高级特征表示。</p>
+<p>连续进行两次卷积，特征图尺寸变为568 × 568 × 64，然后进行2×2最大池化，步长为2，特征图尺寸变为284 × 284 × 64。</p>
+<ul>
+<li>
+<p>第二次卷积和池化，卷积核Kernel大小为3 × 3 × 128 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为280 × 280 × 128，然后进行2 × 2最大池化，步长为2，特征图尺寸变为140 × 140 × 128。</p>
+</li>
+<li>
+<p>第三次卷积和池化，卷积核Kernel大小为3 × 3 × 256 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为136 × 136 × 256，然后进行2 × 2最大池化，步长为2，特征图尺寸变为68 × 68 × 256。</p>
+</li>
+<li>
+<p>第四次卷积和池化，卷积核Kernel大小为3 × 3 × 512 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为64 × 64 × 512，然后进行2 × 2最大池化，步长为2，特征图尺寸变为32 × 32 × 512。</p>
+</li>
+<li>
+<p>第五次卷积，卷积核Kernel大小为3 × 3 × 1024 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为28 × 28 × 1024，网络将图像压缩成了空间分辨率较低、通道数量较多的高级特征表示。</p>
+</li>
+</ul>
 <p>右半部分是解码器，特征图尺寸逐步变大，并且融合收缩路径保留的细节信息。</p>
 <p>跳跃连接将左侧对应层复制裁剪与右侧特征拼接。</p>
-<p>第一次上采样，28 * 28 * 1024通过2 * 2转置卷积变为56 * 56 * 512，与左侧64 * 64 * 512 拼接得到 56 * 56 * 1024 ，连续进行两次3 * 3 * 512卷积后得到52 * 52 * 512</p>
-<p>第二次上采样，52 * 52 * 512通过2 * 2转置卷积变为104 * 104 * 256，与左侧136 * 136 * 256拼接得到 104 * 104 * 512，连续进行两次3 * 3 * 256卷积后得到100 * 100 * 256</p>
-<p>第三次上采样，100 * 100 * 256通过2 * 2转置卷积变为200 * 200 * 128，与左侧280 * 280 * 256拼接得到 200 * 200 * 256，连续进行两次3 * 3 * 128卷积后得到196 * 196 * 128</p>
-<p>第四次上采样，196 * 196 * 128通过2 * 2转置卷积变为392 * 392 * 64，与左侧568 * 568 * 64拼接得到 392 * 392 * 128，连续进行两次3 * 3 * 64卷积后得到388 * 388 * 64</p>
-<p>最后388 * 388 * 64经过卷积核大小为1 * 1 * 2，步长为1，填充为1的卷积，尺寸变为388 * 388 * 2，最后一个卷积通道数为2是因为这张图进行的是一个二分类任务，对每个像素输出两个类别的得分。</p>
+<ul>
+<li>
+<p>第一次上采样，28 × 28 × 1024通过2 × 2转置卷积变为56 × 56 × 512，与左侧64 × 64 × 512 拼接得到 56 × 56 × 1024 ，连续进行两次3 × 3 × 512卷积后得到52 × 52 × 512</p>
+</li>
+<li>
+<p>第二次上采样，52 × 52 × 512通过2 × 2转置卷积变为104 × 104 × 256，与左侧136 × 136 × 256拼接得到 104 × 104 × 512，连续进行两次3 × 3 × 256卷积后得到100 × 100 × 256</p>
+</li>
+<li>
+<p>第三次上采样，100 × 100 × 256通过2 × 2转置卷积变为200 × 200 × 128，与左侧280 × 280 × 256拼接得到 200 × 200 × 256，连续进行两次3 × 3 × 128卷积后得到196 × 196 × 128</p>
+</li>
+<li>
+<p>第四次上采样，196 × 196 × 128通过2 × 2转置卷积变为392 × 392 × 64，与左侧568 × 568 × 64拼接得到 392 × 392 × 128，连续进行两次3 × 3 × 64卷积后得到388 × 388 × 64</p>
+</li>
+<li>
+<p>最后388×388×64经过卷积核大小为1×1×2，步长为1，填充为1的卷积，尺寸变为388×388×2，最后一个卷积通道数为2是因为这张图进行的是一个二分类任务，对每个像素输出两个类别的得分。</p>
+</li>
+</ul>
 <h4 id="2-3-SegNet">2.3 SegNet</h4>
 <p>也是一个编码器-解码器网络，与U-net的区别在于SegNet主要利用最大池化的索引恢复空间分辨率，而 U-Net 通过跳跃连接，将编码器的特征图与解码器的特征图进行拼接。</p>
 <p><img src="seg.png" alt=""></p>
-<p>编码器网络对应VGG16的前13个卷积层，划分为五组，每组包括Conv卷积、BN归一化、 ReLU激活函数、2 * 2的MaxPooling。在最大池化时SegNet会存储最大池化的索引，也就是保存编码器特征图中最大特征值的位置，这样在进行上采样放大特征图时，除最大值对应的位置其他位置都设置为0，这样可以更好地反应物体的边界。解码器网络也划分为五组，包括上采样、卷积，最后一组经过一个Softmax层输出每个像素的类别。</p>
+<p>编码器网络对应VGG16的前13个卷积层，划分为五组，每组包括Conv卷积、BN归一化、 ReLU激活函数、2 × 2的MaxPooling。在最大池化时SegNet会存储最大池化的索引，也就是保存编码器特征图中最大特征值的位置，这样在进行上采样放大特征图时，除最大值对应的位置其他位置都设置为0，这样可以更好地反应物体的边界。解码器网络也划分为五组，包括上采样、卷积，最后一组经过一个Softmax层输出每个像素的类别。</p>
 <h4 id="2-4-DeepLab">2.4 DeepLab</h4>
 <h5 id="2-4-1-DeepLab-V1">2.4.1 DeepLab V1</h5>
 <p>核心是VGG16改造版提取图像特征，再通过空洞卷积尽量保留空间分辨率，再使用全连接条件随机场西化分割边界。</p>
-<p>VGG16的卷积和池化会不断缩小特征图，难以精确判断物体边界，DeepLab V1使用了空洞卷积来扩大感受野。空洞卷积和普通卷积的区别是空洞卷积的采样点之间存在间隔，用膨胀率（dilation rate）控制间隔大小，对于3 * 3 卷积核，有效感受野尺寸为k+(k-1)(r-1)，若r=2，则有效感受野尺寸为5 * 5。</p>
+<p>VGG16的卷积和池化会不断缩小特征图，难以精确判断物体边界，DeepLab V1使用了空洞卷积来扩大感受野。空洞卷积和普通卷积的区别是空洞卷积的采样点之间存在间隔，用膨胀率（dilation rate）控制间隔大小，对于3×3 卷积核，有效感受野尺寸为k+(k-1)(r-1)，若r=2，则有效感受野尺寸为5×5。</p>
 <p><img src="deeplabv1.png" alt=""></p>
 <p>经过空洞卷积后，对每个像素进行类别预测，然后经过双线性插值上采样将特征图恢复到原图尺寸，最后经过条件随机场CRF（Conditional Random Field）使最后分类结果的边缘更加精细。</p>
 <h5 id="2-4-2-DeepLab-V2">2.4.2 DeepLab V2</h5>
 <p>DeepLab V2 最重要的改进是引入 ASPP（Atrous Spatial Pyramid Pooling，空洞空间金字塔池化），通过多个不同膨胀率的空洞卷积分支，同时提取不同尺度的特征。它要解决的问题是：同一张图像中，目标可能有大有小，单一感受野不容易同时处理好不同尺度的目标。</p>
 <p><img src="deeplabv2.png" alt=""></p>
-<p>DeepLab V2 可以搭配不同的主干网络，常见的是 ResNet-101，也存在基于 VGG-16 的版本。经过猪肝网络后的特征图同时经过多个使用不同膨胀率的空洞卷积分支，因为小膨胀率关注相对局部的细节;中等膨胀率关注更大范围的物体结构;大膨胀率关注更广泛的上下文信息，各分支进行类别预测，融合输出。<br>
+<p>DeepLab V2 可以搭配不同的主干网络，常见的是 ResNet-101，也存在基于 VGG-16 的版本。经过主干网络后的特征图同时经过多个使用不同膨胀率的空洞卷积分支，因为小膨胀率关注相对局部的细节;中等膨胀率关注更大范围的物体结构;大膨胀率关注更广泛的上下文信息，各分支进行类别预测，融合输出。<br>
 经过 ASPP 后，网络会得到类别分数图，再通过双线性插值将预测结果恢复到原图的空间尺寸，最后也是全连接 CRF。</p>
 <h5 id="2-4-3-DeepLab-V3">2.4.3 DeepLab V3</h5>
-<p><img src="deeplabv2.png" alt=""></p>
+<p>DeepLab V2 使用 ASPP 提取多尺度特征；DeepLab V3 则进一步改进 ASPP，并引入图像级特征来增强全局上下文信息，同时通过改进的空洞卷积策略控制特征图分辨率。</p>
+<p>在前四个分支提取不同尺度的特征后，v3加了全局平均池化（特征图尺寸变为1×1×C）、1×1卷积（对通道数进行变换），上采样（把特征图恢复到与其他分支融合的空间尺寸），这样模型可以提取图像级特征，有助于消除局部判断的歧义。五个分支沿通道维度拼接后再进行1×1卷积，对多分支信息进行融合和通道压缩，形成用于像素分类的综合特征。</p>
+<p>除了 ASPP，DeepLab V3 还重点研究了空洞卷积的级联方式，以及如何设置不同层的膨胀率。它使用 Batch Normalization 等设计帮助训练，并通过合理控制输出步长来平衡空间分辨率与计算量。也不再把全连接 CRF 作为必要的后处理步骤。</p>
+<h5 id="2-4-4-DeepLab-V3">2.4.4 DeepLab V3+</h5>
+<p>在 DeepLab V3 的基础上，增加了一个解码器（Decoder），负责恢复空间细节，让分割边界更加精确。在ASPP后，v3通过上采样直接恢复分辨率，得到每个像素分类结果，v3+对ASPP的输出进行上采样再与主干网络的浅层特征融合，经过卷积细化后再进行上采样最后得到结果。浅层特征空间分辨率通常较高，保留了较多的位置和细节信息，帮助分割模型确定物体的边界、细小结构。深层特征感受野通常更大，空间分辨率通常更低，但语义表达更强，帮助模型判断某个区域属于人、道路、建筑还是其他类别。</p>
 <h4 id="2-5-PSPNet">2.5 PSPNet</h4>
+<p>经过主干网络Backbone后是金字塔池化模块PPM，有四个池化分支，1×1池化尺度是全局信息、2×2池化尺度是粗粒度区域信息、3×3池化尺度是中等尺度信息、6×6池化尺度是较细粒度的区域信息，经过池化后是1×1卷积降低通道数、上采样、然后与原始特征图拼接Concat，然后卷积预测每个像素类别。</p>
 
       
 
