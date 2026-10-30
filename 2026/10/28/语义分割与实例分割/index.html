@@ -20,9 +20,12 @@
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/seg.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv1.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv2.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster1.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster3.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster2.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/rcnn.png">
 <meta property="article:published_time" content="2026-10-28T05:10:45.000Z">
-<meta property="article:modified_time" content="2026-10-29T05:22:36.117Z">
+<meta property="article:modified_time" content="2026-10-29T15:30:40.715Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
@@ -317,13 +320,30 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 </table>
 <h3 id="4-模型">4 模型</h3>
 <h4 id="4-1-Faster-R-CNN">4.1 Faster R-CNN</h4>
+<p><img src="faster1.png" alt=""><br>
+是一个两阶段的框架<br>
+<img src="faster3.png" alt=""></p>
+<ul>
+<li>锚框anchor
+<ul>
+<li>在特征图（如 VGG16 的 conv5，相对原图 stride = 16）的每个空间位置，以该点映射回原图的中心为基准，预设 k = 9 个 anchor</li>
+<li>对于一个H×W的图，锚框个数为H/16 × W/16 ×9</li>
+</ul>
+</li>
+</ul>
+<p><img src="faster2.png" alt=""></p>
+<ul>
+<li>conv layers进行特征提取，卷积核大小为3×3，填充为1，步长为1，池化为2×2，步长为2，则经过每一个conv层特征图尺寸不变，经过每一个池化层尺寸缩小到原来的二分之一，那么一个H×W大小的图经过conv layers尺寸变为H/16 × W/16</li>
+<li>骨干网络得到的特征图再经过3×3 conv(pad=1)+ReLU和1×1 conv，经过3×3 conv(pad=1)，特征图尺寸不变，但是感受野可以扩大。</li>
+<li>两条分支：cls分支经过1×1×18（锚框anchor个数为9）covn，将特征图通道数变为两倍的锚框数，输出每个 anchor 的 object/not-object 两个 logits（class-agnostic 二分类）；reg分支经过1×1×36 covn输出 4k = 36 个值，每个 anchor 的 4 个坐标修正量。</li>
+</ul>
 <h4 id="4-2-Mask-R-CNN">4.2 Mask R-CNN</h4>
-<p>扩展自Faster R-CNN，是一个两阶段的框架，第一个阶段扫描图像并生成提议(proposals，即有可能包含一个目标的区域)，第二阶段分类提议并生成边界框和掩码。<br>
+<p>扩展自Faster R-CNN，也是一个两阶段的框架，第一个阶段扫描图像并生成提议(proposals，即有可能包含一个目标的区域)，第二阶段分类提议并生成边界框和掩码。<br>
 <img src="rcnn.png" alt=""><br>
 （来源：<a target="_blank" rel="noopener" href="http://researchgate.net">researchgate.net</a>）</p>
 <ul>
 <li>主干网络（通常是 ResNet-50 或 ResNet-101）进行特征提取，接着FPN（Feature Pyramid Network）用于融合不同尺度的特征，让模型更好地处理大目标和小目标。</li>
-<li>图像完成关键特征处理后，区域提议网络RPN（Region Proposal Network）检查图像，并提出可能包含物体的区域（Region Proposal），生成多个可能的物体位置，即锚框，随后，网络会评估这些锚框，并选出最有希望的锚框进行进一步分析。</li>
+<li>图像完成关键特征处理后，RPN检查图像，并提出可能包含物体的区域（Region Proposal），生成多个可能的物体位置，即锚框，随后，网络会评估这些锚框，并选出最有希望的锚框进行进一步分析。</li>
 <li>确定关键区域后，ROI Align（感兴趣区域对齐）使用双线性插值，它和旧方法 RoI Pooling 的区别是：RoI Pooling 会对区域坐标进行量化取整，而 RoI Align 使用双线性插值采样，减少由坐标量化造成的位置偏差。对于分类任务，少量空间偏差可能影响不大；但对于像素级掩码预测，边缘位置偏差可能直接影响分割结果。</li>
 <li>经过 RoI Align 后，每个候选区域的特征会进入不同的预测分支
 <ul>
