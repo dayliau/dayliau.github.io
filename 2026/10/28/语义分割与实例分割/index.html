@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster2.png">
 <meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/rcnn.png">
 <meta property="article:published_time" content="2026-10-28T05:10:45.000Z">
-<meta property="article:modified_time" content="2026-10-29T15:30:40.715Z">
+<meta property="article:modified_time" content="2026-10-30T06:18:04.829Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
@@ -320,23 +320,118 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 </table>
 <h3 id="4-模型">4 模型</h3>
 <h4 id="4-1-Faster-R-CNN">4.1 Faster R-CNN</h4>
+<h4 id="4-1-1">4.1.1</h4>
 <p><img src="faster1.png" alt=""><br>
 是一个两阶段的框架<br>
 <img src="faster3.png" alt=""></p>
 <ul>
 <li>锚框anchor
 <ul>
-<li>在特征图（如 VGG16 的 conv5，相对原图 stride = 16）的每个空间位置，以该点映射回原图的中心为基准，预设 k = 9 个 anchor</li>
+<li>在特征图（如 VGG16 的 conv5，相对原图 stride = 16）的每个空间位置，以该点映射回原图的中心为基准，预设 k = 9 个 anchor：三种尺寸(scale)和三种比例(ratio)三种尺寸分别是小（128）中（256）大（512），三个比例分别是1:1，1:2，2:1。3×3的组合总共有9种</li>
 <li>对于一个H×W的图，锚框个数为H/16 × W/16 ×9</li>
 </ul>
 </li>
 </ul>
+<h4 id="4-1-2-模型架构">4.1.2 模型架构</h4>
 <p><img src="faster2.png" alt=""></p>
+<h4 id="4-1-2-1-Backbone">4.1.2.1 Backbone</h4>
 <ul>
 <li>conv layers进行特征提取，卷积核大小为3×3，填充为1，步长为1，池化为2×2，步长为2，则经过每一个conv层特征图尺寸不变，经过每一个池化层尺寸缩小到原来的二分之一，那么一个H×W大小的图经过conv layers尺寸变为H/16 × W/16</li>
-<li>骨干网络得到的特征图再经过3×3 conv(pad=1)+ReLU和1×1 conv，经过3×3 conv(pad=1)，特征图尺寸不变，但是感受野可以扩大。</li>
-<li>两条分支：cls分支经过1×1×18（锚框anchor个数为9）covn，将特征图通道数变为两倍的锚框数，输出每个 anchor 的 object/not-object 两个 logits（class-agnostic 二分类）；reg分支经过1×1×36 covn输出 4k = 36 个值，每个 anchor 的 4 个坐标修正量。</li>
 </ul>
+<h4 id="4-1-2-2-RPN">4.1.2.2 RPN</h4>
+<ul>
+<li>骨干网络得到的特征图经过3×3 conv(pad=1)+ReLU，经过3×3 conv(pad=1)，特征图尺寸不变，但是感受野可以扩大。</li>
+<li>两条分支：
+<ul>
+<li>cls分支经过1×1×18（锚框anchor个数为9）covn，将特征图通道数变为两倍的锚框数，是因为要区分每个anchor是ositive(前景，包含目标)，还是negative(背景，不包含目标)，然后Softmax分类得到两种类别的score；
+<ul>
+<li>区分标准：符合下面条件之一的即为positive:与任意GT(Ground Truth 真实标注)区域的IoU大于0.7，与GT区域的IoU最大的anchor(也许不到0.7)</li>
+</ul>
+</li>
+<li>reg分支经过1×1×36 covn输出 4k = 36 个值，每个 anchor 的 4 个坐标修正量（相对于真实物体框的偏移）</li>
+</ul>
+</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>t</mi><mi>x</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>y</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>w</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(t_x,t_y,t_w,t_h)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0269em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<ul>
+<li>
+<p>(t_x)：中心点 x 坐标的偏移。</p>
+</li>
+<li>
+<p>(t_y)：中心点 y 坐标的偏移。</p>
+</li>
+<li>
+<p>(t_w)：宽度的缩放修正。</p>
+</li>
+<li>
+<p>(t_h)：高度的缩放修正。</p>
+</li>
+</ul>
+<h4 id="4-1-2-3-Proposal-Layer">4.1.2.3 Proposal Layer</h4>
+<ul>
+<li>输入包括cls分支的2k个输入和reg分支的4k个输入</li>
+<li>根据偏移量对锚框进行修正，假设原始Anchor的中心坐标和宽高为</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>a</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>a</mi></msub><mo separator="true">,</mo><msub><mi>w</mi><mi>a</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>a</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x_a,y_a,w_a,h_a)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>那么经过修正后的边界框为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><msub><mi>x</mi><mi>a</mi></msub><mo>+</mo><msub><mi>t</mi><mi>x</mi></msub><msub><mi>w</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">x=x_a+t_xw_a
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>y</mi><mi>a</mi></msub><mo>+</mo><msub><mi>t</mi><mi>y</mi></msub><msub><mi>h</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">y=y_a+t_yh_a
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>w</mi><mo>=</mo><msub><mi>w</mi><mi>a</mi></msub><msup><mi>e</mi><msub><mi>t</mi><mi>w</mi></msub></msup></mrow><annotation encoding="application/x-tex">w=w_ae^{t_w}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9936em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8436em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0269em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><msup><mi>e</mi><msub><mi>t</mi><mi>h</mi></msub></msup></mrow><annotation encoding="application/x-tex">h=h_ae^{t_h}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9936em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8436em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>这样，原始 Anchor 就变成了模型预测的候选框。</p>
+<ul>
+<li>接着修剪超出图片范围的坐标，过滤过小的候选框</li>
+<li>非极大值抑制（NMS）将重叠的框去掉：<br>
+1.按照候选框的前景概率从高到低排序<br>
+2.选择概率最高的候选框<br>
+3.计算它与其他候选框的 IoU<br>
+4.如果某个候选框与它的 IoU 超过设定阈值，就将该候选框抑制（删除）<br>
+5.重复上述过程，直到处理完候选框</li>
+<li>Top-N 筛选择前2000个保留一定数量的候选框作为最终的RoIs。</li>
+</ul>
+<h4 id="4-1-2-4-RoI-Pooling">4.1.2.4 RoI Pooling</h4>
+<ul>
+<li>有2个输入：原始的feature maps、RPN输出的RoIs</li>
+<li>RoIs具有不同的宽度和高度，但后面的全连接层要求输入具有固定维度</li>
+<li>将候选框映射到特征图，假设我们希望每个 RoI 最终输出7×7，那么 RoI Pooling 就会把每个候选区域（在feature maps上）划分成 7×7 个网格，对每个网格进行 Max Pooling，每个网格最终只保留一个数值，则每个候选区域的特征图大小都变为7×7</li>
+</ul>
+<h4 id="4-1-2-5-RoI-Head">4.1.2.5 RoI Head</h4>
+<ul>
+<li>假设 Backbone 输出的通道数为 512，RoI Pooling 输出大小为 7×7。</li>
+</ul>
+<p>那么每个 RoI 的特征尺寸为：<br>
+[<br>
+7\times7\times512<br>
+]</p>
+<p>首先将其展平：<br>
+[<br>
+7\times7\times512=25088<br>
+]</p>
+<p>然后经过两层全连接层：<br>
+[<br>
+25088\rightarrow4096\rightarrow4096<br>
+]<br>
+最终得到一个 4096 维的特征向量，这个特征向量会同时送入两个分支。</p>
+<ul>
+<li>分类分支（Classification Branch），假设有五个类别，分类分支就需要输出 5 个类别的分数，首先经过全连接层<br>
+[<br>
+4096\rightarrow5<br>
+]<br>
+然后再经过Softmax得到各个类别概率。</li>
+<li>边界框回归分支（Bounding Box Regression Branch）进一步调整候选框的位置和大小，输出候选框的位置偏移量<br>
+[<br>
+(t_x,t_y,t_w,t_h)<br>
+]<br>
+再利用这四个参数调整候选框，使其更加贴近要预测物体的真实边界。</li>
+</ul>
+<h4 id="4-1-2-6-损失函数">4.1.2.6 损失函数</h4>
+<p>Faster R-CNN的loss由两部分组成：RPN的loss + RoI Head中的loss构成，而这两部分中，每一个部分的loss又都是由分类loss + 回归loss组成。</p>
 <h4 id="4-2-Mask-R-CNN">4.2 Mask R-CNN</h4>
 <p>扩展自Faster R-CNN，也是一个两阶段的框架，第一个阶段扫描图像并生成提议(proposals，即有可能包含一个目标的区域)，第二阶段分类提议并生成边界框和掩码。<br>
 <img src="rcnn.png" alt=""><br>
@@ -348,7 +443,12 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 <li>经过 RoI Align 后，每个候选区域的特征会进入不同的预测分支
 <ul>
 <li>分类分支：判断目标类别，经过一个全连接层得到每个类别的得分</li>
-<li>边界框回归分支：修正目标框位置，经过一个全连接层得到 $$((x_1,y_1,x_2,y_2))$$ 坐标偏移量四个回归参数。</li>
+<li>边界框回归分支：修正目标框位置，经过一个全连接层得到</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x_1,y_1,x_2,y_2)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+坐标偏移量四个回归参数。
+<ul>
 <li>Mask 分支：预测目标的像素区域，经过多层3×3卷积进一步提取特征，然后进行上采样扩大尺寸，最后生成每个类别对应的掩码概率图。</li>
 </ul>
 </li>
