@@ -134,6 +134,217 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-实例分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">实例分割</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
+  	<time datetime="2026-11-02T11:55:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-实例分割">1 实例分割</h3>
+<p>语义分割：为图像中的每个像素标注语义类别标签</p>
+<p>实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例<br>
+例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。</p>
+<p>实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。</p>
+        
+          <a class="article-more-a" href="/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实例分割</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-残差网络详解&amp;特征融合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/02/%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3&%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88/">残差网络详解&amp;特征融合</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/02/%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3&%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88/" class="archive-article-date">
+  	<time datetime="2026-11-02T11:55:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="残差链接">残差链接</h3>
+<p>普通CNN通常将特征不断传递给下一层，随着网络加深，模型训练可能遇到优化困难，例如梯度传播困难、网络退化等问题。这里的网络退化不是简单指过拟合，而是指网络加深后，训练误差反而可能变大。</p>
+<p>假设输入特征为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>，经过若干卷积层后得到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>,普通网络直接学习从输入到输出的映射为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>，而 ResNet 让卷积层学习输入与目标输出之间的残差：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">F(x)=H(x)-x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>,最后将输入与残差相加：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y=F(x)+x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span><br>
+<img src="res.png" alt=""></p>
+<p>假设卷积层暂时无法学习到有用的新特征，那么它可以让残差部分趋近于零：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>≈</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F(x)\approx 0
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span></p>
+<p>则</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi><mo>≈</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y=F(x)+x\approx x
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span></p>
+<p>即使新增的卷积层没有学到更好的变换，网络仍然可以通过 Shortcut 保留原始特征。同时，反向传播时梯度可以沿 Shortcut 直接传播，有助于深层网络的优化。</p>
+<h3 id="Bottleneck：瓶颈结构">Bottleneck：瓶颈结构</h3>
+<p><img src="bottleneck.png" alt=""></p>
+<ul>
+<li>1×1Conv 降低通道数</li>
+<li>3×3Conv 提取特征</li>
+<li>1×1Conv 恢复通道数</li>
+</ul>
+<h3 id="ResNet-50">ResNet-50</h3>
+<p><img src="resnet50.png" alt=""></p>
+<p>Stage0  输入224×224×3，经过Kernel Size：7×7、Output Channels：64、Stride：2、Padding：3的Conv得到56×56×64</p>
+<p>Stage1、2、3、4分别包含3、4、6、3个Bottleneck，随着网络加深，特征图空间尺寸越小，这是因为在进入新的 Stage 时，通常会通过步长为 2 的卷积进行下采样。</p>
+<p>原始 ResNet-50 是一个图像分类网络，因此四个 Stage 之后还有Conv5_x、Global Average Pooling、Fully Connected、Softmax最后得到分类结果，作为 Backbone 使用通常会去掉原本用于分类的Global Average Pooling、Fully Connected 分类层</p>
+<h3 id="ResNet-101">ResNet-101</h3>
+<p><img src="resnet101.png" alt=""></p>
+<p>ResNet-101 与 ResNet-50 使用相同的基本设计：</p>
+<ul>
+<li>相同的 Stem 结构</li>
+<li>相同的 Bottleneck 结构</li>
+<li>相同的四个残差阶段</li>
+<li>相同的通道数变化规律</li>
+</ul>
+<p>最主要的区别是 Bottleneck 的数量不同：<br>
+ResNet-50：3、4、6、3<br>
+ResNet-101：3、4、23、3</p>
+<p>网络深度更深，参数量更大，特征提取能力更强，训练成本更高</p>
+<h3 id="FPN">FPN</h3>
+<p>不同大小的目标对特征的要求不同，浅层特征空间分辨率高，保留较多边缘、纹理和位置细节，语义信息相对弱；深层特征空间分辨率低，感受野更大，包含更丰富的语义信息，对目标类别的理解通常更强。因此，单独使用最深层特征图检测小目标，可能会因为空间分辨率较低而丢失细节。</p>
+<p>FPN 全称为 Feature Pyramid Network，即特征金字塔网络。它的核心思想是：将 Backbone 不同阶段产生的特征进行融合，构建具有不同分辨率、同时具有较强语义信息的特征金字塔。</p>
+<p><img src="fpn.png" alt=""></p>
+<p>FPN 主要包含三个部分：</p>
+<ol>
+<li>Bottom-up Pathway（自下而上路径）实际上就是 Backbone 的特征提取过程</li>
+<li>Top-down Pathway（自上而下路径）将深层特征进行上采样，再与浅层特征融合</li>
+<li>Lateral Connections（横向连接）将 Backbone 中对应 Stage 的特征与自上而下路径中的特征进行融合</li>
+</ol>
+<ul>
+<li>1×1 卷积的作用：将各个金字塔层的通道数统一</li>
+</ul>
+<p>P2 分辨率较高，保留了更多空间细节，适合定位小目标；P4 分辨率较低，但语义信息丰富，适合处理较大目标。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ResNet</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">FPN</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/02/%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3&%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MaskR-CNN复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -209,19 +420,19 @@
 
 
   
-    <article id="post-语义分割与实例分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-语义分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">语义分割与实例分割</a>
+      <a class="article-title" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/">语义分割</a>
     </h1>
   
 
         
-        <a href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
+        <a href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/" class="archive-article-date">
   	<time datetime="2026-10-28T05:10:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-10-28</time>
 </a>
         
@@ -229,13 +440,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-语义分割-实例分割">1 语义分割 实例分割</h3>
+        <h3 id="1-语义分割">1 语义分割</h3>
 <p>语义分割：为图像中的每个像素标注语义类别标签</p>
-<p>实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例<br>
-例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。</p>
-<p>实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。</p>
+<h3 id="2-广泛使用的语义分割模型">2 广泛使用的语义分割模型</h3>
+<h4 id="2-1-全卷积网络-FCN">2.1 全卷积网络 (FCN)</h4>
+<p>FCN将通常的卷积神经网络架构最后的全连接层变为卷积层，一个确定大小的全连接层对应的图像大小也得是固定的，而FCN可以输入任意大小的图像，因为它不再依赖固定长度的展平向量；假设要识别的种类是C,全连接层中的一个神经元同时连接了特征图中所有空间位置、所有通道的特征，最后输出的大小也是C，一张图片输出每个类别对应的概率大小，FCN的输出是H × W × C，也就是说一张图片里的每个像素都会有一个每个类别对应的概率大小，从而保留空间布局信息。</p>
         
-          <a class="article-more-a" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/#more">more >></a>
+          <a class="article-more-a" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/#more">more >></a>
         
       
 
@@ -251,6 +462,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">语义分割</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -259,7 +474,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">展开全文 >></a>
+          <a class="article-more-a" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/">展开全文 >></a>
         </p>
       
 
@@ -829,176 +1044,9 @@
 
 
   
-    <article id="post-线性神经网络与感知机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/03/12/%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/">线性神经网络</a>
-    </h1>
-  
-
-        
-        <a href="/2026/03/12/%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/" class="archive-article-date">
-  	<time datetime="2026-03-12T11:21:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="线性模型">线性模型</h4>
-<ul>
-<li>给定n维输入<br>
-<img src="2.png" alt=""></li>
-<li>线性模型有一个n维权重和一个标量偏差<br>
-<img src="3.png" alt=""></li>
-<li>输出是输入的加权和<br>
-<img src="4.png" alt=""><br>
-向量版本：<br>
-<img src="5.png" alt=""></li>
-</ul>
-        
-          <a class="article-more-a" href="/2026/03/12/%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/03/12/%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-pytorch基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/">pytorch基础</a>
-    </h1>
-  
-
-        
-        <a href="/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2026-03-12T10:43:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://www.runoob.com/pytorch/pytorch-neural-network.html">https://www.runoob.com/pytorch/pytorch-neural-network.html</a></p>
-<h3 id="核心数据结构：张量">核心数据结构：张量</h3>
-<ul>
-<li>有关tensor的一些基础操作，我整理成了Jupyter Notebook<br>
-<a target="_blank" rel="noopener" href="https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C.ipynb">https://github.com/dayliau/Deeplearning-Jupyternotebook/blob/main/预备知识/数据操作.ipynb</a></li>
-</ul>
-        
-          <a class="article-more-a" href="/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">PyTorch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/03/12/pytorch%E5%9F%BA%E7%A1%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1085,18 +1133,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Claude</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Agent</a>
               </li>
              
@@ -1105,59 +1141,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MoE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">路由</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LSTM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">提示工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CoT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">交叉熵</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包和环境管理工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机视觉</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YOLO</a>
+                <a href="javascript:void(0)" class="js-tag color2">Claude</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1169,11 +1157,79 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PyTorch</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">实例分割</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">提示工程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CoT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LSTM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">交叉熵</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机视觉</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YOLO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包和环境管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MoE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">路由</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1193,11 +1249,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color3">PyTorch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1209,47 +1273,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MLP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">激活函数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">FineWeb</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">预训练数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">预训练</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">张量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1261,6 +1289,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">激活函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">预训练</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">张量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">L2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">梯度下降</a>
               </li>
              
@@ -1269,23 +1329,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">过拟合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">交叉验证</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性代数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">范数</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1297,23 +1341,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">L2</a>
+                <a href="javascript:void(0)" class="js-tag color2">ResNet</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">阅读</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Transformer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
+                <a href="javascript:void(0)" class="js-tag color4">FPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1325,19 +1357,47 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性代数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">范数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">过拟合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">交叉验证</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">语义分割</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">阅读</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Transformer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">鱼书</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">深度学习入门</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实例分割</a>
               </li>
             
             <div class="clearfix"></div>

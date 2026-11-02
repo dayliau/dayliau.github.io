@@ -6,32 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dayliau.github.io">
-  <title>语义分割与实例分割 | Dayliaaa&#39;s Blog</title>
+  <title>实例分割 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1 语义分割 实例分割 语义分割：为图像中的每个像素标注语义类别标签 实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例 例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。 实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。">
+  <meta name="description" content="1 实例分割 语义分割：为图像中的每个像素标注语义类别标签 实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例 例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。 实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="语义分割与实例分割">
-<meta property="og:url" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/index.html">
+<meta property="og:title" content="实例分割">
+<meta property="og:url" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="1 语义分割 实例分割 语义分割：为图像中的每个像素标注语义类别标签 实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例 例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。 实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。">
+<meta property="og:description" content="1 实例分割 语义分割：为图像中的每个像素标注语义类别标签 实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例 例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。 实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/fcn.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/unet.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/seg.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv1.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/deeplabv2.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster1.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster3.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster2.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/mask1.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/mask2.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/mask3.png">
-<meta property="article:published_time" content="2026-10-28T05:10:45.000Z">
-<meta property="article:modified_time" content="2026-10-30T14:13:10.981Z">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster1.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster3.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster2.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/mask1.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/mask2.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/mask3.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/yolcat.png">
+<meta property="article:published_time" content="2026-11-02T11:55:53.000Z">
+<meta property="article:modified_time" content="2026-11-02T12:02:39.115Z">
 <meta property="article:author" content="Dayliaaa">
+<meta property="article:tag" content="实例分割">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://dayliau.github.io/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/fcn.png">
+<meta name="twitter:image" content="https://dayliau.github.io/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/faster1.png">
   
     <link rel="alternative" href="/atom.xml" title="Dayliaaa&#39;s Blog" type="application/atom+xml">
   
@@ -146,113 +143,41 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-语义分割与实例分割" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-实例分割" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      语义分割与实例分割
+      实例分割
     </h1>
   
 
         
-        <a href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
-  	<time datetime="2026-10-28T05:10:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-10-28</time>
+        <a href="/2026/11/02/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
+  	<time datetime="2026-11-02T11:55:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-语义分割-实例分割">1 语义分割 实例分割</h3>
+        <h3 id="1-实例分割">1 实例分割</h3>
 <p>语义分割：为图像中的每个像素标注语义类别标签</p>
 <p>实例分割：同时检测并分割，不仅需要区分语义，还要区分不同的目标实例<br>
 例如一张图像有两条狗，语义分割只需要区分像素属于狗这个类别，实例分割需要区分像素属于的两条狗中的哪一条。</p>
 <p>实例分割任务与传统目标检测的主要区别在于，实例分割预测每个对象的像素级边界，而目标检测只预测目标的大致位置。</p>
 <span id="more"></span>
-<h3 id="2-广泛使用的语义分割模型">2 广泛使用的语义分割模型</h3>
-<h4 id="2-1-全卷积网络-FCN">2.1 全卷积网络 (FCN)</h4>
-<p>FCN将通常的卷积神经网络架构最后的全连接层变为卷积层，一个确定大小的全连接层对应的图像大小也得是固定的，而FCN可以输入任意大小的图像，因为它不再依赖固定长度的展平向量；假设要识别的种类是C,全连接层中的一个神经元同时连接了特征图中所有空间位置、所有通道的特征，最后输出的大小也是C，一张图片输出每个类别对应的概率大小，FCN的输出是H × W × C，也就是说一张图片里的每个像素都会有一个每个类别对应的概率大小，从而保留空间布局信息。</p>
-<p>FCN先使用一些经典的CNN网络提取特征，由于卷积过程会使特征图变小，所以需要上采样，由于最后一层的特征图太小，仅对最后一层的特征图进行上采样得到原图大小的分割，细节会丢失。因此，通过跳级结构将低层（精细层）与高层（粗糙层）结合，使得模型兼顾局部预测以及全局结构。</p>
-<p><img src="fcn.png" alt=""></p>
-<h4 id="2-2-U-Net">2.2 U-Net</h4>
-<p>U-Net是一个典型的编码器—解码器网络，使用跳跃连接，信息可以从编码器直接传递到解码器，这样模型就可以保留图象在压缩过程中的重要细节。</p>
-<p><img src="unet.png" alt=""></p>
-<p>左半部分为编码器，图像经过卷积和池化，尺寸逐步缩小，更高级的语义特征被提取出来。</p>
-<p>输入图像为572 × 572 × 3</p>
-<ul>
-<li>第一次卷积和池化：卷积核Kernel大小为3 × 3 × 64 ，步长Stride=1，填充Padding=0，根据计算公式</li>
-</ul>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>H</mi><mtext>out</mtext></msub><mo>=</mo><mfrac><mrow><msub><mi>H</mi><mtext>in</mtext></msub><mo>−</mo><mi>K</mi><mo>+</mo><mn>2</mn><mi>P</mi></mrow><mi>S</mi></mfrac><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">H_{\text{out}}=\frac{H_{\text{in}}-K+2P}{S}+1 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">out</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0463em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0576em;">S</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:-0.0813em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">in</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
-<p>连续进行两次卷积，特征图尺寸变为568 × 568 × 64，然后进行2×2最大池化，步长为2，特征图尺寸变为284 × 284 × 64。</p>
-<ul>
-<li>
-<p>第二次卷积和池化，卷积核Kernel大小为3 × 3 × 128 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为280 × 280 × 128，然后进行2 × 2最大池化，步长为2，特征图尺寸变为140 × 140 × 128。</p>
-</li>
-<li>
-<p>第三次卷积和池化，卷积核Kernel大小为3 × 3 × 256 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为136 × 136 × 256，然后进行2 × 2最大池化，步长为2，特征图尺寸变为68 × 68 × 256。</p>
-</li>
-<li>
-<p>第四次卷积和池化，卷积核Kernel大小为3 × 3 × 512 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为64 × 64 × 512，然后进行2 × 2最大池化，步长为2，特征图尺寸变为32 × 32 × 512。</p>
-</li>
-<li>
-<p>第五次卷积，卷积核Kernel大小为3 × 3 × 1024 ，步长Stride=1，填充Padding=0，连续进行两次卷积，特征图尺寸变为28 × 28 × 1024，网络将图像压缩成了空间分辨率较低、通道数量较多的高级特征表示。</p>
-</li>
-</ul>
-<p>右半部分是解码器，特征图尺寸逐步变大，并且融合收缩路径保留的细节信息。</p>
-<p>跳跃连接将左侧对应层复制裁剪与右侧特征拼接。</p>
-<ul>
-<li>
-<p>第一次上采样，28 × 28 × 1024通过2 × 2转置卷积变为56 × 56 × 512，与左侧64 × 64 × 512 拼接得到 56 × 56 × 1024 ，连续进行两次3 × 3 × 512卷积后得到52 × 52 × 512</p>
-</li>
-<li>
-<p>第二次上采样，52 × 52 × 512通过2 × 2转置卷积变为104 × 104 × 256，与左侧136 × 136 × 256拼接得到 104 × 104 × 512，连续进行两次3 × 3 × 256卷积后得到100 × 100 × 256</p>
-</li>
-<li>
-<p>第三次上采样，100 × 100 × 256通过2 × 2转置卷积变为200 × 200 × 128，与左侧280 × 280 × 256拼接得到 200 × 200 × 256，连续进行两次3 × 3 × 128卷积后得到196 × 196 × 128</p>
-</li>
-<li>
-<p>第四次上采样，196 × 196 × 128通过2 × 2转置卷积变为392 × 392 × 64，与左侧568 × 568 × 64拼接得到 392 × 392 × 128，连续进行两次3 × 3 × 64卷积后得到388 × 388 × 64</p>
-</li>
-<li>
-<p>最后388×388×64经过卷积核大小为1×1×2，步长为1，填充为1的卷积，尺寸变为388×388×2，最后一个卷积通道数为2是因为这张图进行的是一个二分类任务，对每个像素输出两个类别的得分。</p>
-</li>
-</ul>
-<h4 id="2-3-SegNet">2.3 SegNet</h4>
-<p>也是一个编码器-解码器网络，与U-net的区别在于SegNet主要利用最大池化的索引恢复空间分辨率，而 U-Net 通过跳跃连接，将编码器的特征图与解码器的特征图进行拼接。</p>
-<p><img src="seg.png" alt=""></p>
-<p>编码器网络对应VGG16的前13个卷积层，划分为五组，每组包括Conv卷积、BN归一化、 ReLU激活函数、2 × 2的MaxPooling。在最大池化时SegNet会存储最大池化的索引，也就是保存编码器特征图中最大特征值的位置，这样在进行上采样放大特征图时，除最大值对应的位置其他位置都设置为0，这样可以更好地反应物体的边界。解码器网络也划分为五组，包括上采样、卷积，最后一组经过一个Softmax层输出每个像素的类别。</p>
-<h4 id="2-4-DeepLab">2.4 DeepLab</h4>
-<h5 id="2-4-1-DeepLab-V1">2.4.1 DeepLab V1</h5>
-<p>核心是VGG16改造版提取图像特征，再通过空洞卷积尽量保留空间分辨率，再使用全连接条件随机场西化分割边界。</p>
-<p>VGG16的卷积和池化会不断缩小特征图，难以精确判断物体边界，DeepLab V1使用了空洞卷积来扩大感受野。空洞卷积和普通卷积的区别是空洞卷积的采样点之间存在间隔，用膨胀率（dilation rate）控制间隔大小，对于3×3 卷积核，有效感受野尺寸为k+(k-1)(r-1)，若r=2，则有效感受野尺寸为5×5。</p>
-<p><img src="deeplabv1.png" alt=""></p>
-<p>经过空洞卷积后，对每个像素进行类别预测，然后经过双线性插值上采样将特征图恢复到原图尺寸，最后经过条件随机场CRF（Conditional Random Field）使最后分类结果的边缘更加精细。</p>
-<h5 id="2-4-2-DeepLab-V2">2.4.2 DeepLab V2</h5>
-<p>DeepLab V2 最重要的改进是引入 ASPP（Atrous Spatial Pyramid Pooling，空洞空间金字塔池化），通过多个不同膨胀率的空洞卷积分支，同时提取不同尺度的特征。它要解决的问题是：同一张图像中，目标可能有大有小，单一感受野不容易同时处理好不同尺度的目标。</p>
-<p><img src="deeplabv2.png" alt=""></p>
-<p>DeepLab V2 可以搭配不同的主干网络，常见的是 ResNet-101，也存在基于 VGG-16 的版本。经过主干网络后的特征图同时经过多个使用不同膨胀率的空洞卷积分支，因为小膨胀率关注相对局部的细节;中等膨胀率关注更大范围的物体结构;大膨胀率关注更广泛的上下文信息，各分支进行类别预测，融合输出。<br>
-经过 ASPP 后，网络会得到类别分数图，再通过双线性插值将预测结果恢复到原图的空间尺寸，最后也是全连接 CRF。</p>
-<h5 id="2-4-3-DeepLab-V3">2.4.3 DeepLab V3</h5>
-<p>DeepLab V2 使用 ASPP 提取多尺度特征；DeepLab V3 则进一步改进 ASPP，并引入图像级特征来增强全局上下文信息，同时通过改进的空洞卷积策略控制特征图分辨率。</p>
-<p>在前四个分支提取不同尺度的特征后，v3加了全局平均池化（特征图尺寸变为1×1×C）、1×1卷积（对通道数进行变换），上采样（把特征图恢复到与其他分支融合的空间尺寸），这样模型可以提取图像级特征，有助于消除局部判断的歧义。五个分支沿通道维度拼接后再进行1×1卷积，对多分支信息进行融合和通道压缩，形成用于像素分类的综合特征。</p>
-<p>除了 ASPP，DeepLab V3 还重点研究了空洞卷积的级联方式，以及如何设置不同层的膨胀率。它使用 Batch Normalization 等设计帮助训练，并通过合理控制输出步长来平衡空间分辨率与计算量。也不再把全连接 CRF 作为必要的后处理步骤。</p>
-<h5 id="2-4-4-DeepLab-V3">2.4.4 DeepLab V3+</h5>
-<p>在 DeepLab V3 的基础上，增加了一个解码器（Decoder），负责恢复空间细节，让分割边界更加精确。在ASPP后，v3通过上采样直接恢复分辨率，得到每个像素分类结果，v3+对ASPP的输出进行上采样再与主干网络的浅层特征融合，经过卷积细化后再进行上采样最后得到结果。浅层特征空间分辨率通常较高，保留了较多的位置和细节信息，帮助分割模型确定物体的边界、细小结构。深层特征感受野通常更大，空间分辨率通常更低，但语义表达更强，帮助模型判断某个区域属于人、道路、建筑还是其他类别。</p>
-<h4 id="2-5-PSPNet">2.5 PSPNet</h4>
-<p>经过主干网络Backbone后是金字塔池化模块PPM，有四个池化分支，1×1池化尺度是全局信息、2×2池化尺度是粗粒度区域信息、3×3池化尺度是中等尺度信息、6×6池化尺度是较细粒度的区域信息，经过池化后是1×1卷积降低通道数、上采样、然后与原始特征图拼接Concat，然后卷积预测每个像素类别。</p>
-<h3 id="3-实例分割基础概念">3 实例分割基础概念</h3>
-<h4 id="3-1-实例（Instance）与类别（Class）">3.1 实例（Instance）与类别（Class）</h4>
+<h3 id="2-实例分割基础概念">2 实例分割基础概念</h3>
+<h4 id="2-1-实例（Instance）与类别（Class）">2.1 实例（Instance）与类别（Class）</h4>
 <ul>
 <li>类别（Class）： 目标属于什么类型。</li>
 <li>实例（Instance）： 图片中的某一个具体目标；实例 ID： 用来区分不同目标的编号，通常是标注或内部处理时使用的标识。</li>
 </ul>
-<h4 id="3-2-边界框（Bounding-Box）、数据集标注">3.2 边界框（Bounding Box）、数据集标注</h4>
+<h4 id="2-2-边界框（Bounding-Box）、数据集标注">2.2 边界框（Bounding Box）、数据集标注</h4>
 <p>目标检测那篇提到过 <a href="/2025/08/01/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8/" title="目标检测入门">目标检测入门</a></p>
-<h4 id="3-3-掩码（Mask）">3.3 掩码（Mask）</h4>
+<h4 id="2-3-掩码（Mask）">2.3 掩码（Mask）</h4>
 <ul>
 <li>最容易理解的是二值掩码（Binary Mask）：</li>
 </ul>
@@ -260,9 +185,9 @@
 <li>1：属于目标的像素。</li>
 <li>0：不属于目标的像素。</li>
 </ul>
-<h4 id="3-4-类别概率与置信度（Confidence-Score）">3.4 类别概率与置信度（Confidence Score）</h4>
+<h4 id="2-4-类别概率与置信度（Confidence-Score）">2.4 类别概率与置信度（Confidence Score）</h4>
 <p>置信度通常用于表示模型对某个预测结果的确信程度，但具体定义取决于模型的输出设计。它不一定等于真实世界中预测正确的概率。</p>
-<h4 id="3-5-交并比（IoU）">3.5 交并比（IoU）</h4>
+<h4 id="2-5-交并比（IoU）">2.5 交并比（IoU）</h4>
 <p>用于衡量预测区域与真实标注区域的重叠程度</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">IoU</mi><mo>⁡</mo><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mi>A</mi><mo>∩</mo><mi>B</mi><mi mathvariant="normal">∣</mi></mrow><mrow><mi mathvariant="normal">∣</mi><mi>A</mi><mo>∪</mo><mi>B</mi><mi mathvariant="normal">∣</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\operatorname{IoU}=\frac{|A\cap B|}{|A\cup B|}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mop"><span class="mord mathrm">IoU</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∣</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∪</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0502em;">B</span><span class="mord">∣</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∣</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∩</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0502em;">B</span><span class="mord">∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
@@ -275,7 +200,7 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 <li>Box IoU： 比较预测框和真实框。</li>
 <li>Mask IoU： 比较预测掩码和真实掩码。</li>
 </ul>
-<h4 id="3-6-非极大值抑制（NMS）">3.6 非极大值抑制（NMS）</h4>
+<h4 id="2-6-非极大值抑制（NMS）">2.6 非极大值抑制（NMS）</h4>
 <p>Non-Maximum Suppression是一种用于去除重复检测结果的后处理方法。例如，模型检测同一辆汽车时，可能同时预测出三个高度重叠的边界框。如果全部保留，就会把一辆车当成三个目标。</p>
 <p>NMS 的基本过程是：</p>
 <ol>
@@ -285,7 +210,7 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 <li>对同类别中与它重叠过大的预测框进行抑制。</li>
 <li>继续处理剩余预测框，直到完成筛选。</li>
 </ol>
-<h4 id="3-7-评价指标">3.7 评价指标</h4>
+<h4 id="2-7-评价指标">2.7 评价指标</h4>
 <table>
 <thead>
 <tr>
@@ -320,9 +245,9 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 </tr>
 </tbody>
 </table>
-<h3 id="4-模型">4 模型</h3>
-<h4 id="4-1-Faster-R-CNN">4.1 Faster R-CNN</h4>
-<h4 id="4-1-1">4.1.1</h4>
+<h3 id="3-模型">3 模型</h3>
+<h4 id="3-1-Faster-R-CNN">3.1 Faster R-CNN</h4>
+<h4 id="3-1-1">3.1.1</h4>
 <p><img src="faster1.png" alt=""><br>
 是一个两阶段的框架<br>
 <img src="faster3.png" alt=""></p>
@@ -334,13 +259,13 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 </ul>
 </li>
 </ul>
-<h4 id="4-1-2-模型架构">4.1.2 模型架构</h4>
+<h4 id="3-1-2-模型架构">3.1.2 模型架构</h4>
 <p><img src="faster2.png" alt=""></p>
-<h4 id="4-1-2-1-Backbone">4.1.2.1 Backbone</h4>
+<h4 id="3-1-2-1-Backbone">3.1.2.1 Backbone</h4>
 <ul>
 <li>conv layers进行特征提取，卷积核大小为3×3，填充为1，步长为1，池化为2×2，步长为2，则经过每一个conv层特征图尺寸不变，经过每一个池化层尺寸缩小到原来的二分之一，那么一个H×W大小的图经过conv layers尺寸变为H/16 × W/16</li>
 </ul>
-<h4 id="4-1-2-2-RPN">4.1.2.2 RPN</h4>
+<h4 id="3-1-2-2-RPN">3.1.2.2 RPN</h4>
 <ul>
 <li>骨干网络得到的特征图经过3×3 conv(pad=1)+ReLU，经过3×3 conv(pad=1)，特征图尺寸不变，但是感受野可以扩大。</li>
 <li>两条分支：
@@ -370,7 +295,7 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">t_h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：高度的缩放修正。</p>
 </li>
 </ul>
-<h4 id="4-1-2-3-Proposal-Layer">4.1.2.3 Proposal Layer</h4>
+<h4 id="3-1-2-3-Proposal-Layer">3.1.2.3 Proposal Layer</h4>
 <ul>
 <li>输入包括cls分支的2k个输入和reg分支的4k个输入</li>
 <li>根据偏移量对锚框进行修正，假设原始Anchor的中心坐标和宽高为</li>
@@ -397,13 +322,13 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 5.重复上述过程，直到处理完候选框</li>
 <li>Top-N 筛选择前2000个保留一定数量的候选框作为最终的RoIs。</li>
 </ul>
-<h4 id="4-1-2-4-RoI-Pooling">4.1.2.4 RoI Pooling</h4>
+<h4 id="3-1-2-4-RoI-Pooling">3.1.2.4 RoI Pooling</h4>
 <ul>
 <li>有2个输入：原始的feature maps、RPN输出的RoIs</li>
 <li>RoIs具有不同的宽度和高度，但后面的全连接层要求输入具有固定维度</li>
 <li>将候选框映射到特征图，假设我们希望每个 RoI 最终输出7×7，那么 RoI Pooling 就会把每个候选区域（在feature maps上）划分成 7×7 个网格，对每个网格进行 Max Pooling，每个网格最终只保留一个数值，则每个候选区域的特征图大小都变为7×7</li>
 </ul>
-<h4 id="4-1-2-5-RoI-Head">4.1.2.5 RoI Head</h4>
+<h4 id="3-1-2-5-RoI-Head">3.1.2.5 RoI Head</h4>
 <ul>
 <li>假设 Backbone 输出的通道数为 512，RoI Pooling 输出大小为 7×7。</li>
 </ul>
@@ -429,9 +354,9 @@ IoU 较高,预测区域与真实区域更接近，通常意味着定位或分割
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>t</mi><mi>x</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>y</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>w</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(t_x,t_y,t_w,t_h)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0269em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
 <p>再利用这四个参数调整候选框，使其更加贴近要预测物体的真实边界。</p>
-<h4 id="4-1-3-损失函数">4.1.3 损失函数</h4>
+<h4 id="3-1-3-损失函数">3.1.3 损失函数</h4>
 <p>Faster R-CNN的loss由两部分组成：RPN的loss + RoI Head中的loss构成，而这两部分中，每一个部分的loss又都是由分类loss + 回归loss组成。</p>
-<h4 id="4-1-3-1-RPN-cls-Loss-reg-Loss">4.1.3.1 RPN cls Loss &amp; reg Loss</h4>
+<h4 id="3-1-3-1-RPN-cls-Loss-reg-Loss">3.1.3.1 RPN cls Loss &amp; reg Loss</h4>
 <ul>
 <li>cls Loss:cls分支每个Anchor会得到两个类别（前景/背景）的预测分数，经过softmax，使用交叉熵损失（Cross Entropy Loss）</li>
 </ul>
@@ -490,7 +415,7 @@ SmoothL1(t_{ij}-t_{ij}^*)
 <li>Anchor 是正样本，取 1，计算回归损失。</li>
 <li>Anchor 是负样本，取 0，不计算回归损失</li>
 </ul>
-<h4 id="4-1-3-2-RoI-cls-Loss-reg-Loss">4.1.3.2 RoI cls Loss &amp; reg Loss</h4>
+<h4 id="3-1-3-2-RoI-cls-Loss-reg-Loss">3.1.3.2 RoI cls Loss &amp; reg Loss</h4>
 <ul>
 <li>cls Loss:RoI cls分支输出C+1个类别的预测概率（C为要识别的目标类别，加上背景）</li>
 </ul>
@@ -518,20 +443,20 @@ SmoothL1(t_{ij}^{u_i}-t_{ij}^*)
 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>i</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_i&gt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>：表示该 RoI 是前景正样本<br>
 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow><msub><mi>u</mi><mi>i</mi></msub></msubsup></mrow><annotation encoding="application/x-tex">t_{ij}^{u_i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1593em;vertical-align:-0.413em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7463em;"><span style="top:-2.4231em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">ij</span></span></span></span><span style="top:-3.1449em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.413em;"><span></span></span></span></span></span></span></span></span></span>：取出真实类别对应的四个预测偏移量<br>
 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow><mo>∗</mo></msubsup></mrow><annotation encoding="application/x-tex">t_{ij}^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0835em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">ij</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>：真实边界框偏移量</p>
-<h4 id="4-2-Mask-R-CNN">4.2 Mask R-CNN</h4>
+<h4 id="3-2-Mask-R-CNN">3.2 Mask R-CNN</h4>
 <p>扩展自Faster R-CNN，也是一个两阶段的框架，第一个阶段扫描图像并生成提议(proposals，即有可能包含一个目标的区域)，第二阶段分类提议并生成边界框和掩码。</p>
-<h4 id="4-2-1-模型结构">4.2.1 模型结构</h4>
+<h4 id="3-2-1-模型结构">3.2.1 模型结构</h4>
 <p><img src="mask1.png" alt=""><br>
 （来源：<a target="_blank" rel="noopener" href="http://researchgate.net">researchgate.net</a>）</p>
-<h4 id="4-2-1-1-Backbone">4.2.1.1 Backbone</h4>
+<h4 id="3-2-1-1-Backbone">3.2.1.1 Backbone</h4>
 <ul>
 <li>主干网络（通常是 ResNet-50 或 ResNet-101）进行特征提取，接着FPN（Feature Pyramid Network）用于融合不同尺度的特征，让模型更好地处理大目标和小目标。</li>
 </ul>
-<h4 id="4-2-1-2-RPN">4.2.1.2 RPN</h4>
+<h4 id="3-2-1-2-RPN">3.2.1.2 RPN</h4>
 <ul>
 <li>图像完成关键特征处理后，RPN检查图像，并提出可能包含物体的区域（Region Proposal），生成多个可能的物体位置，即锚框，随后，网络会评估这些锚框，并选出最有希望的锚框进行进一步分析。</li>
 </ul>
-<h4 id="4-2-1-3-RoI-Align">4.2.1.3 RoI Align</h4>
+<h4 id="3-2-1-3-RoI-Align">3.2.1.3 RoI Align</h4>
 <ul>
 <li>确定关键区域后，RoI Align（感兴趣区域对齐）使用双线性插值，它和旧方法 RoI Pooling 的区别是：RoI Pooling 会对区域坐标进行量化取整，而 RoI Align 使用双线性插值采样，减少由坐标量化造成的位置偏差。对于分类任务，少量空间偏差可能影响不大；但对于像素级掩码预测，边缘位置偏差可能直接影响分割结果。<br>
 <img src="mask2.png" alt=""></li>
@@ -563,7 +488,7 @@ v_{11}&amp;v_{12}\\
 v_{21}&amp;v_{22}
 \end{bmatrix}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">11</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">21</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">12</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">22</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span></span></p>
-<h4 id="4-2-1-3-RoI-Head">4.2.1.3 RoI Head</h4>
+<h4 id="3-2-1-3-RoI-Head">3.2.1.3 RoI Head</h4>
 <ul>
 <li>经过 RoI Align 后，每个候选区域的特征会进入不同的预测分支
 <ul>
@@ -574,7 +499,7 @@ v_{21}&amp;v_{22}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
 坐标偏移量四个回归参数</li>
 </ul>
-<h4 id="4-2-1-4-Mask-Head">4.2.1.4 Mask Head</h4>
+<h4 id="3-2-1-4-Mask-Head">3.2.1.4 Mask Head</h4>
 <ul>
 <li>Mask 分支：预测目标的像素区域，经过多层3×3卷积进一步提取特征，然后进行上采样扩大尺寸，最后生成每个类别对应的掩码概率图。Mask 预测：需要判断每个位置是否属于目标，因此需要保留更多空间细节，使用更高空间分辨率的 RoI 特征。</li>
 </ul>
@@ -593,11 +518,11 @@ v_{21}&amp;v_{22}
 <li>为什么不直接输出原图大小的 Mask？<br>
 因为每个目标的 Bounding Box 大小不同。如果直接针对原图输出完整分辨率掩码，计算和存储成本都会很高。Mask R-CNN 先在固定大小的 RoI 内预测 Mask，最后再将其映射回原图。</li>
 </ul>
-<h4 id="4-2-2-损失函数">4.2.2 损失函数</h4>
+<h4 id="3-2-2-损失函数">3.2.2 损失函数</h4>
 <ul>
 <li>损失函数：Faster RCNN损失加上Mask分支的损失。</li>
 </ul>
-<h5 id="4-2-2-1-Mask-Loss">4.2.2.1 Mask Loss</h5>
+<h5 id="3-2-2-1-Mask-Loss">3.2.2.1 Mask Loss</h5>
 <ul>
 <li>
 <p>训练时，对于一个与汽车匹配的正样本 RoI：</p>
@@ -645,6 +570,14 @@ y_{ij}\log p_{ij}
 <p>为什么只计算对应类别的 Mask Loss？因为当前 RoI 已经被分配了一个真实类别，它只需要学习如何预测这个类别的目标轮廓，而不是同时与其他类别竞争。</p>
 </li>
 </ul>
+<h4 id="3-3-YOLACT">3.3 YOLACT</h4>
+<p>one-stage模型，相比于two-stage模型更快，但效果稍差。</p>
+<h4 id="3-3-1-模型结构">3.3.1 模型结构</h4>
+<p><img src="yolcat.png" alt=""></p>
+<h5 id="3-3-1-1-Backbone">3.3.1.1 Backbone</h5>
+<ul>
+<li>ResNet101/ResNet50/DarkNet53</li>
+</ul>
 
       
 
@@ -684,6 +617,10 @@ y_{ij}\log p_{ij}
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实例分割</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
         		</li>
       		
@@ -703,18 +640,9 @@ y_{ij}\log p_{ij}
   
 <nav id="article-nav">
   
-    <a href="/2026/10/30/MaskR-CNN%E5%A4%8D%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mask R-CNN复现
-        
-      </div>
-    </a>
   
-  
-    <a href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AutoDL使用教程</div>
+    <a href="/2026/11/02/%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3&%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">残差网络详解&amp;特征融合</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -832,18 +760,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Claude</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Agent</a>
               </li>
              
@@ -852,59 +768,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MoE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">路由</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LSTM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">提示工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CoT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">交叉熵</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包和环境管理工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机视觉</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YOLO</a>
+                <a href="javascript:void(0)" class="js-tag color2">Claude</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -916,11 +784,79 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PyTorch</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">实例分割</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">提示工程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CoT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LSTM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Softmax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">交叉熵</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机视觉</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YOLO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包和环境管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MoE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">路由</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -940,11 +876,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color3">PyTorch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -956,47 +900,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MLP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">激活函数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">FineWeb</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">预训练数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">预训练</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">张量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1008,6 +916,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">激活函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">预训练</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MiniMind</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">张量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">L2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">梯度下降</a>
               </li>
              
@@ -1016,23 +956,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">过拟合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">交叉验证</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性代数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">范数</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1044,23 +968,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">L2</a>
+                <a href="javascript:void(0)" class="js-tag color2">ResNet</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">阅读</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Transformer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
+                <a href="javascript:void(0)" class="js-tag color4">FPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1072,19 +984,47 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性代数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">范数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">过拟合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">交叉验证</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自动求导</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">语义分割</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">阅读</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Transformer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RoPE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">鱼书</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">深度学习入门</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AutoDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实例分割</a>
               </li>
             
             <div class="clearfix"></div>
