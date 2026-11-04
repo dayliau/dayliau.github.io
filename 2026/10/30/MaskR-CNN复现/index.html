@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://dayliau.github.io">
   <title>Mask R-CNN复现 | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="云服务器 租服务器，传数据，看这篇AutoDL使用教程">
+  <meta name="description" content="云服务器 租服务器，传数据，看这篇AutoDL使用教程 Mask R-CNN训练与推理流程    网络模块 训练阶段 推理阶段     Backbone + FPN 提取特征 提取特征   RPN 预测 Anchor，并与 GT 匹配、计算损失 预测 Anchor，生成 Proposal   Proposal 与 GT 匹配，采样正负 RoI 直接送入 RoI Head   RoI Align 提">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mask R-CNN复现">
 <meta property="og:url" content="https://dayliau.github.io/2026/10/30/MaskR-CNN%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="云服务器 租服务器，传数据，看这篇AutoDL使用教程">
+<meta property="og:description" content="云服务器 租服务器，传数据，看这篇AutoDL使用教程 Mask R-CNN训练与推理流程    网络模块 训练阶段 推理阶段     Backbone + FPN 提取特征 提取特征   RPN 预测 Anchor，并与 GT 匹配、计算损失 预测 Anchor，生成 Proposal   Proposal 与 GT 匹配，采样正负 RoI 直接送入 RoI Head   RoI Align 提">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-10-30T14:17:20.000Z">
-<meta property="article:modified_time" content="2026-11-02T06:20:09.261Z">
+<meta property="article:modified_time" content="2026-11-03T03:12:07.911Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="实例分割">
 <meta name="twitter:card" content="summary">
@@ -156,6 +156,63 @@
       
         <h3 id="云服务器">云服务器</h3>
 <p>租服务器，传数据，看这篇<a href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/" title="AutoDL使用教程">AutoDL使用教程</a></p>
+<h3 id="Mask-R-CNN训练与推理流程">Mask R-CNN训练与推理流程</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">网络模块</th>
+<th style="text-align:left">训练阶段</th>
+<th style="text-align:left">推理阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Backbone + FPN</td>
+<td style="text-align:left">提取特征</td>
+<td style="text-align:left">提取特征</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN</td>
+<td style="text-align:left">预测 Anchor，并与 GT 匹配、计算损失</td>
+<td style="text-align:left">预测 Anchor，生成 Proposal</td>
+</tr>
+<tr>
+<td style="text-align:left">Proposal</td>
+<td style="text-align:left">与 GT 匹配，采样正负 RoI</td>
+<td style="text-align:left">直接送入 RoI Head</td>
+</tr>
+<tr>
+<td style="text-align:left">RoI Align</td>
+<td style="text-align:left">提取采样 RoI 特征</td>
+<td style="text-align:left">提取候选框特征</td>
+</tr>
+<tr>
+<td style="text-align:left">Classification</td>
+<td style="text-align:left">预测类别并计算 CE Loss</td>
+<td style="text-align:left">输出类别和置信度</td>
+</tr>
+<tr>
+<td style="text-align:left">Box Regression</td>
+<td style="text-align:left">预测偏移并计算 Smooth L1</td>
+<td style="text-align:left">解码精修边界框</td>
+</tr>
+<tr>
+<td style="text-align:left">Mask Head</td>
+<td style="text-align:left">预测掩码并计算 BCE Loss</td>
+<td style="text-align:left">预测实例掩码</td>
+</tr>
+<tr>
+<td style="text-align:left">NMS	RPN</td>
+<td style="text-align:left">阶段筛选 Proposal</td>
+<td style="text-align:left">RPN 和检测结果阶段筛选</td>
+</tr>
+<tr>
+<td style="text-align:left">反向传播</td>
+<td style="text-align:left">更新模型参数</td>
+<td style="text-align:left">不执行</td>
+</tr>
+</tbody>
+</table>
 
       
 

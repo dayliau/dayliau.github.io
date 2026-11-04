@@ -323,6 +323,63 @@
       
         <h3 id="云服务器">云服务器</h3>
 <p>租服务器，传数据，看这篇<a href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/" title="AutoDL使用教程">AutoDL使用教程</a></p>
+<h3 id="Mask-R-CNN训练与推理流程">Mask R-CNN训练与推理流程</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">网络模块</th>
+<th style="text-align:left">训练阶段</th>
+<th style="text-align:left">推理阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Backbone + FPN</td>
+<td style="text-align:left">提取特征</td>
+<td style="text-align:left">提取特征</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN</td>
+<td style="text-align:left">预测 Anchor，并与 GT 匹配、计算损失</td>
+<td style="text-align:left">预测 Anchor，生成 Proposal</td>
+</tr>
+<tr>
+<td style="text-align:left">Proposal</td>
+<td style="text-align:left">与 GT 匹配，采样正负 RoI</td>
+<td style="text-align:left">直接送入 RoI Head</td>
+</tr>
+<tr>
+<td style="text-align:left">RoI Align</td>
+<td style="text-align:left">提取采样 RoI 特征</td>
+<td style="text-align:left">提取候选框特征</td>
+</tr>
+<tr>
+<td style="text-align:left">Classification</td>
+<td style="text-align:left">预测类别并计算 CE Loss</td>
+<td style="text-align:left">输出类别和置信度</td>
+</tr>
+<tr>
+<td style="text-align:left">Box Regression</td>
+<td style="text-align:left">预测偏移并计算 Smooth L1</td>
+<td style="text-align:left">解码精修边界框</td>
+</tr>
+<tr>
+<td style="text-align:left">Mask Head</td>
+<td style="text-align:left">预测掩码并计算 BCE Loss</td>
+<td style="text-align:left">预测实例掩码</td>
+</tr>
+<tr>
+<td style="text-align:left">NMS	RPN</td>
+<td style="text-align:left">阶段筛选 Proposal</td>
+<td style="text-align:left">RPN 和检测结果阶段筛选</td>
+</tr>
+<tr>
+<td style="text-align:left">反向传播</td>
+<td style="text-align:left">更新模型参数</td>
+<td style="text-align:left">不执行</td>
+</tr>
+</tbody>
+</table>
 
       
 
