@@ -67,10 +67,6 @@
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
-    			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
-    			
-            
 		</nav>
 		<nav class="header-nav">
 			<div class="social">
@@ -133,6 +129,91 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-tokenization" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/14/tokenization/">Tokenization</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/14/tokenization/" class="archive-article-date">
+  	<time datetime="2025-09-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>Tokenization is the process of taking raw text which is generally represented as Unicode strings and turning it into a set of integers.</li>
+<li>A tokenizer is a class that implements the encode and decode methods.</li>
+<li>The vocabulary size is number of possible tokens(integers).<br>
+<a target="_blank" rel="noopener" href="https://tiktokenizer.vercel.app/?model=gpt-4o">https://tiktokenizer.vercel.app/?model=gpt-4o</a></li>
+</ul>
+        
+          <a class="article-more-a" href="/2025/09/14/tokenization/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Tokenization</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">BPE</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/09/14/tokenization/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-利用PyTorch构建大模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -917,96 +998,6 @@
 
 
   
-    <article id="post-权重衰退" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/08/06/%E6%9D%83%E9%87%8D%E8%A1%B0%E9%80%80/">权重衰退</a>
-    </h1>
-  
-
-        
-        <a href="/2025/08/06/%E6%9D%83%E9%87%8D%E8%A1%B0%E9%80%80/" class="archive-article-date">
-  	<time datetime="2025-08-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="解决过拟合">解决过拟合</h3>
-<h4 id="使用均方范数作为硬性限制">使用均方范数作为硬性限制</h4>
-<ul>
-<li>通过限制参数值的选择范围来控制模型容量</li>
-</ul>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>min</mi><mo>⁡</mo><mi mathvariant="script">l</mi><mo stretchy="false">(</mo><mi>w</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo><mspace width="1em"/><mtext>subject to</mtext><mspace width="1em"/><mi mathvariant="normal">∥</mi><mi>w</mi><msubsup><mi mathvariant="normal">∥</mi><mn>2</mn><mn>2</mn></msubsup><mo>≤</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\min \mathcal{l}(w, b) \quad \text{subject to} \quad \|w\|_2^2 \leq \theta
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:1em;"></span><span class="mord text"><span class="mord">subject to</span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord">∥</span><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span></span></span></span></span></p>
-<ul>
-<li>通常不限制偏移b</li>
-<li>小的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span></span></span></span>意味着更强的正则项</li>
-</ul>
-        
-          <a class="article-more-a" href="/2025/08/06/%E6%9D%83%E9%87%8D%E8%A1%B0%E9%80%80/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">正则化</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">L2</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/08/06/%E6%9D%83%E9%87%8D%E8%A1%B0%E9%80%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1061,21 +1052,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
       
       
     
-      
-      
-      
-    
     
 
     <ul style="width: 70%">
     
     
       
-      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
-      
-        
-      
-      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 100%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
     </ul>
@@ -1406,12 +1389,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     	</section>
     
 
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
-  	  	
-    	</section>
     
   </div>
   
