@@ -32,6 +32,63 @@
       background: linear-gradient(200deg,#a0cfe4,#e8c37e);
     }
   </style>
+  <style type="text/css">
+    /* 侧边栏收缩 */
+    .sidebar-toggle {
+      position: fixed;
+      top: 24px;
+      left: 300px;
+      z-index: 1001;
+      width: 26px;
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      background: #fff;
+      color: #666;
+      border: 1px solid #dbdbdb;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      box-shadow: 1px 0 3px rgba(0, 0, 0, .15);
+      transition: left .2s ease-in, background .2s ease-in, color .2s ease-in;
+      padding: 0;
+      margin: 0;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .sidebar-toggle:hover {
+      color: #08c;
+      background: #f5f5f5;
+    }
+    .sidebar-toggle .icon {
+      font-size: 16px;
+    }
+    .sidebar-toggle .icon-circle-right {
+      display: none;
+    }
+
+    #container.collapsed .sidebar-toggle {
+      left: 0;
+    }
+    #container.collapsed .sidebar-toggle .icon-circle-left {
+      display: none;
+    }
+    #container.collapsed .sidebar-toggle .icon-circle-right {
+      display: inline;
+    }
+    #container.collapsed .left-col {
+      transform: translateX(-100%);
+    }
+    #container.collapsed .mid-col {
+      left: 0;
+    }
+
+    @media screen and (max-width: 800px) {
+      .sidebar-toggle {
+        display: none;
+      }
+    }
+  </style>
   
 
   
@@ -41,6 +98,10 @@
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <button class="sidebar-toggle" type="button" title="收起/展开侧边栏" aria-label="收起/展开侧边栏">
+      <i class="icon icon-circle-left"></i>
+      <i class="icon icon-circle-right"></i>
+    </button>
     <div class="left-col" q-class="show:isShow">
       
 <div class="overlay" style="background: #696969"></div>
@@ -129,6 +190,99 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-YOLO系列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/23/YOLO%E7%B3%BB%E5%88%97/">YOLO系列</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/23/YOLO%E7%B3%BB%E5%88%97/" class="archive-article-date">
+  	<time datetime="2025-09-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="目标检测常见算法">目标检测常见算法</h3>
+<ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/80170182">https://blog.csdn.net/v_JULY_v/article/details/80170182</a></li>
+</ul>
+<h4 id="1-传统的目标检测算法">1.传统的目标检测算法</h4>
+<h5 id="核心流程：">核心流程：</h5>
+<p>1.区域选择（穷举策略，使用不同大小的滑动窗口对图像进行遍历，时间复杂度很高）<br>
+2.特征提取<br>
+常用的包括：</p>
+<ul>
+<li>HOG 方向梯度直方图 计算图像局部区域中梯度方向的分布统计直方图，并将其组合成一个长的特征向量</li>
+<li>Haar-like特征  通过计算图像中相邻矩形区域的像素和之差来表示特征</li>
+<li>SIFT/SURF</li>
+</ul>
+        
+          <a class="article-more-a" href="/2025/09/23/YOLO%E7%B3%BB%E5%88%97/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">YOLO</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/09/23/YOLO%E7%B3%BB%E5%88%97/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-tokenization" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -918,86 +1072,6 @@
 
 
   
-    <article id="post-鱼书-深度学习入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/08/07/%E9%B1%BC%E4%B9%A6-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">鱼书-深度学习入门</a>
-    </h1>
-  
-
-        
-        <a href="/2025/08/07/%E9%B1%BC%E4%B9%A6-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2025-08-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在学动手学深度学习，但是学得比较懵懂，而且我做笔记的方式也比较费时间，于是为了激发新的兴趣，我现在打算阅读深度学习入门这本书。</p>
-        
-          <a class="article-more-a" href="/2025/08/07/%E9%B1%BC%E4%B9%A6-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">鱼书</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">深度学习入门</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2025/08/07/%E9%B1%BC%E4%B9%A6-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1460,5 +1534,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
+  <script>
+    (function () {
+      var key = 'yilia-sidebar-collapsed';
+      var container = document.getElementById('container');
+      var toggle = document.querySelector('.sidebar-toggle');
+      if (!container || !toggle) return;
+
+      function apply(collapsed) {
+        if (collapsed) {
+          container.classList.add('collapsed');
+        } else {
+          container.classList.remove('collapsed');
+        }
+        try { localStorage.setItem(key, collapsed ? '1' : '0'); } catch (e) {}
+      }
+
+      // 恢复上次的收缩状态
+      var saved = null;
+      try { saved = localStorage.getItem(key); } catch (e) {}
+      if (saved === '1') apply(true);
+
+      toggle.addEventListener('click', function () {
+        apply(!container.classList.contains('collapsed'));
+      });
+    })();
+  </script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
 </html>

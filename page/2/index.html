@@ -32,6 +32,63 @@
       background: linear-gradient(200deg,#a0cfe4,#e8c37e);
     }
   </style>
+  <style type="text/css">
+    /* 侧边栏收缩 */
+    .sidebar-toggle {
+      position: fixed;
+      top: 24px;
+      left: 300px;
+      z-index: 1001;
+      width: 26px;
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      background: #fff;
+      color: #666;
+      border: 1px solid #dbdbdb;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      box-shadow: 1px 0 3px rgba(0, 0, 0, .15);
+      transition: left .2s ease-in, background .2s ease-in, color .2s ease-in;
+      padding: 0;
+      margin: 0;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .sidebar-toggle:hover {
+      color: #08c;
+      background: #f5f5f5;
+    }
+    .sidebar-toggle .icon {
+      font-size: 16px;
+    }
+    .sidebar-toggle .icon-circle-right {
+      display: none;
+    }
+
+    #container.collapsed .sidebar-toggle {
+      left: 0;
+    }
+    #container.collapsed .sidebar-toggle .icon-circle-left {
+      display: none;
+    }
+    #container.collapsed .sidebar-toggle .icon-circle-right {
+      display: inline;
+    }
+    #container.collapsed .left-col {
+      transform: translateX(-100%);
+    }
+    #container.collapsed .mid-col {
+      left: 0;
+    }
+
+    @media screen and (max-width: 800px) {
+      .sidebar-toggle {
+        display: none;
+      }
+    }
+  </style>
   
 
   
@@ -41,6 +98,10 @@
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <button class="sidebar-toggle" type="button" title="收起/展开侧边栏" aria-label="收起/展开侧边栏">
+      <i class="icon icon-circle-left"></i>
+      <i class="icon icon-circle-right"></i>
+    </button>
     <div class="left-col" q-class="show:isShow">
       
 <div class="overlay" style="background: #696969"></div>
@@ -129,6 +190,88 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-卷积神经网络与循环神经网络" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/03/25/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">卷积神经网络与循环神经网络</a>
+    </h1>
+  
+
+        
+        <a href="/2026/03/25/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
+  	<time datetime="2026-03-25T06:18:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="CNN">CNN</h3>
+<p>这篇写的很全面：<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/561991816">https://zhuanlan.zhihu.com/p/561991816</a></p>
+<ul>
+<li>经典CNN网络结构<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/47391705">https://zhuanlan.zhihu.com/p/47391705</a></li>
+</ul>
+<h3 id="RNN">RNN</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/30844905">https://zhuanlan.zhihu.com/p/30844905</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/03/25/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-一维-二维前缀和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -836,86 +979,6 @@
 
 
   
-    <article id="post-python爬取中国人口数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/">python爬取中国人口数据</a>
-    </h1>
-  
-
-        
-        <a href="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/" class="archive-article-date">
-  	<time datetime="2026-02-24T05:22:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-02-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="在国家统计局网站爬取相关数据">在国家统计局网站爬取相关数据</h3>
-<p><a target="_blank" rel="noopener" href="https://data.stats.gov.cn/">https://data.stats.gov.cn/</a><br>
-以人口为例：<br>
-<a target="_blank" rel="noopener" href="https://data.stats.gov.cn/easyquery.htm?m=QueryData&amp;dbcode=hgnd&amp;rowcode=zb&amp;colcode=sj&amp;wds=%5B%5D&amp;dfwds=%5B%7B%22wdcode%22%3A%22zb%22%2C%22valuecode%22%3A%22A0302%22%7D%5D&amp;k1=1771912091158&amp;h=1">https://data.stats.gov.cn/easyquery.htm?m=QueryData&amp;dbcode=hgnd&amp;rowcode=zb&amp;colcode=sj&amp;wds=[]&amp;dfwds=[{&quot;wdcode&quot;%3A&quot;zb&quot;%2C&quot;valuecode&quot;%3A&quot;A0302&quot;}]&amp;k1=1771912091158&amp;h=1</a></p>
-<p>百分号编码（维基百科）：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81">https://zh.wikipedia.org/wiki/百分号编码</a></p>
-        
-          <a class="article-more-a" href="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">python爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/02/24/python%E7%88%AC%E5%8F%96%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%8F%A3%E6%95%B0%E6%8D%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1378,5 +1441,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
+  <script>
+    (function () {
+      var key = 'yilia-sidebar-collapsed';
+      var container = document.getElementById('container');
+      var toggle = document.querySelector('.sidebar-toggle');
+      if (!container || !toggle) return;
+
+      function apply(collapsed) {
+        if (collapsed) {
+          container.classList.add('collapsed');
+        } else {
+          container.classList.remove('collapsed');
+        }
+        try { localStorage.setItem(key, collapsed ? '1' : '0'); } catch (e) {}
+      }
+
+      // 恢复上次的收缩状态
+      var saved = null;
+      try { saved = localStorage.getItem(key); } catch (e) {}
+      if (saved === '1') apply(true);
+
+      toggle.addEventListener('click', function () {
+        apply(!container.classList.contains('collapsed'));
+      });
+    })();
+  </script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
 </html>

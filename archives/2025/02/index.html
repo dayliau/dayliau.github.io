@@ -32,6 +32,63 @@
       background: linear-gradient(200deg,#a0cfe4,#e8c37e);
     }
   </style>
+  <style type="text/css">
+    /* 侧边栏收缩 */
+    .sidebar-toggle {
+      position: fixed;
+      top: 24px;
+      left: 300px;
+      z-index: 1001;
+      width: 26px;
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      background: #fff;
+      color: #666;
+      border: 1px solid #dbdbdb;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      box-shadow: 1px 0 3px rgba(0, 0, 0, .15);
+      transition: left .2s ease-in, background .2s ease-in, color .2s ease-in;
+      padding: 0;
+      margin: 0;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .sidebar-toggle:hover {
+      color: #08c;
+      background: #f5f5f5;
+    }
+    .sidebar-toggle .icon {
+      font-size: 16px;
+    }
+    .sidebar-toggle .icon-circle-right {
+      display: none;
+    }
+
+    #container.collapsed .sidebar-toggle {
+      left: 0;
+    }
+    #container.collapsed .sidebar-toggle .icon-circle-left {
+      display: none;
+    }
+    #container.collapsed .sidebar-toggle .icon-circle-right {
+      display: inline;
+    }
+    #container.collapsed .left-col {
+      transform: translateX(-100%);
+    }
+    #container.collapsed .mid-col {
+      left: 0;
+    }
+
+    @media screen and (max-width: 800px) {
+      .sidebar-toggle {
+        display: none;
+      }
+    }
+  </style>
   
 
   
@@ -41,6 +98,10 @@
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <button class="sidebar-toggle" type="button" title="收起/展开侧边栏" aria-label="收起/展开侧边栏">
+      <i class="icon icon-circle-left"></i>
+      <i class="icon icon-circle-right"></i>
+    </button>
     <div class="left-col" q-class="show:isShow">
       
 <div class="overlay" style="background: #696969"></div>
@@ -681,5 +742,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
+  <script>
+    (function () {
+      var key = 'yilia-sidebar-collapsed';
+      var container = document.getElementById('container');
+      var toggle = document.querySelector('.sidebar-toggle');
+      if (!container || !toggle) return;
+
+      function apply(collapsed) {
+        if (collapsed) {
+          container.classList.add('collapsed');
+        } else {
+          container.classList.remove('collapsed');
+        }
+        try { localStorage.setItem(key, collapsed ? '1' : '0'); } catch (e) {}
+      }
+
+      // 恢复上次的收缩状态
+      var saved = null;
+      try { saved = localStorage.getItem(key); } catch (e) {}
+      if (saved === '1') apply(true);
+
+      toggle.addEventListener('click', function () {
+        apply(!container.classList.contains('collapsed'));
+      });
+    })();
+  </script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
 </html>
