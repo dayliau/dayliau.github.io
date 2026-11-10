@@ -191,6 +191,399 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-YOLOv8-Seg" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/10/YOLOv8-Seg/">YOLOv8-Seg</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/10/YOLOv8-Seg/" class="archive-article-date">
+  	<time datetime="2026-11-10T02:50:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a href="/2025/09/23/YOLO%E7%B3%BB%E5%88%97/" title="YOLO系列">YOLO系列</a>，参考之前写过的这篇里YOLOv8的结构
+<p>YOLOv8-Seg 采用 Anchor-free 检测机制，不再预先设置不同尺寸和长宽比的 Anchor Boxes。模型在不同尺度的特征图上生成 Anchor Points，以这些参考点为基础预测目标边界框。需要注意的是，Anchor Point 只是边界框预测的参考位置，并不是传统 Anchor-based 检测器中的预设锚框。</p>
+        
+          <a class="article-more-a" href="/2026/11/10/YOLOv8-Seg/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实例分割</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/10/YOLOv8-Seg/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-无候选框实例分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/10/%E6%97%A0%E5%80%99%E9%80%89%E6%A1%86%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">无候选框实例分割</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/10/%E6%97%A0%E5%80%99%E9%80%89%E6%A1%86%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
+  	<time datetime="2026-11-10T02:39:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-YOLACT">1 YOLACT</h2>
+<p>one-stage模型，相比于two-stage模型更快，但效果稍差。</p>
+<h3 id="1-1-模型结构">1.1 模型结构</h3>
+<p><img src="yolcat.png" alt=""></p>
+<h4 id="Backbone">Backbone</h4>
+<ul>
+<li>ResNet101/ResNet50/DarkNet53</li>
+</ul>
+        
+          <a class="article-more-a" href="/2026/11/10/%E6%97%A0%E5%80%99%E9%80%89%E6%A1%86%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实例分割</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/10/%E6%97%A0%E5%80%99%E9%80%89%E6%A1%86%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-自下而上的实例分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/10/%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">自下而上的实例分割</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/10/%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
+  	<time datetime="2026-11-10T02:38:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先预测像素级别的信息，再根据像素之间的关系，将属于同一个目标的像素聚合起来。例如，网络为每个像素预测一个 Embedding：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>E</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>H</mi><mo>×</mo><mi>W</mi><mo>×</mo><mi>D</mi></mrow></msup></mrow><annotation encoding="application/x-tex">E\in\mathbb{R}^{H\times W\times D}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8913em;"></span><span class="mord"><span class="mord mathbb">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight" style="margin-right:0.1389em;">W</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight" style="margin-right:0.0278em;">D</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>同一个实例的像素 Embedding 尽可能接近，不同实例的 Embedding 尽可能远离,然后使用聚类算法得到不同实例。</p>
+        
+          <a class="article-more-a" href="/2026/11/10/%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实例分割</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/10/%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-自上而下的实例分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">自上而下的实例分割</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" class="archive-article-date">
+  	<time datetime="2026-11-10T02:37:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先通过目标检测获得候选区域Region Proposal,再独立对每个区域进行Mask预测。</p>
+        
+          <a class="article-more-a" href="/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实例分割</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Faster-R-CNN" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2026/11/10/Faster-R-CNN/">Faster_R-CNN</a>
+    </h1>
+  
+
+        
+        <a href="/2026/11/10/Faster-R-CNN/" class="archive-article-date">
+  	<time datetime="2026-11-10T02:37:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-模型架构">1 模型架构</h3>
+<p><img src="faster1.png" alt=""><br>
+是一个两阶段的框架</p>
+        
+          <a class="article-more-a" href="/2026/11/10/Faster-R-CNN/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目标检测</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2026/11/10/Faster-R-CNN/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-实例分割模型总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -730,471 +1123,6 @@ Image Encoder + Prompt Encoder → Mask Decoder</p>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2026/10/30/MaskR-CNN%E5%A4%8D%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-语义分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/">语义分割</a>
-    </h1>
-  
-
-        
-        <a href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/" class="archive-article-date">
-  	<time datetime="2026-10-28T05:10:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-语义分割">1 语义分割</h3>
-<p>语义分割：为图像中的每个像素标注语义类别标签</p>
-<h3 id="2-广泛使用的语义分割模型">2 广泛使用的语义分割模型</h3>
-<h4 id="2-1-全卷积网络-FCN">2.1 全卷积网络 (FCN)</h4>
-<p>FCN将通常的卷积神经网络架构最后的全连接层变为卷积层，一个确定大小的全连接层对应的图像大小也得是固定的，而FCN可以输入任意大小的图像，因为它不再依赖固定长度的展平向量；假设要识别的种类是C,全连接层中的一个神经元同时连接了特征图中所有空间位置、所有通道的特征，最后输出的大小也是C，一张图片输出每个类别对应的概率大小，FCN的输出是H × W × C，也就是说一张图片里的每个像素都会有一个每个类别对应的概率大小，从而保留空间布局信息。</p>
-        
-          <a class="article-more-a" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">语义分割</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/10/28/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-AutoDL使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/">AutoDL使用教程</a>
-    </h1>
-  
-
-        
-        <a href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2026-09-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-09-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="服务器选择">服务器选择</h3>
-<h4 id="GPU-决定训练速度">GPU 决定训练速度</h4>
-<p>神经网络训练涉及大量矩阵乘法、卷积运算，GPU 可以利用大量并行计算单元加速这些操作。</p>
-<ul>
-<li>GPU 型号：例如 RTX 3090、4090、A10、A100、H100</li>
-<li>CUDA 核心数量：反映 GPU 的并行计算能力之一</li>
-<li>Tensor Core：用于加速深度学习中的矩阵运算</li>
-<li>显存带宽：影响 GPU 与显存之间的数据传输速度</li>
-</ul>
-<h4 id="GPU显存-决定模型能不能放得下">GPU显存 决定模型能不能放得下</h4>
-<p>训练模型时，显存不只是存储模型参数，还需要存储：</p>
-<ol>
-<li>模型参数（Weights）</li>
-<li>梯度（Gradients）</li>
-<li>优化器状态（Optimizer States）</li>
-<li>前向传播产生的中间特征图（Activations）</li>
-<li>输入图片和 Batch 数据<br>
-如果显存不够，就可能出现：CUDA out of memory</li>
-</ol>
-<h4 id="CPU-负责数据处理">CPU 负责数据处理</h4>
-<p>CPU 主要负责：</p>
-<ul>
-<li>图片读取和解码</li>
-<li>数据增强</li>
-<li>数据加载（DataLoader）</li>
-<li>数据预处理</li>
-<li>向 GPU 传输数据</li>
-</ul>
-<h4 id="RAM-服务器运行内存">RAM 服务器运行内存</h4>
-<ul>
-<li>运行 Python 程序、缓存数据、数据预处理</li>
-</ul>
-        
-          <a class="article-more-a" href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">AutoDL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/09/30/AutoDL%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/06/29/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Hexo常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2026/06/29/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2026-06-29T06:41:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-06-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天打开博客，感觉有点生疏，就把这三个常用的命令记下来</p>
-<ul>
-<li>生成一篇新博客</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new title</span><br></pre></td></tr></table></figure>
-<ul>
-<li>生成静态文件</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<ul>
-<li>部署到网站</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/06/29/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Claude-skill" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/06/29/Claude-skill/">Claude skill</a>
-    </h1>
-  
-
-        
-        <a href="/2026/06/29/Claude-skill/" class="archive-article-date">
-  	<time datetime="2026-06-29T06:41:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-06-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>概念</th>
-<th>定位</th>
-<th>类比</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Prompt</td>
-<td>一次性指令</td>
-<td>口头吩咐</td>
-</tr>
-<tr>
-<td>Custom Instructions</td>
-<td>全局偏好设置</td>
-<td>性格设定</td>
-</tr>
-<tr>
-<td>Projects</td>
-<td>临时项目上下文</td>
-<td>项目文件夹</td>
-</tr>
-<tr>
-<td>MCP</td>
-<td>外部工具连接器</td>
-<td>USB 接口</td>
-</tr>
-<tr>
-<td>Skills</td>
-<td>可复用能力模块</td>
-<td>员工手册</td>
-</tr>
-</tbody>
-</table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Claude</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/06/29/Claude-skill/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Transformer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2026/03/26/Transformer/">Transformer</a>
-    </h1>
-  
-
-        
-        <a href="/2026/03/26/Transformer/" class="archive-article-date">
-  	<time datetime="2026-03-26T05:59:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ugWDIIOHtPA&amp;list=PLJV_el3uVTsOK_ZK5L0Iv_EQoL1JefRL4&amp;index=61">https://www.youtube.com/watch?v=ugWDIIOHtPA&amp;list=PLJV_el3uVTsOK_ZK5L0Iv_EQoL1JefRL4&amp;index=61</a></p>
-<p>来自李宏毅老师的讲解</p>
-<h3 id="RNN和CNN为啥不行">RNN和CNN为啥不行</h3>
-<p><img src="1.png" alt=""></p>
-        
-          <a class="article-more-a" href="/2026/03/26/Transformer/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2026/03/26/Transformer/">展开全文 >></a>
         </p>
       
 
