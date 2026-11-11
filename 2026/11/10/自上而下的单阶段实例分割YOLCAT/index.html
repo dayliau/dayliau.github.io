@@ -6,24 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dayliau.github.io">
-  <title>基于锚框的单阶段实例分割YOLCAT | Dayliaaa&#39;s Blog</title>
+  <title>自上而下的单阶段实例分割YOLCAT | Dayliaaa&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1 YOLACT 基于原型组合 one-stage模型，相比于two-stage模型更快，但效果稍差。 不直接为每个实例独立预测完整的 Mask，而是先生成一组共享的 Prototype Masks，再通过不同的系数组合出每个实例的 Mask。 1.1 模型结构  Backbone  ResNet101&#x2F;ResNet50&#x2F;DarkNet53">
+  <meta name="description" content="1 YOLACT 基于原型组合 one-stage模型，相比于two-stage模型更快，但效果稍差，基于锚框，不依赖候选区域 不直接为每个实例独立预测完整的 Mask，而是先生成一组共享的 Prototype Masks，再通过不同的系数组合出每个实例的 Mask。 1.1 模型结构  Backbone  ResNet101&#x2F;ResNet50&#x2F;DarkNet53">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于锚框的单阶段实例分割YOLCAT">
-<meta property="og:url" content="https://dayliau.github.io/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/index.html">
+<meta property="og:title" content="自上而下的单阶段实例分割YOLCAT">
+<meta property="og:url" content="https://dayliau.github.io/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/index.html">
 <meta property="og:site_name" content="Dayliaaa&#39;s Blog">
-<meta property="og:description" content="1 YOLACT 基于原型组合 one-stage模型，相比于two-stage模型更快，但效果稍差。 不直接为每个实例独立预测完整的 Mask，而是先生成一组共享的 Prototype Masks，再通过不同的系数组合出每个实例的 Mask。 1.1 模型结构  Backbone  ResNet101&#x2F;ResNet50&#x2F;DarkNet53">
+<meta property="og:description" content="1 YOLACT 基于原型组合 one-stage模型，相比于two-stage模型更快，但效果稍差，基于锚框，不依赖候选区域 不直接为每个实例独立预测完整的 Mask，而是先生成一组共享的 Prototype Masks，再通过不同的系数组合出每个实例的 Mask。 1.1 模型结构  Backbone  ResNet101&#x2F;ResNet50&#x2F;DarkNet53">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://dayliau.github.io/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/yolcat.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/protonet.png">
-<meta property="og:image" content="https://dayliau.github.io/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/head.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/yolcat.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/protonet.png">
+<meta property="og:image" content="https://dayliau.github.io/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/head.png">
 <meta property="article:published_time" content="2026-11-10T02:39:02.000Z">
-<meta property="article:modified_time" content="2026-11-11T03:54:02.832Z">
+<meta property="article:modified_time" content="2026-11-11T12:46:28.964Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="实例分割">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://dayliau.github.io/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/yolcat.png">
+<meta name="twitter:image" content="https://dayliau.github.io/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/yolcat.png">
   
     <link rel="alternative" href="/atom.xml" title="Dayliaaa&#39;s Blog" type="application/atom+xml">
   
@@ -195,19 +195,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-基于锚框的单阶段实例分割YOLCAT" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-自上而下的单阶段实例分割YOLCAT" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      基于锚框的单阶段实例分割YOLCAT
+      自上而下的单阶段实例分割YOLCAT
     </h1>
   
 
         
-        <a href="/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/" class="archive-article-date">
+        <a href="/2026/11/10/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/" class="archive-article-date">
   	<time datetime="2026-11-10T02:39:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-10</time>
 </a>
         
@@ -217,7 +217,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="1-YOLACT-基于原型组合">1 YOLACT 基于原型组合</h2>
-<p>one-stage模型，相比于two-stage模型更快，但效果稍差。<br>
+<p>one-stage模型，相比于two-stage模型更快，但效果稍差，基于锚框，不依赖候选区域<br>
 不直接为每个实例独立预测完整的 Mask，而是先生成一组共享的 Prototype Masks，再通过不同的系数组合出每个实例的 Mask。</p>
 <h3 id="1-1-模型结构">1.1 模型结构</h3>
 <p><img src="yolcat.png" alt=""></p>
