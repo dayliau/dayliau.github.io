@@ -16,7 +16,7 @@
 <meta property="og:description" content="先预测像素级别的信息，再根据像素之间的关系，将属于同一个目标的像素聚合起来。例如，网络为每个像素预测一个 Embedding： E∈RH×W×DE\in\mathbb{R}^{H\times W\times D} E∈RH×W×D 同一个实例的像素 Embedding 尽可能接近，不同实例的 Embedding 尽可能远离,然后使用聚类算法得到不同实例。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-10T02:38:17.000Z">
-<meta property="article:modified_time" content="2026-11-10T11:36:22.069Z">
+<meta property="article:modified_time" content="2026-11-10T11:45:32.199Z">
 <meta property="article:author" content="Dayliaaa">
 <meta property="article:tag" content="实例分割">
 <meta name="twitter:card" content="summary">
@@ -223,13 +223,14 @@
 <li>理论上可实现单阶段（Single-stage）高效率:不需要像“自上而下”（如 Mask R-CNN）那样先用 RPN 网络去提取大量的 Proposal 框，再对每个框做单独的 RoI 裁剪与 Mask 预测，流程上更具并行潜力。</li>
 <li>对全局/多尺度场景有一定适应性:不受限于检测框大小的约束，对一些非规则形状或分布密集的场景，直接在全图特征空间进行像素聚类。</li>
 </ul>
-<p>二、 缺点</p>
+<h3 id="缺点">缺点</h3>
 <ul>
 <li>严重依赖密集预测的质量（易产生碎片化）:如果初始的像素级分类或特征嵌入（Embedding）出现小范围误判，后期的聚类很容易产生“漏分”或“产生碎片掩码（Fragmented masks）”。</li>
 <li>后处理过程复杂且计算开销大:像素聚类过程（如 Mean-shift、图割、或者复杂的距离度量学习）通常无法端到端（End-to-End）流畅加速，导致后处理步骤繁琐、耗时较长。</li>
 <li>复杂场景与多类别泛化能力较差:当图像中物体种类繁多、重叠严重、或者背景极其复杂时，像素在特征空间里的“拉力（Pull-force）”与“推力（Push-force）”边界很难平衡，导致不同实例的像素发生粘连或混淆。</li>
 <li>整体精度通常逊于主流的自上而下/直接法:在工业界和主流竞赛（如 COCO）中，由于 Mask R-CNN 等自上而下方法，以及后续单阶段/Query-based（如 SOLOv2、DETR-based）方法的成熟，自下而上方法在精度与稳定性的综合表现上目前较少作为绝对主流。</li>
 </ul>
+<h2 id="Deep-Watershed-Transform">Deep Watershed Transform</h2>
 
       
 
@@ -288,11 +289,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2026/11/10/%E6%97%A0%E5%80%99%E9%80%89%E6%A1%86%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2026/11/10/%E5%9F%BA%E4%BA%8E%E9%94%9A%E6%A1%86%E7%9A%84%E5%8D%95%E9%98%B6%E6%AE%B5%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2YOLCAT/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          无候选框实例分割
+          基于锚框的单阶段实例分割YOLCAT
         
       </div>
     </a>
